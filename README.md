@@ -3,3 +3,6 @@
 Welcome to the readME for our ORM project for Deno.
 
 OSP -- Stella, Sara, Sam, Matt, Corey
+
+
+Sam writing this statement here.
