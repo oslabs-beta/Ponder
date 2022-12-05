@@ -8,7 +8,7 @@ import { queryBuilder } from "./querybuilder.ts"
 
 //declare new instance of PONDER to use throughout this page
 
-const ponder = new queryBuilder('test');
+const ponder = new queryBuilder();
 
 //connect to a DB
 const pool = new Pool('postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny', 3, true) // the number(3) is establishing the number of connections. True is the 'lazy' option, meaning that all the connections won't be initialized until they are needed
