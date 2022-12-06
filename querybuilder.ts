@@ -1,11 +1,21 @@
 //file to create classes and definitions to map commands to PostGres
 
-//
+import { Pool, PoolClient, Client } from "./deps.ts"; 
 
-class queryBuilder {
-    constructor(URI: string) {
+// we have to declare the types before the constructor
+class QueryBuilder {
+    URI: string; 
+    pools: number;
+    isLazy: boolean;
+    connect: any;
+    constructor(URI: string, pools: number, isLazy: boolean){
         this.URI = URI;
+        this.pools = pools;
+        this.isLazy = isLazy;
         //could have connect method done here
+        const pool = new Pool(URI, pools, isLazy);
+        const connection = async () => await pool.connect();
+        this.connect = connection();
     }
 
     //first method, find all data from a table
