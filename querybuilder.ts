@@ -8,17 +8,27 @@ import { Pool, PoolClient, Client } from "./deps.ts";
     //join could be second half
 // we have to declare the types before the constructor
 export class QueryBuilder {
-    constructor(){
+    pool: Pool
+    constructor(URI: string, pools: number, isLazy: boolean){
         //we had tried putting connection method here but did not work
         //release method was not found
+        //open the pool
+        this.pool = new Pool(URI, pools, isLazy)
+
     }
 
     //first method, find all data from a table
-    findAllinOne(table: string) {
-        const queryStr  = `SELECT * FROM ${table}`;
-        //now will execute postgres query, passing in queryStr as arg
-        return queryStr;
+    async findAllinOne(table: string) {
+        // connect via this.pool
+        const connect = await this.pool.connect();
+        //take in argument to make query to run
+        const queryStr  = `SELECT * FROM ${table};`;
+        //execute actual query passing in query string made from arguments
+        const { rows } = await connect.queryObject(queryStr);
+        //release pool connection
+        connect.release();
         //then will return result from query to where findAllinONe is being called
+        return rows;        
     }
 }
 
