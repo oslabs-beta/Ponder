@@ -15,30 +15,30 @@ import { QueryBuilder } from "./querybuilder.ts"
 // const connect = await pool.connect();
 
 //testing constructor function
-const newSearch = new QueryBuilder('postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny')
+const newSearch = new QueryBuilder('postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny', 3, true);
 
 try {
-    const { rows } = await connect.queryObject`SELECT * FROM species WHERE name = 'matt';`;
+    const { rows } = await newSearch.connect.queryObject(`SELECT * FROM species WHERE name = 'matt';`);
     console.log('row of response', rows);
 } finally {
-    connect.release();
+    newSearch.release();
 }
 
 //new query to already connect DB
 try {
-    const { rows } = await connect.queryObject`SELECT * FROM people WHERE name = 'Luke Skywalker'`;
+    const { rows } = await newSearch.connect.queryObject`SELECT * FROM people WHERE name = 'Luke Skywalker'`;
     console.log('luke?', rows)
 } finally {
-    connect.release();
+    newSearch.connect.release();
 }
 
 //first attempt at using PONDER
 try {
-    const newFind = ponder.findAllinOne('people');
-    const { rows } = await connect.queryObject(newFind)
+    const newFind = newSearch.findAllinOne('people');
+    const { rows } = await newSearch.connect.queryObject(newFind)
     console.log('newFind', rows)
 } finally {
-    connect.release();
+    newSearch.connect.release();
 }
 
 
