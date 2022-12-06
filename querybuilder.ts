@@ -6,22 +6,12 @@ import { Pool, PoolClient, Client } from "./deps.ts";
     //select, where, update, delete, insert, create table
 
     //join could be second half
-
-export // we have to declare the types before the constructor
-class QueryBuilder {
-    // URI: string; 
-    pools: number;
-    isLazy: boolean;
-    connect: any;
-    constructor(URI: string, pools: number, isLazy: boolean){
-    //     this.URI = URI;
-        this.pools = pools;
-        this.isLazy = isLazy;
-    //     //could have connect method done here
-        const pool = new Pool(URI, pools, isLazy);
-        const connection = async () => await pool.connect();
-        this.connect = connection();
-    // }
+// we have to declare the types before the constructor
+export class QueryBuilder {
+    constructor(){
+        //we had tried putting connection method here but did not work
+        //release method was not found
+    }
 
     //first method, find all data from a table
     findAllinOne(table: string) {
@@ -35,3 +25,10 @@ class QueryBuilder {
 //for now, exporting for use to Workspace, but eventually will export or be packaged for use as module hosted on deno.land
 // export queryBuilder;
 
+
+//originally
+    //connection was in User
+    //QueryBuilder "method" was able to work (from querybuilder file)
+
+    //conection will be in querybuilder file, in a new func called connecitonbuilder
+    //querybuilder mehtod, still lives in querybuilder file
