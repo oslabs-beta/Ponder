@@ -1,4 +1,5 @@
 //file to create classes and definitions to map commands to PostGres
+//filling out the rows on our tables here retrieving and adding/info
 
 import { Pool, PoolClient, Client } from "./deps.ts"; 
 
