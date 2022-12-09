@@ -2,43 +2,45 @@ import { pool } from "./deps.ts";
 import { connections } from "./connection.ts";
 
 //we create our models to either create or parse our tables
-    // the model is what our table should look like - bulding our table here (i.e the columns of our table)
+// the model is what our table should look like - bulding our table here (i.e the columns of our table)
 //model:object
 
 class Model {
-
-  model: any
-  constructor(model) {
-    this.model = model
+  columns: any;
+  tableName: string;
+  constructor(tableName: string, columns: any) {
+    this.columns = columns;
+    this.tableName = tableName; 
   }
   //create method
-  createTable(tableName: string, args) {
+  async createTable() {
     //convert args into SQL command to create a new table
     // const heffalumpCreateTable = `CREATE TABLE ${tableName} args1, args2, args3, etc' --> Maybe use Object.keys(args) to get column names; iterate through and concatenate to this string
     // connection.query(heffalumpCreateTable)  --> sends create table to our sequel database
     //create a pool connection, disconnect after we create a string
     //use for in to iterate over the args obj to get the columns
-    let tableQueryString = `CREATE TABLE [IF NOT EXISTS] ${tableName} (`
+    //removed brackets around if not exists
+    const args = this.columns;
+    let tableQueryString = `CREATE TABLE IF NOT EXISTS ${this.tableName} (`;
     for (const columns in args) {
       //first check to see if value of key-value pair is array of data
-      let tempString = '';
-      if (Array.isArray(args[columns])){
-        console.log('is array?')
+      let tempString = "";
+      if (Array.isArray(args[columns])) {
+        //console.log("is array?");
         //need to spread out array elements
-        for (let i = 0; i < args[columns].length; i++){
+        for (let i = 0; i < args[columns].length; i++) {
           if (i === 0) {
-            console.log('inside for loop');
+            console.log("inside for loop");
             //datatype
-            tempString = tempString.concat(`${args[columns][i]}`)
-            console.log('first loop pass string. Sam is lost:', tempString)
-          } 
-          else if (i === 1) {
+            tempString = tempString.concat(`${args[columns][i]}`);
+            //console.log("first loop pass string. Sam is found:", tempString);
+          } else if (i === 1) {
             //length
-            tempString = tempString.concat(`(${args[columns][i]})`) 
+            tempString = tempString.concat(`(${args[columns][i]})`);
           } else {
             //any column-constraints
-            tempString = tempString.concat(` ${args[columns][i]}`)
-            console.log('third pass. Matt says this better work:', tempString);
+            tempString = tempString.concat(` ${args[columns][i]}`);
+            //console.log("third pass. Matt says this better work:", tempString);
           }
         }
       } //---> we're going to force user to use no arrays //need a helper function to make sure that users are using the correct data type
@@ -47,35 +49,62 @@ class Model {
     //we've added all the columns to the tablequery string
     //remove that last comma
     const stringWithoutFinalComma = tableQueryString.slice(0, -1);
-    const finalQuery = stringWithoutFinalComma.concat(');');
-    console.log('Supreme Commander Stella is pleased with final query. Vice Supreme Comander Corey is still  not impressed:', finalQuery)
-    return finalQuery;
-    
-  } 
+    const finalQuery = stringWithoutFinalComma.concat(");");
+    //console.log(
+      //"Supreme Commander Stella is pleased with final query. Vice Supreme Comander Corey is stil not impressed:",
+      //finalQuery,
+    //);
+    //const connect = await this.pool.connect();//update logic understand connection to DB
+        //execute actual query passing in query string made from arguments
+        const { rows } = await connect.queryObject(finalQuery); //does createTable return anything
+        //release pool connection
+        connect.release();
+        //then will return result from query to where findAllinONe is being called
+        return rows;      
+  }
   //parse method
   parseTable() {
-    
   }
   insertTable() {
-
   }
 }
 
 // CREATE TABLE users (user_id SERIAL PRIMARY KEY, username VARCHAR(100),score NUMERIC,lifetime_score NUMERIC);
 const example_users = {
-  user_id: 'SERIAL PRIMARY KEY',
-  username: 'VARCHAR(100)',
-  score: 'NUMERIC',
-  lifetime_score: 'NUMERIC'
-}
+  user_id: ["SERIAL", "PRIMARY KEY"],
+  username: ["VARCHAR", "100"],
+  score: ["NUMERIC"],
+  lifetime_score: ["INTEGER"],
+};
 
-const testOfModel = new Model(example_users);
+const testOfModel = new Model('example_users', example_users);
+testOfModel.createTable();
+//already added command below to DB
+// const newTableMaybe = testOfModel.createTable('newAwesomeTable', {key1: ['varchar', '10', 'NOT NULL'], key2: ['numeric', '15', 'UNIQUE']})
 
-const newTableMaybe = testOfModel.createTable('newAwesomeTable', {key1: ['string', '10', 'NOT NULL'], key2: ['number', '15', 'UNIQUE']})
+//CREATE TABLE IF NOT EXISTS newAwesomeTable (key1 varchar(10) NOT NULL,key2 integer(15) UNIQUE);
 
-console.log('did it work?!?!!?', newTableMaybe);
+//another test in elephant
+// const newTableMaybe = testOfModel.createTable("StellaNoMoreTeeth", {
+//   column1: ["varchar", "10", "NOT NULL"],
+//   column2: ["numeric", "15", "UNIQUE"],
+// });
 
-// // // // // //  
+// console.log("did it work?!?!!?", newTableMaybe);
+
+//as it stands, we are requiring very specific input for queries
+//need string = varchar
+//need number = numeric or integer
+//expecting create table to include args:
+//first: tablename as string
+//second, big object
+//keys are names of the columns in new table
+//values are arrays
+//first is datatype
+//second is length (of datatype)
+//third and beyond, any column constraints
+
+// // // // // //
 
 /*
 
@@ -116,12 +145,6 @@ New Query that inserts a new row {
 //ponder
 
 //export this down here
-
-
-
-
-
-
 
 // import model from ...
 

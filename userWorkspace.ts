@@ -17,7 +17,7 @@ import { QueryBuilder } from "./querybuilder.ts";
 //Empty test DB
 const ponderURI = 'postgres://bulwxugb:t2QZQ0uT5VuBP3txTMk__RkMmLv3iQPw@tuffi.db.elephantsql.com/bulwxugb';
 
-//matt's starwars postgres DB
+//Matt's starwars postgres DB
 const ponder = new QueryBuilder('postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny', 3, true);
 
 const firstSearch = await ponder.findAllinOne('people');
