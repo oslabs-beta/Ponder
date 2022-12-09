@@ -30,7 +30,7 @@ class Model {
         //need to spread out array elements
         for (let i = 0; i < args[columns].length; i++) {
           if (i === 0) {
-            console.log("inside for loop");
+            //console.log("inside for loop");
             //datatype
             tempString = tempString.concat(`${args[columns][i]}`);
             //console.log("first loop pass string. Sam is found:", tempString);
@@ -56,11 +56,14 @@ class Model {
     //);
     //const connect = await this.pool.connect();//update logic understand connection to DB
         //execute actual query passing in query string made from arguments
-        const { rows } = await connect.queryObject(finalQuery); //does createTable return anything
+        await connect.queryObject(finalQuery); //does createTable return anything
         //release pool connection
-        connect.release();
+        //if success
+        
+        connect.release(); //update to DB name connect?
+        const response = `${this.tableName} has been created!`;
         //then will return result from query to where findAllinONe is being called
-        return rows;      
+        return response;      
   }
   //parse method
   parseTable() {
