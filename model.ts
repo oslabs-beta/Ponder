@@ -1,14 +1,16 @@
-import { pool } from "./deps.ts";
+import { Pool } from "./deps.ts";
 import { connections } from "./connection.ts";
+import { QueryBuilder } from "./querybuilder.ts";
 
 //we create our models to either create or parse our tables
 // the model is what our table should look like - bulding our table here (i.e the columns of our table)
 //model:object
 
-class Model {
+class Model extends QueryBuilder {
   columns: any;
   tableName: string;
-  constructor(tableName: string, columns: any) {
+  constructor(tableName: string, columns: any, URI: string, pools: number, isLazy: boolean) {
+    super(URI, pools, isLazy);
     this.columns = columns;
     this.tableName = tableName; 
   }
@@ -20,6 +22,7 @@ class Model {
     //create a pool connection, disconnect after we create a string
     //use for in to iterate over the args obj to get the columns
     //removed brackets around if not exists
+    console.log("This is the officer's whole-ass betting pool", this.pool)
     const args = this.columns;
     let tableQueryString = `CREATE TABLE IF NOT EXISTS ${this.tableName} (`;
     for (const columns in args) {
@@ -56,6 +59,7 @@ class Model {
     //);
     //const connect = await this.pool.connect();//update logic understand connection to DB
         //execute actual query passing in query string made from arguments
+        const connect = await this.pool.connect();
         await connect.queryObject(finalQuery); //does createTable return anything
         //release pool connection
         //if success
