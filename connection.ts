@@ -43,14 +43,14 @@ async function query(builtQueryForDB: string) {
 }
 
 //test of new functions
-poolConnection(
-  "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
-  3,
-  true,
-);
+// poolConnection(
+//   "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
+//   3,
+//   true,
+// );
 
-const testQuery = await query("SELECT * FROM people;");
-console.log("testQuery", testQuery);
+// const testQuery = await query("SELECT * FROM people;");
+// console.log("testQuery", testQuery);
 
 //create an whole ass disconnect function. 
 async function poolDisconnect(){

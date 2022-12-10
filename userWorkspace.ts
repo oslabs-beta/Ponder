@@ -45,8 +45,17 @@ const ponderDB = poolConnection(
     true,
   );
   
-  const newestTest = await ponderDB.findAllinOne("people");
-  
+//   const newestTest = await ponderDB.findAllinOne("people");
+
+
+//testing connection to new model methods on querybuilder
+const personExamples = {
+    person_id: ["SERIAL"],
+    personName: ["VARCHAR", "100"],
+    personScore: ["NUMERIC"],
+  };
+
+  const newestTest = await ponderDB.createTable('personExamples', personExamples)
   console.log("did it work!?", newestTest);
 
   ponderDB.disconnect();

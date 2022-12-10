@@ -9,8 +9,8 @@ import { QueryBuilder } from "./querybuilder.ts";
 class Model extends QueryBuilder {
   columns: any;
   tableName: string;
-  constructor(tableName: string, columns: any, URI: string, pools: number, isLazy: boolean) {
-    super(URI, pools, isLazy);
+  constructor() {
+    super(pool);
     this.columns = columns;
     this.tableName = tableName; 
   }

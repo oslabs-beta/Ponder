@@ -13,4 +13,5 @@ Tuesday Morning
 Wedneday 12/7/22 Sara's branch SEBranch the contoller file is the database
 quivalent of a reaching stick
 
-Thurdsday 12/8/22
+Thurdsday 12/8/22 We did something Saturday 12/10/22we worked on pool
+connections
