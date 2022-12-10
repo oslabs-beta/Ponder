@@ -1,11 +1,12 @@
 //this is a file pretending to be an end user
 
 //import things we will need from deps file
-import { Pool, PoolClient, Client } from "./deps.ts"; 
+import { Client, Pool, PoolClient } from "./deps.ts";
 
 //for now, importing queryBuilder directly from file
 import { QueryBuilder } from "./querybuilder.ts";
 
+import { poolConnection, query } from "./connection.ts";
 
 //bringing in connection from connection (where db is connected)
 // import { connections } from "./connection.ts";
@@ -15,14 +16,30 @@ import { QueryBuilder } from "./querybuilder.ts";
 //declare new instance of PONDER to use throughout this page
 
 //Empty test DB
-const ponderURI = 'postgres://bulwxugb:t2QZQ0uT5VuBP3txTMk__RkMmLv3iQPw@tuffi.db.elephantsql.com/bulwxugb';
+// const ponderURI = 'postgres://bulwxugb:t2QZQ0uT5VuBP3txTMk__RkMmLv3iQPw@tuffi.db.elephantsql.com/bulwxugb';
 
 //Matt's starwars postgres DB
-const ponder = new QueryBuilder('postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny', 3, true);
+// const ponder = new QueryBuilder('postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny', 3, true);
 
-const firstSearch = await ponder.findAllinOne('people');
-console.log('firstSearch', firstSearch)
+// const firstSearch = await ponder.findAllinOne('people');
+// console.log('firstSearch', firstSearch)
 
+//first test of new connections file (exporting functions/functionality)
+const newPool = poolConnection(
+  "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
+  3,
+  true,
+);
+
+const ponderTester = new QueryBuilder(newPool);
+
+const newestTest = await ponderTester.findAllinOne("people");
+
+console.log("did it work!?", newestTest);
+
+// const qbTest: string = QueryBuilder.findAllinONe(people);
+//   const testQuery = await query("SELECT * FROM people;");
+//   console.log("testQuery", testQuery);
 
 //connect to a DB
 // const pool = new Pool('postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny', 3, true) // the number(3) is establishing the number of connections. True is the 'lazy' option, meaning that all the connections won't be initialized until they are needed
@@ -37,8 +54,6 @@ console.log('firstSearch', firstSearch)
 // } finally {
 //     connect.release();
 // }
-
-
 
 // //new query to already connect DB
 // try {
@@ -56,8 +71,6 @@ console.log('firstSearch', firstSearch)
 // } finally {
 //     connect.release();
 // }
-
-
 
 //run queries on DB
 

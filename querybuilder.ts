@@ -3,6 +3,8 @@
 
 import { Pool, PoolClient, Client } from "./deps.ts"; 
 
+import { poolConnection, query } from "./connection.ts";
+
 //starting queries
     //select, where, update, delete, insert, create table
 
@@ -10,27 +12,33 @@ import { Pool, PoolClient, Client } from "./deps.ts";
 // we have to declare the types before the constructor
 export class QueryBuilder {
     pool: Pool
-    constructor(URI: string, pools: number, isLazy: boolean){
+    constructor(pool: Pool){
+        //old parameters:
+        // URI: string, pools: number, isLazy: boolean
         //we had tried putting connection method here but did not work
         //release method was not found
         //open the pool
-        this.pool = new Pool(URI, pools, isLazy)
-
+        // this.pool = new Pool(URI, pools, isLazy)
+        this.pool = pool;
     }
 
     //first method, find all data from a table
     async findAllinOne(table: string) {
         // connect via this.pool
-        const connect = await this.pool.connect();
+        // const connect = await this.pool.connect();
         //take in argument to make query to run
         const queryStr  = `SELECT * FROM ${table};`;
+        //execute actual query by passing string into query function imported from connection
+        //which will also create individual connection and release after return
+        const result = await query(queryStr);
         //execute actual query passing in query string made from arguments
-        const { rows } = await connect.queryObject(queryStr);
+        // const { rows } = await connect.queryObject(queryStr);
         //release pool connection
-        connect.release();
+        // connect.release();
         //then will return result from query to where findAllinONe is being called
-        return rows;        
+        return result;        
     }
+    //Second method, 
 }
 
 //for now, exporting for use to Workspace, but eventually will export or be packaged for use as module hosted on deno.land
