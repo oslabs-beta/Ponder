@@ -1,4 +1,5 @@
 import { Client, Pool, PoolClient } from "./deps.ts";
+import { QueryBuilder } from "./querybuilder.ts";
 //lines three to 8 were connections for both the whole ass pool and an individual connection
 // const connections = async (URI: string, pools: number, isLazy: boolean) => {
 //   const pool = new Pool(URI, pools, isLazy);
@@ -16,7 +17,8 @@ function poolConnection(URI: string, pools: number, isLazy: boolean) {
     pool = new Pool(URI, pools, isLazy);
     console.log("connected to db.");
     //return pool to use actual connection elsewhere (querybuilder)
-    return pool;
+    const db = new QueryBuilder(pool);
+    return db;
   } catch (err) {
     console.log("Big-ass connection unsuccessful", err);
     return err;
@@ -50,6 +52,14 @@ poolConnection(
 const testQuery = await query("SELECT * FROM people;");
 console.log("testQuery", testQuery);
 
+//create an whole ass disconnect function. 
+async function poolDisconnect(){
+  console.log("Disconnecting now")
+  //using .end because we're closing the entire pool. .release is for the single connection
+  await pool.end();
+  console.log("Disconnected now. Pool's closed go home")
+}
+
 /*
 ***  This is the only place we will be connecting/disconnecting from db ***
 
@@ -66,4 +76,4 @@ dORM - lib/db-connectors/pg-connector.ts  Same deal, design their query function
 add the smaller pool connection to the model.ts file.
 */
 
-export { poolConnection, query };
+export { poolConnection, query, poolDisconnect};

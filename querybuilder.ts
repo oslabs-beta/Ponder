@@ -3,7 +3,7 @@
 
 import { Pool, PoolClient, Client } from "./deps.ts"; 
 
-import { poolConnection, query } from "./connection.ts";
+import { poolConnection, query, poolDisconnect } from "./connection.ts";
 
 //starting queries
     //select, where, update, delete, insert, create table
@@ -38,7 +38,11 @@ export class QueryBuilder {
         //then will return result from query to where findAllinONe is being called
         return result;        
     }
-    //Second method, 
+    //disconnecting with our pool here. User will have to disconnect manually, if they so choose
+    async disconnect() {
+        await poolDisconnect();
+        console.log('truly disconnect')
+    } 
 }
 
 //for now, exporting for use to Workspace, but eventually will export or be packaged for use as module hosted on deno.land

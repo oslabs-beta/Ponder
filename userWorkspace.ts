@@ -25,17 +25,34 @@ import { poolConnection, query } from "./connection.ts";
 // console.log('firstSearch', firstSearch)
 
 //first test of new connections file (exporting functions/functionality)
-const newPool = poolConnection(
-  "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
-  3,
-  true,
-);
+// const newPool = poolConnection(
+//   "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
+//   3,
+//   true,
+// );
 
-const ponderTester = new QueryBuilder(newPool);
+// const ponderTester = new QueryBuilder(newPool);
 
-const newestTest = await ponderTester.findAllinOne("people");
+// const newestTest = await ponderTester.findAllinOne("people");
 
-console.log("did it work!?", newestTest);
+// console.log("did it work!?", newestTest);
+
+//tried moving new instance of querybuilder to connection file
+//the connection to the database is established along with the connection to the methods, so that User can use the methods and connect to the DB in one action
+const ponderDB = poolConnection(
+    "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
+    3,
+    true,
+  );
+  
+  const newestTest = await ponderDB.findAllinOne("people");
+  
+  console.log("did it work!?", newestTest);
+
+  ponderDB.disconnect();
+
+
+
 
 // const qbTest: string = QueryBuilder.findAllinONe(people);
 //   const testQuery = await query("SELECT * FROM people;");
