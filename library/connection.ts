@@ -1,4 +1,4 @@
-import { Client, Pool, PoolClient } from "./deps.ts";
+import { Client, Pool, PoolClient } from "../deps.ts";
 import { QueryBuilder } from "./querybuilder.ts";
 //lines three to 8 were connections for both the whole ass pool and an individual connection
 // const connections = async (URI: string, pools: number, isLazy: boolean) => {

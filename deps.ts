@@ -4,3 +4,6 @@
 // import * as postgres from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 // we're importing a few objects from the driver module
 export { Pool, PoolClient, Client } from "https://deno.land/x/postgres/mod.ts";
+
+//importing the .env file from Denoland
+import * as mod from "https://deno.land/std@0.167.0/dotenv/mod.ts";
