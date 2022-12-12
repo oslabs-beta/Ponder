@@ -1,1 +1,0 @@
-console.log('hello we are the best deno ORM of all time');

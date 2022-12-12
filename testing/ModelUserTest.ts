@@ -1,12 +1,12 @@
 //this is a file pretending to be an end user
 
 //import things we will need from deps file
-import { Client, Pool, PoolClient } from "./deps.ts";
+import { Client, Pool, PoolClient } from "../deps.ts";
 
 //for now, importing queryBuilder directly from file
-import { QueryBuilder } from "./querybuilder.ts";
+import { QueryBuilder } from "../library/querybuilder.ts";
 
-import { poolConnection, query } from "./connection.ts";
+import { poolConnection, query } from "../library/connection.ts";
 
 //bringing in connection from connection (where db is connected)
 // import { connections } from "./connection.ts";

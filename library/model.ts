@@ -1,4 +1,4 @@
-import { Pool } from "./deps.ts";
+import { Pool } from "../deps.ts";
 import { connections } from "./connection.ts";
 import { QueryBuilder } from "./querybuilder.ts";
 

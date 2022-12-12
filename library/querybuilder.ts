@@ -1,7 +1,7 @@
 //file to create classes and definitions to map commands to PostGres
 //filling out the rows on our tables here retrieving and adding/info
 
-import { Pool, PoolClient, Client } from "./deps.ts"; 
+import { Pool, PoolClient, Client } from "../deps.ts"; 
 
 import { poolConnection, query, poolDisconnect } from "./connection.ts";
 
@@ -39,10 +39,117 @@ export class QueryBuilder {
         return result;        
     }
     //disconnecting with our pool here. User will have to disconnect manually, if they so choose
-    async disconnect() {
-        await poolDisconnect();
-        console.log('truly disconnect and feed me cat father - Tinsely')
-    } 
+
+
+
+//everything above here is for the SQL user testing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -52,6 +159,7 @@ export class QueryBuilder {
 
 
     //Below this is Model functionality:
+    
     async createTable(tableName: string, columns: any) {
         //convert args into SQL command to create a new table
         // const heffalumpCreateTable = `CREATE TABLE ${tableName} args1, args2, args3, etc' --> Maybe use Object.keys(args) to get column names; iterate through and concatenate to this string
@@ -104,7 +212,13 @@ export class QueryBuilder {
             //then will return result from query to where findAllinONe is being called
             return response;      
       }
+    //disconnecting with our pool here. User will have to disconnect manually, if they so choose
+    async disconnect() {
+      await poolDisconnect();
+      console.log('truly disconnect and feed me cat father - Tinsely')
+  } 
 }
+
 
 //for now, exporting for use to Workspace, but eventually will export or be packaged for use as module hosted on deno.land
 // export queryBuilder;
