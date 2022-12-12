@@ -1,12 +1,12 @@
 //this is a file pretending to be an end user
 
 //import things we will need from deps file
-import { Client, Pool, PoolClient } from "../deps.ts";
+import { Client, Pool, PoolClient } from '../deps.ts';
 
 //for now, importing queryBuilder directly from file
-import { QueryBuilder } from "../library/querybuilder.ts";
+import { QueryBuilder } from '../library/querybuilder.ts';
 
-import { poolConnection, query } from "../library/connection.ts";
+import { poolConnection, query } from '../library/connection.ts';
 
 //bringing in connection from connection (where db is connected)
 // import { connections } from "./connection.ts";
@@ -39,29 +39,25 @@ import { poolConnection, query } from "../library/connection.ts";
 
 //tried moving new instance of querybuilder to connection file
 //the connection to the database is established along with the connection to the methods, so that User can use the methods and connect to the DB in one action
-const ponderDB = poolConnection(
-    "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
-    3,
-    true,
-  );
-  
-//   const newestTest = await ponderDB.findAllinOne("people");
+// const ponderDB = poolConnection(
+//   'postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny',
+//   3,
+//   true
+// );
 
+// //   const newestTest = await ponderDB.findAllinOne("people");
 
-//testing connection to new model methods on querybuilder
-const personExamples = {
-    person_id: ["SERIAL"],
-    personName: ["VARCHAR", "100"],
-    personScore: ["NUMERIC"],
-  };
+// //testing connection to new model methods on querybuilder
+// const personExamples = {
+//   person_id: ['SERIAL'],
+//   personName: ['VARCHAR', '100'],
+//   personScore: ['NUMERIC'],
+// };
 
-  const newestTest = await ponderDB.createTable('personExamples', personExamples)
-  console.log("did it work!?", newestTest);
+// const newestTest = await ponderDB.createTable('personExamples', personExamples);
+// console.log('did it work!?', newestTest);
 
-  ponderDB.disconnect();
-
-
-
+// ponderDB.disconnect();
 
 // const qbTest: string = QueryBuilder.findAllinONe(people);
 //   const testQuery = await query("SELECT * FROM people;");
@@ -101,3 +97,33 @@ const personExamples = {
 //run queries on DB
 
 //do something with returned results from the query
+
+/////below is testing for Sam Stella Monday Dec 12
+//split into 2 groups, we are working on managing tables commands
+
+//new instance of POSTGRES to test
+const dbURIMonday =
+  'postgres://rehodqvv:xNQlX9F3AupLL6KCUJ1_5NIsCZGx1vum@mahmud.db.elephantsql.com/rehodqvv';
+
+const ponderDB1 = poolConnection(dbURIMonday, 3, true);
+
+//   const newestTest = await ponderDB.findAllinOne("people");
+
+//testing connection to new model methods on querybuilder
+const personExamples = {
+  person_id: ['SERIAL'],
+  personName: ['VARCHAR', '100'],
+  personScore: ['NUMERIC'],
+};
+
+const newestTest1 = await ponderDB1.createTable(
+  'personExamples',
+  personExamples
+);
+console.log('did it work!?', newestTest1);
+
+//testing delete table
+
+const deletePersonExamples = await ponderDB1.dropOneTable('personExamples')
+console.log('did it work!?', deletePersonExamples);
+ponderDB1.disconnect();
