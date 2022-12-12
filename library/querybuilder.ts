@@ -223,32 +223,40 @@ export class QueryBuilder {
 
   //drop one table
   async dropOneTable(tableName: string, cascade?: boolean) {
-    //create query string based on input
-    const deleteTable = (cascade) ?   "CASCADE" :  "RESTRICT"; 
+    
     //if cascade is included, add to query string
-    const deleteQueryString = `DROP TABLE IF EXISTS ${tableName} ${deleteTable};`;
-    console.log('dropOneTable query', deleteQueryString)
     //else make query string with RESTRICT instead
-
-
+    const deleteTable : string = (cascade) ?   "CASCADE" :  "RESTRICT"; 
+    //create query string based on input
+    const deleteQueryString = `DROP TABLE IF EXISTS ${tableName} ${deleteTable};`;
+    //print query to check
+    console.log('dropOneTable query', deleteQueryString);
     //query string should include the if not exists phrases
+     //make a try catch to return POSTGRES error
     try {
+      //run actual query string using the query method
       await query(deleteQueryString);
+      //return some sort of success message
       return `${tableName} is deleted!`
     } catch(err) {
+      //return some sort of not success message
       console.log(err);
       return err;
-    }
-    
-    
+    }    
+  }
 
-    //make a try catch to return POSTGRES error
+  //drop multiple tables
+  async dropMultipleTables(tableNamesArray : Array, cascade?: boolean) {
+    //control flow to make cascade variable
+    const deleteTable : string = (cascade) ?   "CASCADE" :  "RESTRICT"; 
+    //write a loop to iterate through array
+    //for each index, create new string of tablename
 
+    //have final query string
+    const dropMultipleTablesQueryString = `DROP TABLE IF EXISTS ${tableName} ${deleteTable};`
+    //print to test
 
-    //run actual query string using the query method
-
-    
-    //return some sort of success message
+    //try catch to run query/return messages/errors
   }
 
   //add column
