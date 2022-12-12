@@ -49,13 +49,13 @@ const ponderDB = poolConnection(
 
 
 //testing connection to new model methods on querybuilder
-const personExamples = {
-    person_id: ["SERIAL"],
-    personName: ["VARCHAR", "100"],
-    personScore: ["NUMERIC"],
-  };
+// const personExamples = {
+//     person_id: ["SERIAL"],
+//     personName: ["VARCHAR", "100"],
+//     personScore: ["NUMERIC"],
+//   };
 
-  const newestTest = await ponderDB.createTable('personExamples', personExamples)
+  const newestTest = await ponderDB.insertIntoTable('people', ['name', 'hair_color'], ['Sam', 'red']);
   console.log("did it work!?", newestTest);
 
   ponderDB.disconnect();

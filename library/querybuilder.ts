@@ -40,21 +40,53 @@ export class QueryBuilder {
     }
     //disconnecting with our pool here. User will have to disconnect manually, if they so choose
 
-
-
 //everything above here is for the SQL user testing.
+//Select specific columns
+async findColumn(column_name: string, table: string) {
+  //creating our SQL
+  const queryString = `SELECT ${column_name} FROM ${table};`;
+  //variable to store the SQL results
+  const result = await query(queryString);
+  return result;
+}
 
+//selecting a row of info
+async findRow(attr: string, table: string, value: string) {
+  //creating our SQL
+  const queryString = `SELECT * FROM ${table} WHERE ${attr}='${value}';`;
+  //variable to store the SQL results
+  const result = await query(queryString);
+  return result;
+}
 
+//select a specific cell on the table
+async findCell(column_name:string, table: string, value: string){
+  const queryString = `SELECT ${column_name} FROM ${table} WHERE ${column_name} = '${value}' LIMIT 1;`
+  const result = await query(queryString);
+  return result;
+}
 
-
-
-
-
-
-
-
-
-
+//insert data into columns
+async insertIntoTable (table: string, columns: string[],  values: string[]) {
+  //initialize query string
+  let queryString = `INSERT INTO ${table} (`;
+  //loop through columns array and concat each value to query string
+  for (let i = 0; i < columns.length; i++) {
+    queryString = queryString.concat(`${columns[i]}, `)
+  }
+  //slice to remove last comma and space of last value 
+  queryString = queryString.slice(0, -2);
+  //concat ending parens and VALUES
+  queryString = queryString.concat(') VALUES (');
+  //same as above with values array
+  for (let i = 0; i < values.length; i++) {
+    queryString = queryString.concat(`'${values[i]}', `)
+  }
+  let queryStringWithoutComma = queryString.slice(0, -2);
+  //close query string
+  queryStringWithoutComma = queryStringWithoutComma.concat(');');
+  await query(queryStringWithoutComma);
+}
 
 
 
@@ -159,7 +191,7 @@ export class QueryBuilder {
 
 
     //Below this is Model functionality:
-    
+
     async createTable(tableName: string, columns: any) {
         //convert args into SQL command to create a new table
         // const heffalumpCreateTable = `CREATE TABLE ${tableName} args1, args2, args3, etc' --> Maybe use Object.keys(args) to get column names; iterate through and concatenate to this string
