@@ -207,18 +207,27 @@ export class QueryBuilder {
     //);
     //const connect = await this.pool.connect();//update logic understand connection to DB
     //execute actual query passing in query string made from arguments
-    await query(finalQuery); //does createTable return anything
-    //release pool connection
-    //if success
+   
+ 
 
-    const response = `${tableName} has been created!`;
-    //then will return result from query to where findAllinONe is being called
-    return response;
+    //move this logic to a try catch block for any errors:
+    try {
+      await query(finalQuery); //does createTable return anything
+      //if success
+      const response = `${tableName} is in the database now!`;
+      //keep below console log for success message!
+      console.log(response)
+      //then will return result from query to where findAllinONe is being called
+      return response;
+    } catch(err) {
+      const response = `${err} has occured!`
+      return response;
+    }
   }
   //disconnecting with our pool here. User will have to disconnect manually, if they so choose
   async disconnect() {
     await poolDisconnect();
-    console.log('truly disconnect and feed me cat father - Tinsely');
+    // console.log('truly disconnect and feed me cat father - Tinsely');
   }
 
   //drop one table
@@ -237,6 +246,7 @@ export class QueryBuilder {
       //run actual query string using the query method
       await query(deleteQueryString);
       //return some sort of success message
+      console.log(`${tableName} is deleted!`)
       return `${tableName} is deleted!`
     } catch(err) {
       //return some sort of not success message
@@ -246,23 +256,80 @@ export class QueryBuilder {
   }
 
   //drop multiple tables
-  async dropMultipleTables(tableNamesArray : Array, cascade?: boolean) {
+  async dropMultipleTables(tableNamesArray : string[], cascade?: boolean) : Promise<string> {
+    //edge cases
+    if (!tableNamesArray.length) return "Error! Must put a table Name inside Array";
     //control flow to make cascade variable
     const deleteTable : string = (cascade) ?   "CASCADE" :  "RESTRICT"; 
     //write a loop to iterate through array
     //for each index, create new string of tablename
-
+    let listOftableNames = `${tableNamesArray[0]}`;
+    for (let i = 1; i < tableNamesArray.length; i++) {
+        listOftableNames = listOftableNames.concat(`, ${tableNamesArray[i]}`)
+    }
+    console.log('listoftablesnames', listOftableNames)
     //have final query string
-    const dropMultipleTablesQueryString = `DROP TABLE IF EXISTS ${tableName} ${deleteTable};`
+    const dropMultipleTablesQueryString = `DROP TABLE IF EXISTS ${listOftableNames} ${deleteTable};`
     //print to test
-
+    console.log('delete multiple string: ', dropMultipleTablesQueryString);
     //try catch to run query/return messages/errors
+    try {
+      await query(dropMultipleTablesQueryString)
+      console.log(`${listOftableNames}, have been dropped!`)
+      return `${listOftableNames}, have been dropped!`
+    } catch(err) {
+      console.log('err dropping multiple tables', err);
+      return `dropMultipleTables ${err}`
+    }
   }
 
-  //add column
+  //add one or more columns
+  async addColumns(tableToAlter : string, columns: any) {
+    //reassign parameter to usuable object;
+    const args = columns;
+    //set initial string to hold query
+    let newColumns = "";
+    //set final string to be added into;
+    
+//might need to move to end
+    for (const column in args) {
+      //first check to see if value of key-value pair is array of data     
+
+      const arrayOfOptions = args[column].join(' ')
+      // console.log('new string of all elements in array?', arrayOfOptions)
+      let tempString = `ADD COLUMN ${column} ${arrayOfOptions},`;
+      // console.log('tempString', tempString)
+
+      newColumns = newColumns.concat(tempString)
+      console.log('newColumns', newColumns);   
+ 
+    }
+      const columnAddingQueryString = `ALTER TABLE ${tableToAlter} ${newColumns}`;
+      const stringWithoutFinalComma = columnAddingQueryString.slice(0, -1);
+      const finalQuery = stringWithoutFinalComma.concat(';');
+      console.log('finalQuery', finalQuery)
+
+    //move this logic to a try catch block for any errors:
+    try {
+      await query(finalQuery); //does createTable return anything
+      //if success
+      const response = `${tableToAlter} has new columns in the database now!`;
+      //keep below console log for success message!
+      console.log(response)
+      //then will return result from query to where findAllinONe is being called
+      return response;
+    } catch(err) {
+      const response = `${err} has occured!`
+      return response;
+    }
+
+  }  
+
 
   //drop column
 }
+
+
 
 //for now, exporting for use to Workspace, but eventually will export or be packaged for use as module hosted on deno.land
 // export queryBuilder;

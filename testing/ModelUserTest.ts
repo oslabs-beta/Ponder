@@ -110,20 +110,65 @@ const ponderDB1 = poolConnection(dbURIMonday, 3, true);
 //   const newestTest = await ponderDB.findAllinOne("people");
 
 //testing connection to new model methods on querybuilder
-const personExamples = {
-  person_id: ['SERIAL'],
-  personName: ['VARCHAR', '100'],
-  personScore: ['NUMERIC'],
+const somethingNEW = {
+  newcolumn1: ['SERIAL'],
+  columnBYNEW2: ['VARCHAR', '100'],
+  mangoIsBest: ['NUMERIC'],
 };
 
 const newestTest1 = await ponderDB1.createTable(
-  'personExamples',
-  personExamples
+  'somethingNEWtable',
+  somethingNEW
 );
-console.log('did it work!?', newestTest1);
+// console.log('did it work!?', newestTest1);
+
+const newTablesforNew = {
+  newNEWcolumn4: ['SERIAL'],
+  columnmango5: ['VARCHAR'],
+  mangoIsReallyBest6: ['NUMERIC'],
+}
+
+const addingToNew = await ponderDB1.addColumns('somethingNEWtable', newTablesforNew)
+
+
+// const personExamples2 = {
+//   person_id: ['SERIAL'],
+//   personName: ['VARCHAR', '100'],
+//   personScore: ['NUMERIC'],
+// };
+
+// const newestTest2 = await ponderDB1.createTable(
+//   'personExamples2',
+//   personExamples2
+// );
+// console.log('did it work!?', newestTest2);
+
 
 //testing delete table
+// const deletePersonExamples = await ponderDB1.dropOneTable('personExamples')
+// console.log('did it work!?', deletePersonExamples);
 
-const deletePersonExamples = await ponderDB1.dropOneTable('personExamples')
-console.log('did it work!?', deletePersonExamples);
+
+// testing dropMultipleTables
+// const deletePersonExamples2 = await ponderDB1.dropMultipleTables()
+
+// console.log('did it work!?', deletePersonExamples2);
+
+
+//test of adding columns
+// const columnsToAdd = {
+//   mango_id: ['SERIAL'],
+//   mangoName: ['VARCHAR'],
+//   mangoScore: ['NUMERIC'],
+// };
+
+// const mangoTest1 = await ponderDB1.addColumns(
+//   'personExamples2',
+//   columnsToAdd
+// );
+
+// console.log("checking columns", mangoTest1)
+
+// const checkingMangos = await query("INSERT INTO personExamples2 (mango_id, mangoname, mangoscore) values (1, 'hugeNewNameMangoBoy', 3);")
+
 ponderDB1.disconnect();
