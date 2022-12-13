@@ -51,7 +51,7 @@ export class QueryBuilder {
   }
 
   //selecting a row of info
-  async findRow(attr: string, table: string, value: string) {
+  async findRow(table: string, attr: string, value: string) {
     //creating our SQL
     const queryString = `SELECT * FROM ${table} WHERE ${attr}='${value}';`;
     //variable to store the SQL results
@@ -60,7 +60,7 @@ export class QueryBuilder {
   }
 
   //select a specific cell on the table
-  async findCell(column_name: string, table: string, value: string) {
+  async findCell(table: string, column_name: string, value: string) {
     const queryString =
       `SELECT ${column_name} FROM ${table} WHERE ${column_name} = '${value}' LIMIT 1;`;
     const result = await query(queryString);
@@ -90,8 +90,8 @@ export class QueryBuilder {
   }
 
   async updateTable(
-    column_name: string[],
     table: string,
+    column_name: string[],
     value: string[],
     q: string[],
     a: string[],
