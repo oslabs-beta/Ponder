@@ -1,6 +1,5 @@
 ## PONDER: An Object Relational Mapping Tool for Deno
 
-
 ## About
 
 ## Features
@@ -10,6 +9,7 @@
 ## Getting Started
 
 ## Built with
+
 <p float="left">
 
 <img src="https://img.shields.io/badge/Deno-white?style=for-the-badge&logo=deno&logoColor=464647" alt="Deno Logo" style="display: inline-block">
@@ -20,10 +20,8 @@
 </p>
 
 ## Contributors
+
 Stella Baek | Sara Brown | Sam Goldenberg | Matt Connell | Corey McClendon-Brown
- 
- 
- 
 
 Sam writing this statement here.
 
@@ -35,4 +33,4 @@ Wedneday 12/7/22 Sara's branch SEBranch the contoller file is the database
 quivalent of a reaching stick
 
 Thurdsday 12/8/22 We did something Saturday 12/10/22we worked on pool
-connections
+connections Monday 12/
