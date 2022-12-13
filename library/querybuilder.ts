@@ -1,9 +1,9 @@
 //file to create classes and definitions to map commands to PostGres
 //filling out the rows on our tables here retrieving and adding/info
 
-import { Pool, PoolClient, Client } from '../deps.ts';
+import { Client, Pool, PoolClient } from "../deps.ts";
 
-import { poolConnection, query, poolDisconnect } from './connection.ts';
+import { poolConnection, poolDisconnect, query } from "./connection.ts";
 
 //starting queries
 //select, where, update, delete, insert, create table
@@ -41,13 +41,123 @@ export class QueryBuilder {
   //disconnecting with our pool here. User will have to disconnect manually, if they so choose
 
   //everything above here is for the SQL user testing.
+  //Select specific columns
+  async findColumn(column_name: string, table: string) {
+    //creating our SQL
+    const queryString = `SELECT ${column_name} FROM ${table};`;
+    //variable to store the SQL results
+    const result = await query(queryString);
+    return result;
+  }
+
+  //selecting a row of info
+  async findRow(attr: string, table: string, value: string) {
+    //creating our SQL
+    const queryString = `SELECT * FROM ${table} WHERE ${attr}='${value}';`;
+    //variable to store the SQL results
+    const result = await query(queryString);
+    return result;
+  }
+
+  //select a specific cell on the table
+  async findCell(column_name: string, table: string, value: string) {
+    const queryString =
+      `SELECT ${column_name} FROM ${table} WHERE ${column_name} = '${value}' LIMIT 1;`;
+    const result = await query(queryString);
+    return result;
+  }
+
+  //insert data into columns
+  async insertIntoTable(table: string, columns: string[], values: string[]) {
+    //initialize query string
+    let queryString = `INSERT INTO ${table} (`;
+    //loop through columns array and concat each value to query string
+    for (let i = 0; i < columns.length; i++) {
+      queryString = queryString.concat(`${columns[i]}, `);
+    }
+    //slice to remove last comma and space of last value
+    queryString = queryString.slice(0, -2);
+    //concat ending parens and VALUES
+    queryString = queryString.concat(") VALUES (");
+    //same as above with values array
+    for (let i = 0; i < values.length; i++) {
+      queryString = queryString.concat(`'${values[i]}', `);
+    }
+    let queryStringWithoutComma = queryString.slice(0, -2);
+    //close query string
+    queryStringWithoutComma = queryStringWithoutComma.concat(");");
+    await query(queryStringWithoutComma);
+  }
 
+  async updateTable(
+    column_name: string[],
+    table: string,
+    value: string[],
+    q: string[],
+    a: string[],
+    operator?: string,
+  ) {
+    //partial Sql command for update
+    let queryString = `UPDATE ${table} SET `;
+    //loop through the columns array
+    for (let i = 0; i < column_name.length; i++) {
+      if (column_name[i] && value[i]) {
+        queryString = queryString.concat(`${column_name[i]} = '${value[i]}', `);
+      }
+    }
+    //remove the final comma and space
+    let queryStringWithoutComma = queryString.slice(0, -2);
 
 
 
+    queryStringWithoutComma = queryStringWithoutComma.concat(' WHERE')
+    //add the WHERE conditional here
 
+    //add OR 
+    if (operator?.toLowerCase() === 'or') {
+      for (let i = 0; i < q.length; i++) {
+        queryStringWithoutComma = queryStringWithoutComma.concat(
+          ` ${q[i]} = '${a[i]}' OR`,
+        );
+     }
+     queryStringWithoutComma = queryStringWithoutComma.slice(0, -3).concat(';');
+     return await query(queryStringWithoutComma);
+     
+    } else if (operator?.toLowerCase() === 'not') {
+      //add NOT
+      for (let i = 0; i < q.length; i++) {
+        queryStringWithoutComma = queryStringWithoutComma.concat(
+          ` NOT ${q[i]} = '${a[i]}' AND `
+        )
+      
+      }
+    } else {
+      //default AND 
+      for (let i = 0; i < q.length; i++){
+        queryStringWithoutComma = queryStringWithoutComma.concat(
+          ` ${q[i]} = '${a[i]}' AND`,
+        );
+      }
+    }
 
+    queryStringWithoutComma = queryStringWithoutComma.slice(0, -4).concat(';');
+    //sends this query off to our database
+    await query(queryStringWithoutComma);
+  }
 
+//delete row - nothing but raw power behind this command
+async deleteRow(table: string, column: string[], value: string[]) {
+  //without including WHERE, DELETE FROM will delete all entries in a table.  Necessary?
+  let queryString = `DELETE FROM ${table} WHERE`;
+  for (let i = 0; i< column.length; i++) {
+    queryString = queryString.concat(
+      ` ${column[i]}='${value[i]}' AND`
+    )
+  }
+  const queryStringWithoutComma = queryString.slice(0, -4).concat(';');
+  console.log(queryStringWithoutComma);
+  await query(queryStringWithoutComma);
+}
 
 
 
@@ -65,6 +175,7 @@ export class QueryBuilder {
 
 
 
+  
 
 
 
@@ -76,44 +187,7 @@ export class QueryBuilder {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //Below this is Model functionality:
 
 
 
