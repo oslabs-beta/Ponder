@@ -159,6 +159,10 @@ export class QueryBuilder {
 
 
 
+
+
+  //here it comessssss
+
   //Below this is Model functionality:
   //Stella has autoformattor which is removing these lines
   //start around 161 to be sure of space
@@ -328,8 +332,7 @@ export class QueryBuilder {
 
   //drop columns
   async dropColumns(tableName: string, columnsToDrop: any) {
-  //create string with tableName to edit/add to
-    
+  //create string with tableName to edit/add to    
   //create substring with all columns to later insert to bigger string
     let allColumns = "";
   //iterate through columntodrop object
@@ -346,7 +349,6 @@ export class QueryBuilder {
       //each subsequent add to substring with include comma
       allColumns = allColumns.concat(`DROP COLUMN IF EXISTS ${column} ${dropType},`)
     }  
-
     const columnsToDropString = `ALTER TABLE ${tableName} ${allColumns}`
     //might need to remove final comma
     const stringWithoutFinalComma = columnsToDropString.slice(0, -1);

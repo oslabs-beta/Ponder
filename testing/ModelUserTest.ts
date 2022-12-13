@@ -175,5 +175,18 @@ const ponderDB1 = poolConnection(dbURIMonday, 3, true);
 //remember to test drop Columns function
 //after dinner MONDAYYYYYYY
 
+//test of droping columns
+const columnsToDrop = {
+  columnmango5: true,
+  newnewcolumn4: false,
+  mangoisbest: true
+}
+
+const dropColumnsTest = await ponderDB1.dropColumns(
+  'somethingnewtable',
+  columnsToDrop
+)
+
+console.log('checking drop column', dropColumnsTest);
 
 ponderDB1.disconnect();
