@@ -110,25 +110,25 @@ const ponderDB1 = poolConnection(dbURIMonday, 3, true);
 //   const newestTest = await ponderDB.findAllinOne("people");
 
 //testing connection to new model methods on querybuilder
-const somethingNEW = {
-  newcolumn1: ['SERIAL'],
-  columnBYNEW2: ['VARCHAR', '100'],
-  mangoIsBest: ['NUMERIC'],
-};
+// const somethingNEW = {
+//   newcolumn1: ['SERIAL'],
+//   columnBYNEW2: ['VARCHAR', '100'],
+//   mangoIsBest: ['NUMERIC'],
+// };
 
-const newestTest1 = await ponderDB1.createTable(
-  'somethingNEWtable',
-  somethingNEW
-);
+// const newestTest1 = await ponderDB1.createTable(
+//   'somethingNEWtable',
+//   somethingNEW
+// );
 // console.log('did it work!?', newestTest1);
 
-const newTablesforNew = {
-  newNEWcolumn4: ['SERIAL'],
-  columnmango5: ['VARCHAR'],
-  mangoIsReallyBest6: ['NUMERIC'],
-}
+// const newTablesforNew = {
+//   newNEWcolumn4: ['SERIAL'],
+//   columnmango5: ['VARCHAR'],
+//   mangoIsReallyBest6: ['NUMERIC'],
+// }
 
-const addingToNew = await ponderDB1.addColumns('somethingNEWtable', newTablesforNew)
+// const addingToNew = await ponderDB1.addColumns('somethingNEWtable', newTablesforNew)
 
 
 // const personExamples2 = {
@@ -170,5 +170,10 @@ const addingToNew = await ponderDB1.addColumns('somethingNEWtable', newTablesfor
 // console.log("checking columns", mangoTest1)
 
 // const checkingMangos = await query("INSERT INTO personExamples2 (mango_id, mangoname, mangoscore) values (1, 'hugeNewNameMangoBoy', 3);")
+
+
+//remember to test drop Columns function
+//after dinner MONDAYYYYYYY
+
 
 ponderDB1.disconnect();

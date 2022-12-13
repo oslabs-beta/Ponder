@@ -326,7 +326,50 @@ export class QueryBuilder {
   }  
 
 
-  //drop column
+  //drop columns
+  async dropColumns(tableName: string, columnsToDrop: any) {
+  //create string with tableName to edit/add to
+    
+  //create substring with all columns to later insert to bigger string
+    let allColumns = "";
+  //iterate through columntodrop object
+    const obj = columnsToDrop;
+    for (const column in obj) {
+      //each value will be either true or false
+    //true means to add CASCADE
+    //false means to add RESTRICT
+      let dropType = "RESTRICT"
+      if(obj[column] === true) {
+        dropType = "CASCADE"
+      }
+      //each key will be name of column to drop
+      //each subsequent add to substring with include comma
+      allColumns = allColumns.concat(`DROP COLUMN IF EXISTS ${column} ${dropType},`)
+    }  
+
+    const columnsToDropString = `ALTER TABLE ${tableName} ${allColumns}`
+    //might need to remove final comma
+    const stringWithoutFinalComma = columnsToDropString.slice(0, -1);
+    //might need to add final ;
+    const finalQuery = stringWithoutFinalComma.concat(';');
+    //console log final query to see 
+    console.log('finalQuery', finalQuery)
+    
+    //create try/catch block to actual run query
+    //include success/not success messages
+    try {
+      await query(finalQuery); 
+      //if success
+      const response = `${tableName} has less columns in the database now!`;
+      //keep below console log for success message!
+      console.log(response)
+      return response;
+    } catch(err) {
+      const response = `${err} has occured!`
+      return response;
+    }
+  } 
+
 }
 
 
