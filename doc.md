@@ -110,6 +110,31 @@ Delete offending rows from your sight
 tableName.deleteRow(table, column, value);
 ```
 
+## Managing Tables
+
+Create Tables using the ```createTable()``` method. The method expects 2 arguments: tableName (a string), and columns, an object! This object should have the name of the column you'd like to create as the key. And the value should be an array of strings. The first index should be a SQL datatype, the optional second index should be the length of the datatype, the optional third and beyond can be any column constraints you'd like (NULL, NOT NULL, UNIQUE, etc).
+
+```
+const columnsForNewTable = {
+   column1Name: ['DATATYPE', 'LENGTH', 'COLUMN CONSTRAINT1', 'COLUMN CONSTRAINT2'...],
+   column2Name: ['DATATYPE', 'LENGTH', 'COLUMN2 CONSTRAINT1', 'COLUMN2 CONSTRAINT2'...],
+   column3Name: ['DATATYPE', 'LENGTH', 'COLUMN CONSTRAINT1', 'COLUMN CONSTRAINT2'...],
+   ...
+};
+
+const createYOURtable = await yourVariable.createTable('newTableName', columnsForNewTable);
+```
+createTable will only return a success message. You may configure your middleware to update your response.
+
+
+
+```
+addColumns('newTableName', {columnName,[dataType]}),
+
+const addNewColumn = await yourVariable.addColumns('newTableName',)
+```
+
+
 ## Contributing
 
 Instructions for how to contribute to the development of the library, including
