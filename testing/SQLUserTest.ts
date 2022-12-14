@@ -55,6 +55,7 @@ const ponderDB = poolConnection(
 //     personScore: ["NUMERIC"],
 //   };
 
+
   const newestTest = await ponderDB.deleteRow('stellaNoMoreTeeth', ['column2'], ['0']);
   console.log("did it work!?", newestTest);
 
