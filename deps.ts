@@ -6,4 +6,5 @@
 export { Pool, PoolClient, Client } from "https://deno.land/x/postgres/mod.ts";
 
 //importing the .env file from Denoland
-import * as mod from "https://deno.land/std@0.167.0/dotenv/mod.ts";
+export * as mod from "https://deno.land/std@0.167.0/dotenv/mod.ts";
+

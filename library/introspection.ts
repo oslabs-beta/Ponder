@@ -15,7 +15,9 @@ async function introspect () {
 //declare object to represent table
   const tableObj = {}
 //query db for tables
-  const tables = await query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'"); //this should be an array
+  const tables = await query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");//this should be an array
+
+  console.log('tables variable', tables);
 
 //query db for columns. query for all columns from that table
   const columnList = await query(`SELECT column_name, is_nullable, table_name, data_type FROM information_schema.columns WHERE table_schema = 'public' ORDER BY table_name;`);
@@ -41,7 +43,11 @@ async function introspect () {
 }
 
 
-introspect();
+const testObj = await introspect();
+
+console.log(testObj);
+
+// Deno.writeTextFileSync('./testModelWrite.js', JSON.stringify(testObj));
 /*
     column_name: "diameter",
     is_nullable: "YES",

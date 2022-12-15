@@ -62,7 +62,7 @@ See docs for complete list of methods, their functionality, and how to use them.
 <p>
 * Sara Brown <a href="https://github.com/Sbrown2018">@Github</a> <br> 
 * Sam Goldenberg <a href="https://github.com/sammyb1rd">@Github</a> <br>
-* Matt Connell <a hreft="https://github.com/Matt-2112">@Github</a> <br>
+* Matt Connell <a href="https://github.com/Matt-2112">@Github</a> <br>
 * Corey McClendon-Brown <a href="https://github.com/mcbrownc">@Github</a> <br>
 * Stella Baek <a href="https://github.com/StellaBaek">@GitHub </a> 
   

@@ -1,5 +1,6 @@
 import { Client, Pool, PoolClient } from "../deps.ts";
 import { QueryBuilder } from "./querybuilder.ts";
+// import "https://deno.land/x/dotenv/load.ts";
 //lines three to 8 were connections for both the whole ass pool and an individual connection
 // const connections = async (URI: string, pools: number, isLazy: boolean) => {
 //   const pool = new Pool(URI, pools, isLazy);
