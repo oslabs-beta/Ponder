@@ -6,7 +6,7 @@ import { query, poolConnection } from './connection.ts'
 //information schema provides access to database metadata
 
 
-async function introspect () {
+export async function introspect () {
   const ponder = await poolConnection(
     "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
     3,
@@ -30,7 +30,7 @@ async function introspect () {
     let dataType = columnList[i]['data_type'];
     let is_nullable = columnList[i]['is_nullable'];
     let tableName = columnList[i]['table_name']
-    console.log('colName', colName);
+    console.log('colName:', colName);
 
     if(!tableObj[tableName]){
         tableObj[tableName] = {}

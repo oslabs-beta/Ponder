@@ -22,7 +22,7 @@ class Model extends QueryBuilder {
     //create a pool connection, disconnect after we create a string
     //use for in to iterate over the args obj to get the columns
     //removed brackets around if not exists
-    console.log("This is the officer's whole-ass betting pool", this.pool)
+    //console.log("This is the Pool connection", this.pool)
     const args = this.columns;
     let tableQueryString = `CREATE TABLE IF NOT EXISTS ${this.tableName} (`;
     for (const columns in args) {
@@ -36,14 +36,14 @@ class Model extends QueryBuilder {
             //console.log("inside for loop");
             //datatype
             tempString = tempString.concat(`${args[columns][i]}`);
-            //console.log("first loop pass string. Sam is found:", tempString);
+            //console.log("first loop pass string:", tempString);
           } else if (i === 1) {
             //length
             tempString = tempString.concat(`(${args[columns][i]})`);
           } else {
             //any column-constraints
             tempString = tempString.concat(` ${args[columns][i]}`);
-            //console.log("third pass. Matt says this better work:", tempString);
+            //console.log("third pass:", tempString);
           }
         }
       } //---> we're going to force user to use no arrays //need a helper function to make sure that users are using the correct data type
@@ -54,9 +54,7 @@ class Model extends QueryBuilder {
     const stringWithoutFinalComma = tableQueryString.slice(0, -1);
     const finalQuery = stringWithoutFinalComma.concat(");");
     //console.log(
-      //"Supreme Commander Stella is pleased with final query. Vice Supreme Comander Corey is stil not impressed:",
-      //finalQuery,
-    //);
+      //"finalQuery:", finalQuery);
     //const connect = await this.pool.connect();//update logic understand connection to DB
         //execute actual query passing in query string made from arguments
         const connect = await this.pool.connect();
@@ -112,42 +110,6 @@ testOfModel.createTable();
 //third and beyond, any column constraints
 
 // // // // // //
-
-/*
-
-table
-blank column1 colum2 colums3
-row1  info11  info21 info31
-row2  info12  info22 info32
-row3  info13  info23 info33
-
-tablename = new Model();
-ponder = new query builder
-ponder.insert(name of table, )
-
-MODEL for table = {
-  column1: string,
-  column2: string,
-  column3: number,
-}
-
-QUERIES for row1 {
-  column1: info11
-  column2: info21
-  column3: info31
-}
-
-
-New Query that inserts a new row {
-  column1: info14
-  column2: info24
-  column3: info34
-}
-*/
-// const test = {
-//   lastName: "Witttgenstein",
-//   publication: "Tractatus Logico-Philosophicus"
-// }
 
 //ponder
 

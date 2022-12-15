@@ -27,6 +27,6 @@ ponder.disconnect();
 
 // const tables = await query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
 // const columnList = await query(`SELECT column_name, is_nullable, table_name, data_type FROM information_schema.columns WHERE table_schema = 'public' ORDER BY table_name;`);
-// // console.log('list deez columns', columnList);
+// // console.log('list columns', columnList);
 // const  people  = tables[10];
 // console.log(people)
