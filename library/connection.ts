@@ -1,5 +1,6 @@
 import { Client, Pool, PoolClient } from "../deps.ts";
 import { QueryBuilder } from "./querybuilder.ts";
+// import "https://deno.land/x/dotenv/load.ts";
 //lines three to 8 were connections for both the whole ass pool and an individual connection
 // const connections = async (URI: string, pools: number, isLazy: boolean) => {
 //   const pool = new Pool(URI, pools, isLazy);
@@ -20,12 +21,12 @@ function poolConnection(URI: string, pools: number, isLazy: boolean) {
     const db = new QueryBuilder(pool);
     return db;
   } catch (err) {
-    console.log("Big-ass connection unsuccessful", err);
+    console.log("Connection unsuccessful", err);
     return err;
   }
 }
 
-//modulizer query function that will query DB each time, without needing to connetion WHOLE ASS pool each time
+//modulizer query function that will query DB each time, without needing to connect WHOLE pool each time
 async function query(builtQueryForDB: string) {
   try {
     //individual connection
@@ -57,7 +58,7 @@ async function poolDisconnect(){
   console.log("Disconnecting now")
   //using .end because we're closing the entire pool. .release is for the single connection
   await pool.end();
-  console.log("Disconnected now. Pool's closed go home")
+  console.log("Disconnected now. Pool's closed, go home!")
 }
 
 /*
