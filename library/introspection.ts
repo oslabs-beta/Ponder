@@ -6,7 +6,7 @@ import { query, poolConnection } from './connection.ts'
 //information schema provides access to database metadata
 
 
-async function introspect () {
+export async function introspect () {
   const ponder = await poolConnection(
     "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
     3,
@@ -15,7 +15,9 @@ async function introspect () {
 //declare object to represent table
   const tableObj = {}
 //query db for tables
-  const tables = await query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'"); //this should be an array
+  const tables = await query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");//this should be an array
+
+  console.log('tables variable', tables);
 
 //query db for columns. query for all columns from that table
   const columnList = await query(`SELECT column_name, is_nullable, table_name, data_type FROM information_schema.columns WHERE table_schema = 'public' ORDER BY table_name;`);
@@ -28,7 +30,7 @@ async function introspect () {
     let dataType = columnList[i]['data_type'];
     let is_nullable = columnList[i]['is_nullable'];
     let tableName = columnList[i]['table_name']
-    console.log('colName', colName);
+    console.log('colName:', colName);
 
     if(!tableObj[tableName]){
         tableObj[tableName] = {}
@@ -41,7 +43,11 @@ async function introspect () {
 }
 
 
-introspect();
+const testObj = await introspect();
+
+console.log(testObj);
+
+// Deno.writeTextFileSync('./testModelWrite.js', JSON.stringify(testObj));
 /*
     column_name: "diameter",
     is_nullable: "YES",

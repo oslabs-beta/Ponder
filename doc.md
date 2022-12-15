@@ -15,7 +15,26 @@ deno install ponder
 
 ## Usage
 
+### Using dotenv Module from Deno
+
+It is recommended to use the dotenv module from Deno to protect sensitive information. Import the dotenv module, write your Database URI as a variable in your own .env file, and then you can refer to it using that variable label.
+
+```
+#.env
+PG_URI=YourDatabaseURI
+
+#app
+import "https://deno.land/x/dotenv/load.ts";
+
+const PG_URI = Deno.env.get('PG_URI');  // returns YourDatabaseURI from .env file
+
+```
+
+
 ### Connecting Your Database
+
+Create a new instance of poolConnection passing in the database connection
+string, number of pool connections, and a boolean to determine lazy connection
 
 ```
 import{ poolConnection } from'./deps.ts
@@ -23,8 +42,7 @@ import{ poolConnection } from'./deps.ts
 const ponder = new poolConnection('PG_URI', 3, true)
 ```
 
-Create a new instance of poolConnection passing in the database connection
-string, number of pool connections, and a boolean to determine lazy connection
+
 
 ## API Reference
 

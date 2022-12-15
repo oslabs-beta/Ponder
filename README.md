@@ -1,4 +1,7 @@
-<img src="INSERT SUPER COOL LOGO HERE" alt="Ponder Logo" style="display: inline-block">
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center">
+<img src="./assets/deno-logo-beta2.png" alt="Ponder Logo" style=" height: auto; width: 30vw;" >
+</div>
+
 
 ## PONDER: An Object Relational Mapping Tool for Deno
 
@@ -9,8 +12,8 @@ Ponder is available for import at https://deno.land/x/ponder@v0.0.2/mod.ts.
 
 ## Features
 
-Basic CRUD functionality for interacting with your PostGRES Database.
-
+-Basic CRUD functionality for interacting with your PostGRES Database
+-Basic functionality for managing your SQL Tables
 
 ## Installation
 
@@ -62,7 +65,7 @@ See docs for complete list of methods, their functionality, and how to use them.
 <p>
 * Sara Brown <a href="https://github.com/Sbrown2018">@Github</a> <br> 
 * Sam Goldenberg <a href="https://github.com/sammyb1rd">@Github</a> <br>
-* Matt Connell <a hreft="https://github.com/Matt-2112">@Github</a> <br>
+* Matt Connell <a href="https://github.com/Matt-2112">@Github</a> <br>
 * Corey McClendon-Brown <a href="https://github.com/mcbrownc">@Github</a> <br>
 * Stella Baek <a href="https://github.com/StellaBaek">@GitHub </a> 
   
