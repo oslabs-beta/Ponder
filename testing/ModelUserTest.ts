@@ -102,10 +102,10 @@ import { poolConnection, query } from '../library/connection.ts';
 //split into 2 groups, we are working on managing tables commands
 
 //new instance of POSTGRES to test
-const dbURIMonday =
-  'postgres://rehodqvv:xNQlX9F3AupLL6KCUJ1_5NIsCZGx1vum@mahmud.db.elephantsql.com/rehodqvv';
+// const dbURIMonday =
+//   'postgres://rehodqvv:xNQlX9F3AupLL6KCUJ1_5NIsCZGx1vum@mahmud.db.elephantsql.com/rehodqvv';
 
-const ponderDB1 = poolConnection(dbURIMonday, 3, true);
+// const ponderDB1 = poolConnection(dbURIMonday, 3, true);
 
 //   const newestTest = await ponderDB.findAllinOne("people");
 
@@ -176,17 +176,51 @@ const ponderDB1 = poolConnection(dbURIMonday, 3, true);
 //after dinner MONDAYYYYYYY
 
 //test of droping columns
-const columnsToDrop = {
-  columnmango5: true,
-  newnewcolumn4: false,
-  mangoisbest: true
-}
+// const columnsToDrop = {
+//   columnmango5: true,
+//   newnewcolumn4: false,
+//   mangoisbest: true
+// }
 
-const dropColumnsTest = await ponderDB1.dropColumns(
-  'somethingnewtable',
-  columnsToDrop
-)
+// const dropColumnsTest = await ponderDB1.dropColumns(
+//   'somethingnewtable',
+//   columnsToDrop
+// )
 
-console.log('checking drop column', dropColumnsTest);
+// console.log('checking drop column', dropColumnsTest);
+
+
+//set up testing for select/join before writing
+
+const dbURIMonday =
+  'postgres://rehodqvv:xNQlX9F3AupLL6KCUJ1_5NIsCZGx1vum@mahmud.db.elephantsql.com/rehodqvv';
+
+const ponderDB1 = poolConnection(dbURIMonday, 3, true);
+
+// const attempt1 = await query(`SELECT * FROM basket_a;`)
+const attempt1 = await query(`SELECT
+a,
+fruit_a,
+b,
+fruit_b
+FROM
+basket_a
+INNER JOIN basket_b
+ON fruit_a = fruit_b;`)
+
+// const attempt1 = await ponderDB1.queryObject(`SELECT * FROM basket_a;`)
+
+console.log('attempt1', attempt1)
 
 ponderDB1.disconnect();
+
+
+// const { rows } = await connect.queryObject(builtQueryForDB);
+
+// const { rows } = {
+//   rows: hasreturn value
+// }
+
+// const { rows } = repsonse;
+
+// const rows = response.rows;
