@@ -5,14 +5,17 @@ import { Client, Pool, PoolClient } from "../deps.ts";
 
 import { poolConnection, poolDisconnect, query } from "./connection.ts";
 
+import { Introspect } from './introspection.ts'
+
 //starting queries
 //select, where, update, delete, insert, create table
 
 //join could be second half
 // we have to declare the types before the constructor
-export class QueryBuilder {
+export class QueryBuilder extends Introspect{
   pool: Pool;
   constructor(pool: Pool) {
+    super();
     //old parameters:
     // URI: string, pools: number, isLazy: boolean
     //we had tried putting connection method here but did not work
@@ -98,7 +101,7 @@ export class QueryBuilder {
     operator?: string,
   ) {
     //partial Sql command for update
-    let queryString = `UPDATE ${table} SET `;
+    let queryString= `UPDATE ${table} SET `;
     //loop through the columns array
     for (let i = 0; i < column_name.length; i++) {
       if (column_name[i] && value[i]) {
@@ -366,7 +369,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
     //reassign parameter to usuable object;
     const args = columns;
     //set initial string to hold query
-    let newColumns = "";
+    let newColumns: string = "";
     //set final string to be added into;
     
 //might need to move to end

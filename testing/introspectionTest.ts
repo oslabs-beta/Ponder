@@ -3,6 +3,8 @@ import { QueryBuilder } from '../library/querybuilder.ts';
 import { poolConnection, query } from '../library/connection.ts';
 import "https://deno.land/x/dotenv/load.ts";
 
+// import '../testClassList1.js'
+
 // import { config } from "../deps.ts"
 import "https://deno.land/std@0.168.0/dotenv/mod.ts"
 // app.ts
@@ -10,15 +12,21 @@ import "https://deno.land/std@0.168.0/dotenv/mod.ts"
 
 // console.log(await config.DatabaseURI());
 console.log(Deno.env.get('SECRETPASS'));
+const URI = Deno.env.get('DatabaseURI')
 
 // console.log(config()
-const ponder = await poolConnection(
-  Deno.env.get('DatabaseURI'),
+const ponder: QueryBuilder = await poolConnection(
+  URI,
   3,
   true,
 );
 
-ponder.disconnect();
+// console.log(await ponder.findAllinOne('basket_a'));
+
+console.log( await ponder.introspect());
+
+// const testBasket = new basket_a();
+// ponder.disconnect();
 
 // const password: string = config()['SECRETPASS']
 
