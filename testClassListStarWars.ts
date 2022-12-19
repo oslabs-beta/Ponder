@@ -1,66 +1,52 @@
 import { Model } from './library/model.ts'
 
-export class films { 
+export class films extends Model { 
 tableName = 'films' 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- opening_crawl = { 
+ static opening_crawl = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- release_date = { 
+ static release_date = { 
     data_type: 'date', 
     is_nullable: 'NO', 
     } 
- title = { 
+ static title = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- director = { 
+ static director = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- producer = { 
+ static producer = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- episode_id = { 
+ static episode_id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
   } 
  
-export class newawesometable { 
+export class newawesometable extends Model { 
 tableName = 'newawesometable' 
- key1 = { 
+ static key1 = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- key2 = { 
+ static key2 = { 
     data_type: 'numeric', 
     is_nullable: 'YES', 
     } 
   } 
-
-  export interface people {
-   mass: number;
-   skin_color: string;
-   name: string;
-   homeworld_id: number
-   hair_color: string;
-   _id: number;
-   height: number;
-   species_id: number;
-   birth_year: number;
-   eye_color: string;
-   gender: string
-  }
  
 export class people extends Model { 
 tableName = 'people' 
-  static mass = { 
+ static mass = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
@@ -106,407 +92,561 @@ tableName = 'people'
     } 
   } 
  
-export class people_in_films { 
+export class people_in_films extends Model { 
 tableName = 'people_in_films' 
- person_id = { 
+ static person_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- film_id = { 
+ static film_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
   } 
  
-export class personexamples { 
+export class personexamples extends Model { 
 tableName = 'personexamples' 
- personscore = { 
+ static personscore = { 
     data_type: 'numeric', 
     is_nullable: 'YES', 
     } 
- person_id = { 
+ static person_id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- personname = { 
+ static personname = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
   } 
  
-export class pg_stat_statements { 
+export class pg_stat_statements extends Model { 
 tableName = 'pg_stat_statements' 
- wal_records = { 
+ static wal_records = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- dbid = { 
+ static dbid = { 
     data_type: 'oid', 
     is_nullable: 'YES', 
     } 
- userid = { 
+ static userid = { 
     data_type: 'oid', 
     is_nullable: 'YES', 
     } 
- local_blks_hit = { 
+ static local_blks_hit = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- query = { 
+ static query = { 
     data_type: 'text', 
     is_nullable: 'YES', 
     } 
- local_blks_read = { 
+ static local_blks_read = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- mean_exec_time = { 
+ static mean_exec_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- min_exec_time = { 
+ static min_exec_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- shared_blks_written = { 
+ static shared_blks_written = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- plans = { 
+ static plans = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- temp_blks_written = { 
+ static temp_blks_written = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- shared_blks_read = { 
+ static shared_blks_read = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- stddev_exec_time = { 
+ static stddev_exec_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- min_plan_time = { 
+ static min_plan_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- local_blks_dirtied = { 
+ static local_blks_dirtied = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- wal_bytes = { 
+ static wal_bytes = { 
     data_type: 'numeric', 
     is_nullable: 'YES', 
     } 
- blk_write_time = { 
+ static blk_write_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- shared_blks_dirtied = { 
+ static shared_blks_dirtied = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- total_plan_time = { 
+ static total_plan_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- temp_blks_read = { 
+ static temp_blks_read = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- mean_plan_time = { 
+ static mean_plan_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- max_plan_time = { 
+ static max_plan_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- calls = { 
+ static calls = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- wal_fpi = { 
+ static wal_fpi = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- local_blks_written = { 
+ static local_blks_written = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- rows = { 
+ static rows = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- queryid = { 
+ static queryid = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- blk_read_time = { 
+ static blk_read_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- max_exec_time = { 
+ static max_exec_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- total_exec_time = { 
+ static total_exec_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- stddev_plan_time = { 
+ static stddev_plan_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- shared_blks_hit = { 
+ static shared_blks_hit = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
   } 
  
-export class pilots { 
+export class pilots extends Model { 
 tableName = 'pilots' 
- vessel_id = { 
+ static vessel_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
- person_id = { 
+ static person_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
   } 
  
-export class planets { 
+export class planets extends Model { 
 tableName = 'planets' 
- surface_water = { 
+ static surface_water = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- climate = { 
+ static climate = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- terrain = { 
+ static terrain = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- name = { 
+ static name = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- population = { 
+ static population = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- diameter = { 
+ static diameter = { 
     data_type: 'integer', 
     is_nullable: 'YES', 
     } 
- rotation_period = { 
+ static rotation_period = { 
     data_type: 'integer', 
     is_nullable: 'YES', 
     } 
- orbital_period = { 
+ static orbital_period = { 
     data_type: 'integer', 
     is_nullable: 'YES', 
     } 
- gravity = { 
+ static gravity = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
   } 
  
-export class planets_in_films { 
+export class planets_in_films extends Model { 
 tableName = 'planets_in_films' 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- film_id = { 
+ static film_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
- planet_id = { 
+ static planet_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
   } 
  
-export class species { 
+export class species extends Model { 
 tableName = 'species' 
- language = { 
+ static language = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- average_height = { 
+ static average_height = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- average_lifespan = { 
+ static average_lifespan = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- eye_colors = { 
+ static eye_colors = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- skin_colors = { 
+ static skin_colors = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- hair_colors = { 
+ static hair_colors = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- homeworld_id = { 
+ static homeworld_id = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- classification = { 
+ static classification = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- name = { 
+ static name = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
   } 
  
-export class species_in_films { 
+export class species_in_films extends Model { 
 tableName = 'species_in_films' 
- film_id = { 
+ static film_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- species_id = { 
+ static species_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
   } 
  
-export class starship_specs { 
+export class starship_specs extends Model { 
 tableName = 'starship_specs' 
- vessel_id = { 
+ static vessel_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
- MGLT = { 
+ static MGLT = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- hyperdrive_rating = { 
+ static hyperdrive_rating = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
   } 
  
-export class stellanomoreteeth { 
+export class stellanomoreteeth extends Model { 
 tableName = 'stellanomoreteeth' 
- column1 = { 
+ static column1 = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- column2 = { 
+ static column2 = { 
     data_type: 'numeric', 
     is_nullable: 'YES', 
     } 
   } 
  
-export class vessels { 
+export class vessels extends Model { 
 tableName = 'vessels' 
- model = { 
+ static model = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- crew = { 
+ static crew = { 
     data_type: 'integer', 
     is_nullable: 'YES', 
     } 
- cargo_capacity = { 
+ static cargo_capacity = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- name = { 
+ static name = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- manufacturer = { 
+ static manufacturer = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- length = { 
+ static length = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- vessel_type = { 
+ static vessel_type = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- vessel_class = { 
+ static vessel_class = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- max_atmosphering_speed = { 
+ static max_atmosphering_speed = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- cost_in_credits = { 
+ static cost_in_credits = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- passengers = { 
+ static passengers = { 
     data_type: 'integer', 
     is_nullable: 'YES', 
     } 
- consumables = { 
+ static consumables = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
   } 
  
-export class vessels_in_films { 
+export class vessels_in_films extends Model { 
 tableName = 'vessels_in_films' 
- _id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- film_id = { 
+ static film_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
- vessel_id = { 
+ static vessel_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
   } 
+ 
+export interface films { 
+  _id: number; 
+  opening_crawl: string; 
+  release_date: string; 
+  title: string; 
+  director: string; 
+  producer: string; 
+  episode_id: number; 
+} 
+ 
+export interface newawesometable { 
+  key1: string; 
+  key2: number; 
+} 
+ 
+export interface people { 
+  mass: string; 
+  skin_color: string; 
+  name: string; 
+  homeworld_id: number; 
+  hair_color: string; 
+  _id: number; 
+  height: number; 
+  species_id: number; 
+  birth_year: string; 
+  gender: string; 
+  eye_color: string; 
+} 
+ 
+export interface people_in_films { 
+  person_id: number; 
+  _id: number; 
+  film_id: number; 
+} 
+ 
+export interface personexamples { 
+  personscore: number; 
+  person_id: number; 
+  personname: string; 
+} 
+ 
+export interface pg_stat_statements { 
+  wal_records: number; 
+  dbid: undefined; 
+  userid: undefined; 
+  local_blks_hit: number; 
+  query: string; 
+  local_blks_read: number; 
+  mean_exec_time: number; 
+  min_exec_time: number; 
+  shared_blks_written: number; 
+  plans: number; 
+  temp_blks_written: number; 
+  shared_blks_read: number; 
+  stddev_exec_time: number; 
+  min_plan_time: number; 
+  local_blks_dirtied: number; 
+  wal_bytes: number; 
+  blk_write_time: number; 
+  shared_blks_dirtied: number; 
+  total_plan_time: number; 
+  temp_blks_read: number; 
+  mean_plan_time: number; 
+  max_plan_time: number; 
+  calls: number; 
+  wal_fpi: number; 
+  local_blks_written: number; 
+  rows: number; 
+  queryid: number; 
+  blk_read_time: number; 
+  max_exec_time: number; 
+  total_exec_time: number; 
+  stddev_plan_time: number; 
+  shared_blks_hit: number; 
+} 
+ 
+export interface pilots { 
+  vessel_id: number; 
+  person_id: number; 
+  _id: number; 
+} 
+ 
+export interface planets { 
+  surface_water: string; 
+  climate: string; 
+  _id: number; 
+  terrain: string; 
+  name: string; 
+  population: number; 
+  diameter: number; 
+  rotation_period: number; 
+  orbital_period: number; 
+  gravity: string; 
+} 
+ 
+export interface planets_in_films { 
+  _id: number; 
+  film_id: number; 
+  planet_id: number; 
+} 
+ 
+export interface species { 
+  language: string; 
+  average_height: string; 
+  average_lifespan: string; 
+  _id: number; 
+  eye_colors: string; 
+  skin_colors: string; 
+  hair_colors: string; 
+  homeworld_id: number; 
+  classification: string; 
+  name: string; 
+} 
+ 
+export interface species_in_films { 
+  film_id: number; 
+  _id: number; 
+  species_id: number; 
+} 
+ 
+export interface starship_specs { 
+  vessel_id: number; 
+  MGLT: string; 
+  _id: number; 
+  hyperdrive_rating: string; 
+} 
+ 
+export interface stellanomoreteeth { 
+  column1: string; 
+  column2: number; 
+} 
+ 
+export interface vessels { 
+  model: string; 
+  _id: number; 
+  crew: number; 
+  cargo_capacity: string; 
+  name: string; 
+  manufacturer: string; 
+  length: string; 
+  vessel_type: string; 
+  vessel_class: string; 
+  max_atmosphering_speed: string; 
+  cost_in_credits: number; 
+  passengers: number; 
+  consumables: string; 
+} 
+ 
+export interface vessels_in_films { 
+  _id: number; 
+  film_id: number; 
+  vessel_id: number; 
+} 
  

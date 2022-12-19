@@ -2,7 +2,8 @@
 
 //pass the URI --> open up a new whole ass pool
 import { Client, Pool, PoolClient } from "../deps.ts";
-import { query, poolConnection } from './connection.ts'
+import { query, poolConnection } from './connection.ts';
+import { types } from './typeTranslator.ts';
 //information schema provides access to database metadata
 
 export class Introspect {
@@ -44,6 +45,7 @@ export class Introspect {
     
     }
     await this.classConstructor(tableObj);
+    this.interfaceConstructor(tableObj);
     return tableObj;
   }
   
@@ -56,7 +58,7 @@ export class Introspect {
         let classString: string = '';
         //console.log("Tables from Ikea:", table);
         //we use concatenation to separate our massive object onto different lines. Remember table is a string
-        classString += `export class ${table} { \n`;
+        classString += `export class ${table} extends Model { \n`;
         classString += `tableName = '${table}' \n`;
         for (let column in tableObject[table]) {
           classString  += ` static ${column} = { \n`
@@ -82,7 +84,21 @@ export class Introspect {
     //takes tableObj and writes interfaces to file to match classes
     interfaceConstructor(tableObj: object) {
       //iterate through the object's keys
+      for (let table in tableObj) {
+      //declare variable and initialize to empty string.  We'll build our interface from this
       let interfaceString: string = '';
+      interfaceString += `export interface ${table} { \n`; //FYI table is a string
+      //start another loop that iterates through columns.  For each column, concat column : value type (value type will be our types object at the key of column[data_type])
+        for (let column in tableObj[table]) {
+          // console.log('this is your type', types); // type is an object
+          // console.log('this is types[column]', types[tableObj[table][column]['data_type']])
+          interfaceString += `  ${column}: ${types[tableObj[table][column]['data_type']]}; \n`
+        }
+        interfaceString += '} \n \n'
+        Deno.writeTextFileSync("./testClassListStarWars.ts", interfaceString, {
+          append: true
+        });
+      }
     }
 //Tests below
       // loop 1 iterate through keys e.g tables = object.keys(tableObj), tables.forEach()

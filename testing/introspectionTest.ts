@@ -7,7 +7,7 @@ import "https://deno.land/x/dotenv/load.ts";
 
 // import { config } from "../deps.ts"
 import "https://deno.land/std@0.168.0/dotenv/mod.ts"
-import { basket_a } from '../testClassList1.ts'
+// import { basket_a } from '../testClassList1.ts'
 import { people } from '../testClassListStarWars.ts'
 // app.ts
 // import { config } from "https://deno.land/std@0.168.0/dotenv/mod.ts";
@@ -41,7 +41,7 @@ console.log( await corey.search())
 
 // console.log(await ponder.findAllinOne('basket_a'));
 
-// console.log( await ponder.introspect());
+//  await ponder.introspect();
 
 // const testBasket = new basket_a();
 // ponder.disconnect();
