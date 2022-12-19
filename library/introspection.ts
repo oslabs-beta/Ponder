@@ -5,7 +5,6 @@ import { Client, Pool, PoolClient } from "../deps.ts";
 import { query, poolConnection } from './connection.ts'
 //information schema provides access to database metadata
 
-
 export class Introspect {
   // constructor(){
 
@@ -51,22 +50,23 @@ export class Introspect {
 
 
     // write func to separate our introspected object so that it's not just on one line. Be thankful for this line of psuedocode. Corey didn't want to give you this.
-    async classConstructor (tableObject: object) {
+    classConstructor (tableObject: object) {
       //iterating through our tableObject
       for (let table in tableObject) {
         let classString: string = '';
         //console.log("Tables from Ikea:", table);
         //we use concatenation to separate our massive object onto different lines. Remember table is a string
         classString += `export class ${table} { \n`;
+        classString += `tableName = '${table}' \n`;
         for (let column in tableObject[table]) {
-          classString  += ` ${column} = { \n`
+          classString  += ` static ${column} = { \n`
           // console.log('column', column);
           const tableKeyArr = Object.keys(tableObject[table][column]);
           for (let i = 0; i < tableKeyArr.length; i++) {
             if (i === tableKeyArr.length){
-              classString += `    ${tableKeyArr[i]}: ${tableObject[table][column][tableKeyArr[i]]}} \n`
+              classString += `    ${tableKeyArr[i]}: '${tableObject[table][column][tableKeyArr[i]]}}' \n`
             } else{
-              classString += `    ${tableKeyArr[i]}: ${tableObject[table][column][tableKeyArr[i]]}, \n`
+              classString += `    ${tableKeyArr[i]}: '${tableObject[table][column][tableKeyArr[i]]}', \n`
             }
           }
           //close out curly braces
@@ -74,13 +74,16 @@ export class Introspect {
         }
         //the extra line break is to separate each class declaration
         classString += '  } \n \n';
-        Deno.writeTextFileSync("./testClassList1.ts", classString, {
+        Deno.writeTextFileSync("./testClassListStarWars.ts", classString, {
           append: true
         });
       }
     }
-
- 
+    //takes tableObj and writes interfaces to file to match classes
+    interfaceConstructor(tableObj: object) {
+      //iterate through the object's keys
+      let interfaceString: string = '';
+    }
 //Tests below
       // loop 1 iterate through keys e.g tables = object.keys(tableObj), tables.forEach()
 
