@@ -8,8 +8,8 @@ import { query, poolConnection } from './connection.ts'
 export class Model{
   // keys: string[] = Object.keys(this)
 
-  plead() {
-    return 'help';
+  beg() {
+    return 'I\'m too young to table. Help Me!!!!';
   }
 
   async save(){
@@ -35,8 +35,6 @@ export class Model{
     queryStringWithoutComma = queryStringWithoutComma.concat(");");
     await query(queryStringWithoutComma);
     // console.log(queryStringWithoutComma);
-
-
   }
 
   search(){
@@ -46,6 +44,12 @@ export class Model{
     return query(`SELECT * FROM ${Object.values(this)[0]};`);
   }
 
+  verticalShard(){
+
+  }
+  horizontalShard(){
+
+  }
   //create method
   // async createTable() {
   //   //convert args into SQL command to create a new table
