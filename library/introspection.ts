@@ -19,11 +19,12 @@ export class Introspect {
   //declare object to represent table
     const tableObj = {}
   //query db for tables
-    const tables = await query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");//this should be an array
+    // const tables = await query("SELECT table_name FROM information_schema.tables WHERE table_schema='public'");//this should be an array
   
     // console.log('tables variable', tables);
   
   //query db for columns. query for all columns from that table
+  // FYI information_schema is bulit in
     const columnList = await query(`SELECT column_name, is_nullable, table_name, data_type FROM information_schema.columns WHERE table_schema = 'public' ORDER BY table_name;`);
   // iterate through the column list
     // tableObj[table_name][columnList[0][column_name]] = "test";
@@ -55,23 +56,24 @@ export class Introspect {
       for (let table in tableObject) {
         let classString: string = '';
         //console.log("Tables from Ikea:", table);
-        //we use concatenation to separate our massive object onto different lines
+        //we use concatenation to separate our massive object onto different lines. Remember table is a string
         classString += `export class ${table} { \n`;
         for (let column in tableObject[table]) {
           classString  += ` ${column} = { \n`
           // console.log('column', column);
-          const tableLength = Object.keys(tableObject[table][column]);
-          for (let i = 0; i < tableLength.length; i++) {
-            if (i === tableObject[table][column].length){
-              classString += `    ${tableLength[i]}: ${tableObject[table][column][tableLength[i]]}} \n`
+          const tableKeyArr = Object.keys(tableObject[table][column]);
+          for (let i = 0; i < tableKeyArr.length; i++) {
+            if (i === tableKeyArr.length){
+              classString += `    ${tableKeyArr[i]}: ${tableObject[table][column][tableKeyArr[i]]}} \n`
             } else{
-              classString += `    ${tableLength[i]}: ${tableObject[table][column][tableLength[i]]}, \n`
+              classString += `    ${tableKeyArr[i]}: ${tableObject[table][column][tableKeyArr[i]]}, \n`
             }
           }
           //close out curly braces
           classString += '    } \n';
         }
-        classString += '  } \n';
+        //the extra line break is to separate each class declaration
+        classString += '  } \n \n';
         Deno.writeTextFileSync("./testClassList1.ts", classString, {
           append: true
         });
@@ -79,7 +81,7 @@ export class Introspect {
     }
 
  
-
+//Tests below
       // loop 1 iterate through keys e.g tables = object.keys(tableObj), tables.forEach()
 
         //for each key (table names) write 'export class {tablename} { \n
