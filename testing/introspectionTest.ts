@@ -7,6 +7,8 @@ import "https://deno.land/x/dotenv/load.ts";
 
 // import { config } from "../deps.ts"
 import "https://deno.land/std@0.168.0/dotenv/mod.ts"
+// import { basket_a } from '../testClassList1.ts'
+import { people } from '../testClassListStarWars.ts'
 // app.ts
 // import { config } from "https://deno.land/std@0.168.0/dotenv/mod.ts";
 
@@ -21,9 +23,25 @@ const ponder: QueryBuilder = await poolConnection(
   true,
 );
 
+//write an interface in introspect
+
+// add extends model to writeClass
+
+// add static in front of table properties
+
+
+const corey = new people;
+corey.name = 'Commissar Corey Idaho of Dune';
+corey.eye_color = 'yellow';
+console.log( await corey.search())
+
+// const peaches = new basket_a;
+// peaches.fruit_a = 'Tangerine';
+// console.log( await peaches.save());
+
 // console.log(await ponder.findAllinOne('basket_a'));
 
-console.log( await ponder.introspect());
+//  await ponder.introspect();
 
 // const testBasket = new basket_a();
 // ponder.disconnect();
