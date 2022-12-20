@@ -30,10 +30,12 @@ const ponder: QueryBuilder = await poolConnection(
 // add static in front of table properties
 
 
-const corey = new people;
-corey.name = 'Commissar Corey Idaho of Dune';
-corey.eye_color = 'yellow';
-console.log( await corey.search())
+const sam = new people;
+sam.name = 'sam sam sam';
+sam.hair_color = 'red';
+sam.species_id = 3
+await sam.save();
+
 
 // const peaches = new basket_a;
 // peaches.fruit_a = 'Tangerine';

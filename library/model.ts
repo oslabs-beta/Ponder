@@ -43,13 +43,24 @@ export class Model{
 
     return query(`SELECT * FROM ${Object.values(this)[0]};`);
   }
-
-  verticalShard(){
-
+  update (table_name){
+    //check 
   }
-  horizontalShard(){
 
-  }
+  // split a table by columns by a specified number
+  // verticalShard(table: object, number: number){
+  //   // turn our object columns into an array
+  //   const columnArr = Object.keys(this);
+  //   // divide a table by the specified number
+  //   const substractionNum = Math.floor(columnArr.length / number);
+  //   //create tables
+  // }
+
+  //split a table by rows by a speccified number
+  // horizontalShard(table: object, number:number){
+  //   //divide a table by a specified number
+  //   //create a table
+  // }
   //create method
   // async createTable() {
   //   //convert args into SQL command to create a new table
