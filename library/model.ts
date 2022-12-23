@@ -7,7 +7,7 @@ import { query, poolConnection } from './connection.ts'
 
 export class Model{
 
-  beg() {
+  public beg() {
     return 'Help Me, Deno!!!!';
   }
 
