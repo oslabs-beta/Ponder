@@ -5,17 +5,14 @@ import { Client, Pool, PoolClient } from "../deps.ts";
 
 import { poolConnection, poolDisconnect, query } from "./connection.ts";
 
-import { Introspect } from './introspection.ts'
-
 //starting queries
 //select, where, update, delete, insert, create table
 
 //join could be second half
 // we have to declare the types before the constructor
-export class QueryBuilder extends Introspect{
+export class QueryBuilder {
   pool: Pool;
   constructor(pool: Pool) {
-    super();
     //old parameters:
     // URI: string, pools: number, isLazy: boolean
     //we had tried putting connection method here but did not work
@@ -101,7 +98,7 @@ export class QueryBuilder extends Introspect{
     operator?: string,
   ) {
     //partial Sql command for update
-    let queryString= `UPDATE ${table} SET `;
+    let queryString = `UPDATE ${table} SET `;
     //loop through the columns array
     for (let i = 0; i < column_name.length; i++) {
       if (column_name[i] && value[i]) {
@@ -162,6 +159,84 @@ async deleteRow(table: string, column: string[], value: string[]) {
   await query(queryStringWithoutComma);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  //Below this is Model functionality:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //here it comessssss
+
   //Below this is Model functionality:
   //Stella has autoformattor which is removing these lines
   //start around 161 to be sure of space
@@ -187,14 +262,14 @@ async deleteRow(table: string, column: string[], value: string[]) {
             //console.log("inside for loop");
             //datatype
             tempString = tempString.concat(`${args[columns][i]}`);
-            //console.log("first loop pass string:", tempString);
+            //console.log("first loop pass string. Sam is found:", tempString);
           } else if (i === 1) {
             //length
             tempString = tempString.concat(`(${args[columns][i]})`);
           } else {
             //any column-constraints
             tempString = tempString.concat(` ${args[columns][i]}`);
-            //console.log("third pass:", tempString);
+            //console.log("third pass. Matt says this better work:", tempString);
           }
         }
       } //---> we're going to force user to use no arrays //need a helper function to make sure that users are using the correct data type
@@ -204,7 +279,10 @@ async deleteRow(table: string, column: string[], value: string[]) {
     //remove that last comma
     const stringWithoutFinalComma = tableQueryString.slice(0, -1);
     const finalQuery = stringWithoutFinalComma.concat(');');
-    //console.log("final Query:", finalQuery);
+    //console.log(
+    //"Supreme Commander Stella is pleased with final query. Vice Supreme Comander Corey is stil not impressed:",
+    //finalQuery,
+    //);
     //const connect = await this.pool.connect();//update logic understand connection to DB
     //execute actual query passing in query string made from arguments
    
@@ -227,7 +305,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
   //disconnecting with our pool here. User will have to disconnect manually, if they so choose
   async disconnect() {
     await poolDisconnect();
-    // console.log('we've disconnected from the pool');
+    // console.log('truly disconnect and feed me cat father - Tinsely');
   }
 
   //drop one table
@@ -288,7 +366,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
     //reassign parameter to usuable object;
     const args = columns;
     //set initial string to hold query
-    let newColumns: string = "";
+    let newColumns = "";
     //set final string to be added into;
     
 //might need to move to end
