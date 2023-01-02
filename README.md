@@ -1,6 +1,8 @@
 <div style="display: flex; flex-direction: row; justify-content: center; align-items: center">
-<img src="./assets/deno-logo-beta2.png" alt="Ponder Logo" style=" height: auto; width: 30vw;" >
+![image](./assets/small-ponder.png)
 </div>
+
+
 
 
 ## PONDER: An Object Relational Mapping Tool for Deno
@@ -8,12 +10,13 @@
 ## About
 
 Ponder is a simple ORM for PostGRES built for Deno. Create, read, update, delete tables, columns, rows, and cells. 
-Ponder is available for import at https://deno.land/x/ponder@v0.0.2/mod.ts.
+Ponder is available for import at https://deno.land/x/ponder.
 
 ## Features
 
 -Basic CRUD functionality for interacting with your PostGRES Database
--Basic functionality for managing your SQL Tables
+-Introspect database and modify database tables through models in accordance with principles of OOP
+-Introspect your database for a visual representation of your tables
 
 ## Installation
 
@@ -48,6 +51,7 @@ A splash page for Ponder is underdevelopment! Check it out here. <a href="https:
 
 The documentation is available on "our document URL". <br>
 See docs for complete list of methods, their functionality, and how to use them.
+LINK to both doc.md AND LINK to splash page docs url
 
 ## Built with
 

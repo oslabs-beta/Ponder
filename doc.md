@@ -7,7 +7,7 @@
 ## Installation
 
 ---
-
+CLI coming soon!:
 ```
 console.log('Hello')
 deno install ponder
@@ -122,7 +122,7 @@ Insert new columns into your table
 tableName.insertIntoTable(table, [column1, column2], [value1, value2]);
 ```
 
-Delete offending rows from your sight
+Delete rows
 
 ```
 tableName.deleteRow(table, column, value);
@@ -199,8 +199,6 @@ acePilot.save();
 
 Instructions for how to contribute to the development of the library, including
 how to submit bugs, suggestions, and pull requests.
-
-###### Future developers must have 15 years experience in Deno
 
 ## License
 

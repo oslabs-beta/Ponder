@@ -1,23 +1,21 @@
-import { Client, Pool, PoolClient } from "../deps.ts";
-import { QueryBuilder } from "./querybuilder.ts";
-// import "https://deno.land/x/dotenv/load.ts";
-//lines three to 8 were connections for both the whole pool and an individual connection
-// const connections = async (URI: string, pools: number, isLazy: boolean) => {
-//   const pool = new Pool(URI, pools, isLazy);
-//   const connection = await pool.connect();
-//   //
-//   return connection;
-// }
+//This file is where connection to PostGres Database is made. This functionality is exported for use elsewhere. 
+//It is imported to querybuilder and referenced in mod.ts to use as module on deno.land.
 
-// type pool: Pool;
+import { Pool } from "../deps.ts";
+import { QueryBuilder } from "./querybuilder.ts";
+
 let pool: Pool;
 
-//the whole pool connection goes here
-function poolConnection(URI: string, pools: number, isLazy: boolean) {
+// The pool connection function takes the user database URI and makes the connection to that database.  
+// The number of pools and lazy loading have default values but may be specified by user.      
+function poolConnection(URI: string, pools: number = 3, isLazy: boolean = true) {
   try {
+    // create a new pool connection to pass to QueryBuilder
     pool = new Pool(URI, pools, isLazy);
-    console.log("connected to db.");
-    //return pool to use actual connection elsewhere (querybuilder)
+    //If connection is successful, simple success message will appear in console.
+    console.log("Connected to Postgres DB.");
+    // Call new instance of QueryBuilder passing in newly created Pool. 
+    // That way, all functions on the created QueryBuilder, will have access to the correct pool connection to run the individual queries.
     const db = new QueryBuilder(pool);
     return db;
   } catch (err) {
@@ -26,54 +24,28 @@ function poolConnection(URI: string, pools: number, isLazy: boolean) {
   }
 }
 
-//modulizer query function that will query DB each time, without needing to connect WHOLE pool each time
+// Modulized query function that will query DB each time, without needing to connect/disconnect WHOLE pool connection each time
 async function query(builtQueryForDB: string) {
   try {
-    //individual connection
+    // Individual connection
     const connect = await pool.connect();
-    //query DB and store result
+    // Query DB and store result
     const { rows } = await connect.queryObject(builtQueryForDB);
-    //release individual pool connect
+    // Release individual pool connect
     connect.release();
-    //return whatever is return from DB if anything
-    //might need to add error handling
+    // Return anything returned from DB query
     return (rows) ? rows : "Query Successful";
   } catch (err) {
     console.log("Individual connection unsuccessful", err);
   }
 }
 
-//test of new functions
-// poolConnection(
-//   "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
-//   3,
-//   true,
-// );
-
-// const testQuery = await query("SELECT * FROM people;");
-// console.log("testQuery", testQuery);
-
-//create an whole ass disconnect function. 
+// Create a disconnect function. 
 async function poolDisconnect(){
-  console.log("Disconnecting now")
-  //using .end because we're closing the entire pool. .release is for the single connection
+  console.log("Disconnecting now");
   await pool.end();
-  console.log("Disconnected now. Pool's closed, go home!")
+  console.log("Disconnected now. Pool's closed!")
 }
 
-/*
-***  This is the only place we will be connecting/disconnecting from db ***
-
-We could create our own query function that creates an instance of our pool and makes the connection.
-Then it uses queryObject to send a string to the db.  This string will have been built out by whatever CRUD functionality has been invoked
-Then disconnect from pool
-
-References:
-DenoGres - main/src/class/Model.ts  ~line 270 they have their query function
-https://github.com/open-source-labs/DenoGres/blob/main/src/functions/Db.ts
-dORM - lib/db-connectors/pg-connector.ts  Same deal, design their query function
-
-add the smaller pool connection to the model.ts file.
-*/
 
 export { poolConnection, query, poolDisconnect};
