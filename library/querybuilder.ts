@@ -210,21 +210,17 @@ async deleteRow(table: string, column: string[], value: string[]) {
 
   // Drop one table
   async dropOneTable(tableName: string, cascade?: boolean) {
-    
     // If cascade is included, add to query string
     // Else make query string with RESTRICT instead
     const deleteTable : string = (cascade) ?   "CASCADE" :  "RESTRICT"; 
     // Create query string based on input
+    // Query string should include the "if exists" phrases
     const deleteQueryString = `DROP TABLE IF EXISTS ${tableName} ${deleteTable};`;
-    // Print query to check
-    console.log('dropOneTable query', deleteQueryString);
-    // Query string should include the "if not exists" phrases
     // Make a try catch to return POSTGRES error
     try {
-      //run actual query string using the query method
+      // Run actual query string using the query method
       await query(deleteQueryString);
       //return some sort of success message
-      console.log(`${tableName} is deleted!`)
       return `${tableName} is deleted!`
     } catch(err) {
       //return some sort of not success message
@@ -245,23 +241,19 @@ async deleteRow(table: string, column: string[], value: string[]) {
     for (let i = 1; i < tableNamesArray.length; i++) {
         listOftableNames = listOftableNames.concat(`, ${tableNamesArray[i]}`)
     }
-    console.log('listoftablesnames', listOftableNames)
     //have final query string
     const dropMultipleTablesQueryString = `DROP TABLE IF EXISTS ${listOftableNames} ${deleteTable};`
-    //print to test
-    console.log('delete multiple string: ', dropMultipleTablesQueryString);
     //try catch to run query/return messages/errors
     try {
       await query(dropMultipleTablesQueryString)
-      console.log(`${listOftableNames}, have been dropped!`)
       return `${listOftableNames}, have been dropped!`
     } catch(err) {
-      console.log('err dropping multiple tables', err);
       return `dropMultipleTables ${err}`
     }
   }
 
-  //add one or more columns
+  //add one or more columns to existing Table
+  //Expect second argument to be an object, each key is name of column to add, each value is array with first being datatype, then length, then column constraints
   async addColumns(tableToAlter : string, columns: any) {
     //reassign parameter to usuable object;
     const args = columns;
@@ -269,42 +261,31 @@ async deleteRow(table: string, column: string[], value: string[]) {
     let newColumns: string = "";
     //set final string to be added into;
     
-//might need to move to end
     for (const column in args) {
-      //first check to see if value of key-value pair is array of data     
-
       const arrayOfOptions = args[column].join(' ')
-      // console.log('new string of all elements in array?', arrayOfOptions)
       let tempString = `ADD COLUMN ${column} ${arrayOfOptions},`;
-      // console.log('tempString', tempString)
-
       newColumns = newColumns.concat(tempString)
-      console.log('newColumns', newColumns);   
- 
     }
       const columnAddingQueryString = `ALTER TABLE ${tableToAlter} ${newColumns}`;
-      const stringWithoutFinalComma = columnAddingQueryString.slice(0, -1);
-      const finalQuery = stringWithoutFinalComma.concat(';');
-      console.log('finalQuery', finalQuery)
-
+      // const stringWithoutFinalComma = columnAddingQueryString.slice(0, -1);
+      // const finalQuery = stringWithoutFinalComma.concat(';');
+      const finalQuery = columnAddingQueryString.slice(0, -1).concat(';');
     //move this logic to a try catch block for any errors:
     try {
       await query(finalQuery); //does createTable return anything
       //if success
       const response = `${tableToAlter} has new columns in the database now!`;
-      //keep below console log for success message!
-      console.log(response)
       //then will return result from query to where findAllinONe is being called
       return response;
     } catch(err) {
       const response = `${err} has occured!`
       return response;
     }
-
   }  
 
 
   //drop columns
+  //second argument again is an object, will key being name of column, value being true for cascade, false for restrict
   async dropColumns(tableName: string, columnsToDrop: any) {
   //create string with tableName to edit/add to    
   //create substring with all columns to later insert to bigger string
@@ -324,12 +305,8 @@ async deleteRow(table: string, column: string[], value: string[]) {
       allColumns = allColumns.concat(`DROP COLUMN IF EXISTS ${column} ${dropType},`)
     }  
     const columnsToDropString = `ALTER TABLE ${tableName} ${allColumns}`
-    //might need to remove final comma
-    const stringWithoutFinalComma = columnsToDropString.slice(0, -1);
-    //might need to add final ;
-    const finalQuery = stringWithoutFinalComma.concat(';');
-    //console log final query to see 
-    console.log('finalQuery', finalQuery)
+    //remove final comma and add semicolon
+    const finalQuery = columnsToDropString.slice(0, -1).concat(';');
     
     //create try/catch block to actual run query
     //include success/not success messages
@@ -355,14 +332,3 @@ async deleteRow(table: string, column: string[], value: string[]) {
 
 }
 
-
-
-//for now, exporting for use to Workspace, but eventually will export or be packaged for use as module hosted on deno.land
-// export queryBuilder;
-
-//originally
-//connection was in User
-//QueryBuilder "method" was able to work (from querybuilder file)
-
-//conection will be in querybuilder file, in a new func called connecitonbuilder
-//querybuilder mehtod, still lives in querybuilder file

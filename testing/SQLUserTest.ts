@@ -92,16 +92,49 @@ const ponderDB = poolConnection(
 
 //test of createTable
 
-// const createTableTest = await ponderDB.createTable('newestTableName', {
+const createTableTest1 = await ponderDB.createTable('newestTableName1', {
+  newColumn1: ['VARCHAR', '100'],
+  secondcolumn2: ['VARCHAR', '100'],
+  thirdnew3: ['NUMERIC']
+
+});
+
+// const createTableTest2 = await ponderDB.createTable('newestTableName2', {
 //   newColumn1: ['VARCHAR', '100'],
 //   secondcolumn2: ['VARCHAR', '100'],
 //   thirdnew3: ['NUMERIC']
 
 // });
-//test drop one table
-const dropOneTableTest = await ponderDB.dropOneTable('newestTableName')
 
-// const findNewTableTest = await ponderDB.findAllinOne('newestTableName')
+
+//test drop one table
+// const dropOneTableTest = await ponderDB.dropOneTable('newestTableName')
+
+
+//test multiple drop tables
+//first without args
+
+// const deleteMultipleTableTest = await ponderDB.dropMultipleTables(["newestTableName1", "newestTableName2"])
+
+// test of adding columns
+const columnsToAdd = {
+  mango_id: ['SERIAL'],
+  mangoName: ['VARCHAR'],
+  mangoScore: ['NUMERIC'],
+};
+
+const mangoTest1 = await ponderDB.addColumns(
+  'newestTableName1',
+  columnsToAdd
+);
+
+console.log("checking columns", mangoTest1)
+
+//checking drop columns
+const multipleColumnDropTest = await ponderDB.dropColumns('newestTableName1', {mango_id: false, mangoName: true})
+
+
+const findNewTableTest = await ponderDB.findAllinOne('newestTableName1')
 
 console.log('findNewTableTest', findNewTableTest)
 
