@@ -77,14 +77,36 @@ const ponderDB = poolConnection(
   //   operator?: string,
 
 
-  const updateTableTest = await ponderDB.updateTable('people', ['name'], ['AhabAhabAhabAhab'], ['name'], ['Ahab'])
+  // const updateTableTest = await ponderDB.updateTable('people', ['name'], ['Johan'], ['name'], ['AhabAhabAhabAhab'])
 
-  console.log("updateTableTest", updateTableTest)
+  // console.log("updateTableTest", updateTableTest)
+  
 
- const findCellTest = await ponderDB.findCell('people', 'name', 'AhabAhabAhabAhab');
-  console.log('findCell', findCellTest);
+//  const findCellTest = await ponderDB.findCell('people', 'name', 'Johan');
+//   console.log('findCell', findCellTest);
 
-  ponderDB.disconnect();
+// const deleteRowTest = await ponderDB.deleteRow('people', ['name'], ['Johan']) 
+
+// console.log(await ponderDB.findCell('people', 'name', 'Johan'))
+
+
+//test of createTable
+
+// const createTableTest = await ponderDB.createTable('newestTableName', {
+//   newColumn1: ['VARCHAR', '100'],
+//   secondcolumn2: ['VARCHAR', '100'],
+//   thirdnew3: ['NUMERIC']
+
+// });
+//test drop one table
+const dropOneTableTest = await ponderDB.dropOneTable('newestTableName')
+
+// const findNewTableTest = await ponderDB.findAllinOne('newestTableName')
+
+console.log('findNewTableTest', findNewTableTest)
+
+
+ponderDB.disconnect();
 
 
 

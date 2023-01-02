@@ -42,7 +42,7 @@ async function query(builtQueryForDB: string) {
 
 // Create a disconnect function. 
 async function poolDisconnect(){
-  console.log("Disconnecting now");
+  console.log("Disconnecting Database...");
   await pool.end();
   console.log("Disconnected now. Pool's closed!")
 }

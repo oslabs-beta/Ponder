@@ -93,109 +93,109 @@ export class QueryBuilder extends Introspect{
   async updateTable(
     table: string,
     column_name: string[],
-    value: string[],
-    q: string[],
-    a: string[],
+    newValue: string[],
+    columnToMeet: string[],
+    valueToMeet: string[],
     operator?: string,
   ) {
-    // Partial Sql command for update
-    let queryString= `UPDATE ${table} SET `;
-    // Loop through the columns array
-    for (let i = 0; i < column_name.length; i++) {
-      if (column_name[i] && value[i]) {
-        // Concating column names and values to queryString
-        queryString = queryString.concat(`${column_name[i]} = '${value[i]}', `);
+    try {
+      // Partial Sql command for update
+      let queryString= `UPDATE ${table} SET `;
+      // Loop through the columns array
+      for (let i = 0; i < column_name.length; i++) {
+        if (column_name[i] && newValue[i]) {
+          // Concating column names and values to queryString
+          queryString = queryString.concat(`${column_name[i]} = '${newValue[i]}', `);
+        }
       }
-    }
-    // Remove the final comma and space
-    let queryStringWithoutComma = queryString.slice(0, -2);
-    // Add the WHERE conditional to queryStringWithoutComma
-    queryStringWithoutComma = queryStringWithoutComma.concat(' WHERE')
+      // Remove the final comma and space
+      queryString = queryString.slice(0, -2);
+      // Add the WHERE conditional to queryStringWithoutComma
+      queryString = queryString.concat(' WHERE')
 
-    // Adding OR to database query 
-    if (operator?.toLowerCase() === 'or') {
-      for (let i = 0; i < q.length; i++) {
-        queryStringWithoutComma = queryStringWithoutComma.concat(
-          ` ${q[i]} = '${a[i]}' OR`,
-        );
-     }
-     queryStringWithoutComma = queryStringWithoutComma.slice(0, -3).concat(';');
-     return await query(queryStringWithoutComma);
-     
-    } else if (operator?.toLowerCase() === 'not') {
-      // Adding NOT to database query
-      for (let i = 0; i < q.length; i++) {
-        queryStringWithoutComma = queryStringWithoutComma.concat(
-          ` NOT ${q[i]} = '${a[i]}' AND `
-        )
+      // Adding OR to database query 
+      if (operator?.toLowerCase() === 'or') {
+        for (let i = 0; i < columnToMeet.length; i++) {
+          queryString = queryString.concat(
+            ` ${columnToMeet[i]} = '${valueToMeet[i]}' OR`,
+          );
       }
-    } else {
-      // AND is added as a default to the database query
-      for (let i = 0; i < q.length; i++){
-        queryStringWithoutComma = queryStringWithoutComma.concat(
-          ` ${q[i]} = '${a[i]}' AND`,
-        );
+      queryString = queryString.slice(0, -3).concat(';');
+      return await query(queryString);
+      
+      } else if (operator?.toLowerCase() === 'not') {
+        // Adding NOT to database query
+        for (let i = 0; i < columnToMeet.length; i++) {
+          queryString = queryString.concat(
+            ` NOT ${columnToMeet[i]} = '${valueToMeet[i]}' AND `
+          )
+        }
+      } else {
+        // AND is added as a default to the database query
+        for (let i = 0; i < columnToMeet.length; i++){
+          queryString = queryString.concat(
+            ` ${columnToMeet[i]} = '${valueToMeet[i]}' AND`,
+          );
+        }
       }
-    }
-
-    queryStringWithoutComma = queryStringWithoutComma.slice(0, -4).concat(';');
-    //sends this query off to our database
-    await query(queryStringWithoutComma);
+      queryString = queryString.slice(0, -4).concat(';');
+      // Sends this query off to our database
+      await query(queryString);
+  } catch (err) {
+    console.log('Update failed', err)
+  }
   }
 
-//delete row - nothing but raw power behind this command
+// Delete row 
 async deleteRow(table: string, column: string[], value: string[]) {
-  //without including WHERE, DELETE FROM will delete all entries in a table.  Necessary?
+  // Partially building the queryString and we'll add the condition for "where" a few lines later
   let queryString = `DELETE FROM ${table} WHERE`;
+  // Iterate through the array of columns
   for (let i = 0; i< column.length; i++) {
     queryString = queryString.concat(
       ` ${column[i]}='${value[i]}' AND`
     )
   }
-  const queryStringWithoutComma = queryString.slice(0, -4).concat(';');
-  console.log(queryStringWithoutComma);
-  await query(queryStringWithoutComma);
+  queryString = queryString.slice(0, -4).concat(';');
+  await query(queryString);
 }
 
-  //Below this is Model functionality:
+  //Below this is functions that Manage Tables:
 
+// Create Table with table name, with column object (each key is name  of column, value is array where first is datatype, next is length, any more will be column constraints)
   async createTable(tableName: string, columns: any) {
-    //convert args into SQL command to create a new table
-
+    // Convert args into SQL command to create a new table
     const args = columns;
     let tableQueryString = `CREATE TABLE IF NOT EXISTS ${tableName} (`;
+    // Iterating through the args object
     for (const columns in args) {
-      //first check to see if value of key-value pair is array of data
+      // First check to see if value of key-value pair is array of data
       let tempString = '';
       if (Array.isArray(args[columns])) {
-        //console.log("is array?");
-        //need to spread out array elements
+        // Need to spread out array elements
         for (let i = 0; i < args[columns].length; i++) {
           if (i === 0) {
-            //console.log("inside for loop");
             //datatype
             tempString = tempString.concat(`${args[columns][i]}`);
-            //console.log("first loop pass string:", tempString);
           } else if (i === 1) {
             //length
             tempString = tempString.concat(`(${args[columns][i]})`);
           } else {
             //any column-constraints
             tempString = tempString.concat(` ${args[columns][i]}`);
-            //console.log("third pass:", tempString);
           }
         }
-      } //---> we're going to force user to use no arrays //need a helper function to make sure that users are using the correct data type
+      } // we're going to force user to use no arrays 
+      // STRETCH FEATURE?: need a helper function to make sure that users are using the correct data type
       tableQueryString = tableQueryString.concat(`${columns} ${tempString},`);
     }
     //we've added all the columns to the tablequery string
-    //remove that last comma
-    const stringWithoutFinalComma = tableQueryString.slice(0, -1);
-    const finalQuery = stringWithoutFinalComma.concat(');');
+    //remove that last comma and add semicolon
+    tableQueryString = tableQueryString.slice(0, -1).concat(');');
 
     try {
-      await query(finalQuery); //does createTable return anything
-      //if success
+      await query(tableQueryString);
+      //if successful
       const response = `${tableName} is in the database now!`;
       //keep below console log for success message!
       console.log(response)
@@ -208,18 +208,18 @@ async deleteRow(table: string, column: string[], value: string[]) {
   }
   
 
-  //drop one table
+  // Drop one table
   async dropOneTable(tableName: string, cascade?: boolean) {
     
-    //if cascade is included, add to query string
-    //else make query string with RESTRICT instead
+    // If cascade is included, add to query string
+    // Else make query string with RESTRICT instead
     const deleteTable : string = (cascade) ?   "CASCADE" :  "RESTRICT"; 
-    //create query string based on input
+    // Create query string based on input
     const deleteQueryString = `DROP TABLE IF EXISTS ${tableName} ${deleteTable};`;
-    //print query to check
+    // Print query to check
     console.log('dropOneTable query', deleteQueryString);
-    //query string should include the if not exists phrases
-     //make a try catch to return POSTGRES error
+    // Query string should include the "if not exists" phrases
+    // Make a try catch to return POSTGRES error
     try {
       //run actual query string using the query method
       await query(deleteQueryString);
@@ -233,14 +233,14 @@ async deleteRow(table: string, column: string[], value: string[]) {
     }    
   }
 
-  //drop multiple tables
+  // Drop multiple tables
   async dropMultipleTables(tableNamesArray : string[], cascade?: boolean) : Promise<string> {
-    //edge cases
+    // Edge case when an incorrect tablename has been entered 
     if (!tableNamesArray.length) return "Error! Must put a table Name inside Array";
-    //control flow to make cascade variable
+    // Control flow to make cascade variable
     const deleteTable : string = (cascade) ?   "CASCADE" :  "RESTRICT"; 
-    //write a loop to iterate through array
-    //for each index, create new string of tablename
+    // Write a loop to iterate through array
+    // For each index, create new string of tablename
     let listOftableNames = `${tableNamesArray[0]}`;
     for (let i = 1; i < tableNamesArray.length; i++) {
         listOftableNames = listOftableNames.concat(`, ${tableNamesArray[i]}`)
