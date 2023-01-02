@@ -1,7 +1,7 @@
 import { Client, Pool, PoolClient } from "../deps.ts";
 import { QueryBuilder } from "./querybuilder.ts";
 // import "https://deno.land/x/dotenv/load.ts";
-//lines three to 8 were connections for both the whole ass pool and an individual connection
+//lines three to 8 were connections for both the whole pool and an individual connection
 // const connections = async (URI: string, pools: number, isLazy: boolean) => {
 //   const pool = new Pool(URI, pools, isLazy);
 //   const connection = await pool.connect();
@@ -12,7 +12,7 @@ import { QueryBuilder } from "./querybuilder.ts";
 // type pool: Pool;
 let pool: Pool;
 
-//the whole ass pool connection goes here
+//the whole pool connection goes here
 function poolConnection(URI: string, pools: number, isLazy: boolean) {
   try {
     pool = new Pool(URI, pools, isLazy);
@@ -72,7 +72,6 @@ References:
 DenoGres - main/src/class/Model.ts  ~line 270 they have their query function
 https://github.com/open-source-labs/DenoGres/blob/main/src/functions/Db.ts
 dORM - lib/db-connectors/pg-connector.ts  Same deal, design their query function
-
 
 add the smaller pool connection to the model.ts file.
 */
