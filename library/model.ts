@@ -1,4 +1,3 @@
-
 import { query, poolConnection } from './connection.ts'
 
 //we create our models to either create or parse our tables
@@ -35,11 +34,11 @@ export class Model{
     //close query string and specifying what info we want to return
     queryStringWithoutComma = queryStringWithoutComma.concat(") RETURNING _id;");
     const _id = await query(queryStringWithoutComma);
-    console.log('record', this.record);
+    //console.log('record', this.record);
     this.record.id = _id[0]._id;
-    console.log('record after', this.record)
-    console.log('query', queryStringWithoutComma);
-    console.log('ressult', _id);
+    // console.log('record after', this.record)
+    // console.log('query', queryStringWithoutComma);
+    // console.log('ressult', _id);
   }
 
   search(){
@@ -54,7 +53,7 @@ export class Model{
     const values = Object.values(this);
     //make a query to update tablename SET column = value where id = this.record.id
     let queryString = `UPDATE ${this.tableName} SET `;
-    // i is initialized at twp because that's the first column
+    // i is initialized at two because that's the first column
     for (let i = 2; i < columns.length; i++) {
       if (i === columns.length - 1) queryString = queryString.concat(`${columns[i]}='${values[i]}' `);
       else {

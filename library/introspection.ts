@@ -1,15 +1,12 @@
 //introspection (inspecting a data source) allows us to turn table data into an object. Once the table data is an object, users can create new table entries with object notation
 
-//pass the URI --> open up a new whole ass pool
+//pass the URI --> open up a new whole pool
 import { Client, Pool, PoolClient } from "../deps.ts";
 import { query, poolConnection } from './connection.ts';
 import { types } from './typeTranslator.ts';
 //information schema provides access to database metadata
 
 export class Introspect {
-  // constructor(){
-
-  // }
   async introspect () {
   //   const ponder = await poolConnection(
   //     "postgres://hfwbmzny:AArrmznb9EBr4Tjbxe5XordjASLQ_j4S@heffalump.db.elephantsql.com/hfwbmzny",
@@ -41,28 +38,24 @@ export class Introspect {
           tableObj[tableName] = {}
       }
       tableObj[tableName][colName] = {'data_type': dataType, 'is_nullable': is_nullable};
-  
-    
     }
     await this.classConstructor(tableObj);
     this.interfaceConstructor(tableObj);
     return tableObj;
   }
   
-
-
-    // write func to separate our introspected object so that it's not just on one line. Be thankful for this line of psuedocode. Corey didn't want to give you this.
+    // write func to separate our introspected object so that it's not just on one line. 
     classConstructor (tableObject: object) {
       //iterating through our tableObject
       for (let table in tableObject) {
         let classString: string = '';
-        //console.log("Tables from Ikea:", table);
+        //console.log("Tables from:", table);
         //we use concatenation to separate our massive object onto different lines. Remember table is a string
         classString += `export class ${table} extends Model { \n`;
         classString += `tableName = '${table}' \n`;
         for (let column in tableObject[table]) {
           classString  += ` static ${column} = { \n`
-          // console.log('column', column);
+          // console.log('column from:', column);
           const tableKeyArr = Object.keys(tableObject[table][column]);
           for (let i = 0; i < tableKeyArr.length; i++) {
             if (i === tableKeyArr.length){
@@ -88,7 +81,7 @@ export class Introspect {
       //declare variable and initialize to empty string.  We'll build our interface from this
       let interfaceString: string = '';
       interfaceString += `export interface ${table} { \n`; //FYI table is a string
-      //start another loop that iterates through columns.  For each column, concat column : value type (value type will be our types object at the key of column[data_type])
+      //start another loop that iterates through columns. For each column, concat column : value type (value type will be our types object at the key of column[data_type])
         for (let column in tableObj[table]) {
           // console.log('this is your type', types); // type is an object
           // console.log('this is types[column]', types[tableObj[table][column]['data_type']])
@@ -128,9 +121,6 @@ export class Introspect {
     is_nullable: "YES",classConstructor
     table_name: "planets",
     data_type: "integer"
-
-
-
 */
 
 /*
@@ -146,8 +136,6 @@ tableObj = {
     }
   }
 }
-
-
 */
 
 //for loop that loops through tables

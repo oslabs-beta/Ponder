@@ -162,84 +162,6 @@ async deleteRow(table: string, column: string[], value: string[]) {
   await query(queryStringWithoutComma);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  //Below this is Model functionality:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //here it comessssss
-
   //Below this is Model functionality:
   //Stella has autoformattor which is removing these lines
   //start around 161 to be sure of space
@@ -265,14 +187,14 @@ async deleteRow(table: string, column: string[], value: string[]) {
             //console.log("inside for loop");
             //datatype
             tempString = tempString.concat(`${args[columns][i]}`);
-            //console.log("first loop pass string. Sam is found:", tempString);
+            //console.log("first loop pass string:", tempString);
           } else if (i === 1) {
             //length
             tempString = tempString.concat(`(${args[columns][i]})`);
           } else {
             //any column-constraints
             tempString = tempString.concat(` ${args[columns][i]}`);
-            //console.log("third pass. Matt says this better work:", tempString);
+            //console.log("third pass:", tempString);
           }
         }
       } //---> we're going to force user to use no arrays //need a helper function to make sure that users are using the correct data type
@@ -282,10 +204,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
     //remove that last comma
     const stringWithoutFinalComma = tableQueryString.slice(0, -1);
     const finalQuery = stringWithoutFinalComma.concat(');');
-    //console.log(
-    //"Supreme Commander Stella is pleased with final query. Vice Supreme Comander Corey is stil not impressed:",
-    //finalQuery,
-    //);
+    //console.log("final Query:", finalQuery);
     //const connect = await this.pool.connect();//update logic understand connection to DB
     //execute actual query passing in query string made from arguments
    
@@ -308,7 +227,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
   //disconnecting with our pool here. User will have to disconnect manually, if they so choose
   async disconnect() {
     await poolDisconnect();
-    // console.log('truly disconnect and feed me cat father - Tinsely');
+    // console.log('we've disconnected from the pool');
   }
 
   //drop one table
