@@ -1,95 +1,93 @@
-//file to create classes and definitions to map commands to PostGres
-//filling out the rows on our tables here retrieving and adding/info
+// This file is where all the function definitions live. 
+// These are the JavaScript functions that execute specific queries to a connected PostGres Database. Often replacing verbose SQL syntax with simple functions.
 
-import { Client, Pool, PoolClient } from "../deps.ts";
-
-import { poolConnection, poolDisconnect, query } from "./connection.ts";
-
+import { Pool } from "../deps.ts";
+import { poolDisconnect, query } from "./connection.ts";
 import { Introspect } from './introspection.ts'
 
-//starting queries
-//select, where, update, delete, insert, create table
-
-//join could be second half
-// we have to declare the types before the constructor
 export class QueryBuilder extends Introspect{
   pool: Pool;
   constructor(pool: Pool) {
     super();
-    //old parameters:
-    // URI: string, pools: number, isLazy: boolean
-    //we had tried putting connection method here but did not work
-    //release method was not found
-    //open the pool
-    // this.pool = new Pool(URI, pools, isLazy)
     this.pool = pool;
   }
 
-  //first method, find all data from a table
+  // Find all data from a table
   async findAllinOne(table: string) {
-    // connect via this.pool
-    // const connect = await this.pool.connect();
-    //take in argument to make query to run
-    const queryStr = `SELECT * FROM ${table};`;
-    //execute actual query by passing string into query function imported from connection
-    //which will also create individual connection and release after return
-    const result = await query(queryStr);
-    //execute actual query passing in query string made from arguments
-    // const { rows } = await connect.queryObject(queryStr);
-    //release pool connection
-    // connect.release();
-    //then will return result from query to where findAllinONe is being called
-    return result;
+    try {
+      // Take in table as argument on which to run query
+      const queryStr = `SELECT * FROM ${table};`;
+      // Execute actual query by passing queryString into query function, which will also create an individual connection and release after return
+      const result = await query(queryStr);
+      return result;
+    } catch (err) {
+      console.log('Find all failed', err);
+    }
   }
-  //disconnecting with our pool here. User will have to disconnect manually, if they so choose
 
-  //everything above here is for the SQL user testing.
-  //Select specific columns
+  // Select specific columns
   async findColumn(column_name: string, table: string) {
-    //creating our SQL
+    try {
+    // Creating our SQL query
     const queryString = `SELECT ${column_name} FROM ${table};`;
-    //variable to store the SQL results
+    // Variable to store the SQL results
     const result = await query(queryString);
     return result;
+    } catch (err) {
+      console.log('Find column failed', err);
+    }
   }
 
-  //selecting a row of info
+  // Selecting a row of info
   async findRow(table: string, attr: string, value: string) {
-    //creating our SQL
-    const queryString = `SELECT * FROM ${table} WHERE ${attr}='${value}';`;
-    //variable to store the SQL results
-    const result = await query(queryString);
-    return result;
+    try {
+      // Creating our SQL query string from arguments
+      const queryString = `SELECT * FROM ${table} WHERE ${attr}='${value}';`;
+      // Variable to store the SQL results
+      const result = await query(queryString);
+      return result;
+      } catch (err) {
+        console.log('Find row failed', err);
+      }
   }
 
-  //select a specific cell on the table
+  // Select a specific cell on the table
   async findCell(table: string, column_name: string, value: string) {
-    const queryString =
-      `SELECT ${column_name} FROM ${table} WHERE ${column_name} = '${value}' LIMIT 1;`;
-    const result = await query(queryString);
-    return result;
+    try {
+      // Creating our SQL query
+      const queryString =
+        `SELECT ${column_name} FROM ${table} WHERE ${column_name} = '${value}' LIMIT 1;`;
+      // Variable to store the SQL results
+      const result = await query(queryString);
+      return result;
+    } catch (err) {
+      console.log('Find cell failed', err);
+    }
   }
 
-  //insert data into columns
+  // Insert data into columns
   async insertIntoTable(table: string, columns: string[], values: string[]) {
-    //initialize query string
+    try {
+      // Initialize query string
     let queryString = `INSERT INTO ${table} (`;
-    //loop through columns array and concat each value to query string
+    // Loop through columns array and concat each value to query string
     for (let i = 0; i < columns.length; i++) {
       queryString = queryString.concat(`${columns[i]}, `);
     }
-    //slice to remove last comma and space of last value
+    // Slice to remove last comma and space of last value
     queryString = queryString.slice(0, -2);
-    //concat ending parens and VALUES
+    // Concat ending parens and VALUES
     queryString = queryString.concat(") VALUES (");
-    //same as above with values array
+    // Same as above with values array
     for (let i = 0; i < values.length; i++) {
       queryString = queryString.concat(`'${values[i]}', `);
     }
-    let queryStringWithoutComma = queryString.slice(0, -2);
-    //close query string
-    queryStringWithoutComma = queryStringWithoutComma.concat(");");
-    await query(queryStringWithoutComma);
+    // Remove the empty space at the end of the query and then close query string
+    queryString = queryString.slice(0, -2).concat(");");
+    await query(queryString);
+    } catch(err) {
+      console.log('Insertion failed', err);
+    }
   }
 
   async updateTable(
@@ -100,23 +98,21 @@ export class QueryBuilder extends Introspect{
     a: string[],
     operator?: string,
   ) {
-    //partial Sql command for update
+    // Partial Sql command for update
     let queryString= `UPDATE ${table} SET `;
-    //loop through the columns array
+    // Loop through the columns array
     for (let i = 0; i < column_name.length; i++) {
       if (column_name[i] && value[i]) {
+        // Concating column names and values to queryString
         queryString = queryString.concat(`${column_name[i]} = '${value[i]}', `);
       }
     }
-    //remove the final comma and space
+    // Remove the final comma and space
     let queryStringWithoutComma = queryString.slice(0, -2);
-
-
-
+    // Add the WHERE conditional to queryStringWithoutComma
     queryStringWithoutComma = queryStringWithoutComma.concat(' WHERE')
-    //add the WHERE conditional here
 
-    //add OR 
+    // Adding OR to database query 
     if (operator?.toLowerCase() === 'or') {
       for (let i = 0; i < q.length; i++) {
         queryStringWithoutComma = queryStringWithoutComma.concat(
@@ -127,15 +123,14 @@ export class QueryBuilder extends Introspect{
      return await query(queryStringWithoutComma);
      
     } else if (operator?.toLowerCase() === 'not') {
-      //add NOT
+      // Adding NOT to database query
       for (let i = 0; i < q.length; i++) {
         queryStringWithoutComma = queryStringWithoutComma.concat(
           ` NOT ${q[i]} = '${a[i]}' AND `
         )
-      
       }
     } else {
-      //default AND 
+      // AND is added as a default to the database query
       for (let i = 0; i < q.length; i++){
         queryStringWithoutComma = queryStringWithoutComma.concat(
           ` ${q[i]} = '${a[i]}' AND`,
@@ -163,16 +158,9 @@ async deleteRow(table: string, column: string[], value: string[]) {
 }
 
   //Below this is Model functionality:
-  //Stella has autoformattor which is removing these lines
-  //start around 161 to be sure of space
 
   async createTable(tableName: string, columns: any) {
     //convert args into SQL command to create a new table
-    // const heffalumpCreateTable = `CREATE TABLE ${tableName} args1, args2, args3, etc' --> Maybe use Object.keys(args) to get column names; iterate through and concatenate to this string
-    // connection.query(heffalumpCreateTable)  --> sends create table to our sequel database
-    //create a pool connection, disconnect after we create a string
-    //use for in to iterate over the args obj to get the columns
-    //removed brackets around if not exists
 
     const args = columns;
     let tableQueryString = `CREATE TABLE IF NOT EXISTS ${tableName} (`;
@@ -204,13 +192,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
     //remove that last comma
     const stringWithoutFinalComma = tableQueryString.slice(0, -1);
     const finalQuery = stringWithoutFinalComma.concat(');');
-    //console.log("final Query:", finalQuery);
-    //const connect = await this.pool.connect();//update logic understand connection to DB
-    //execute actual query passing in query string made from arguments
-   
- 
 
-    //move this logic to a try catch block for any errors:
     try {
       await query(finalQuery); //does createTable return anything
       //if success
@@ -224,11 +206,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
       return response;
     }
   }
-  //disconnecting with our pool here. User will have to disconnect manually, if they so choose
-  async disconnect() {
-    await poolDisconnect();
-    // console.log('we've disconnected from the pool');
-  }
+  
 
   //drop one table
   async dropOneTable(tableName: string, cascade?: boolean) {
@@ -367,6 +345,13 @@ async deleteRow(table: string, column: string[], value: string[]) {
       return response;
     }
   } 
+
+
+
+  // Function to disconnect from Database: 
+  async disconnect() {
+    await poolDisconnect();
+  }
 
 }
 

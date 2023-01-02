@@ -56,8 +56,33 @@ const ponderDB = poolConnection(
 //   };
 
 
-  const newestTest = await ponderDB.findAllinOne('people');
-  console.log("did it work!?", newestTest);
+
+
+  // const insertIntoTest = await ponderDB.insertIntoTable('people', ['name'], ['jimmy'])
+  // console.log('insertTest', insertIntoTest);
+
+  // const findAllTest = await ponderDB.findAllinOne('people');
+  // console.log("did it work!?", findAllTest);
+
+  // const findCellTest = await ponderDB.findCell('people', 'name', 'jimmy');
+  // console.log('findCell', findCellTest);
+
+
+  // async updateTable(
+  //   table: string,
+  //   column_name: string[],
+  //   value: string[],
+  //   q: string[],
+  //   a: string[],
+  //   operator?: string,
+
+
+  const updateTableTest = await ponderDB.updateTable('people', ['name'], ['AhabAhabAhabAhab'], ['name'], ['Ahab'])
+
+  console.log("updateTableTest", updateTableTest)
+
+ const findCellTest = await ponderDB.findCell('people', 'name', 'AhabAhabAhabAhab');
+  console.log('findCell', findCellTest);
 
   ponderDB.disconnect();
 
