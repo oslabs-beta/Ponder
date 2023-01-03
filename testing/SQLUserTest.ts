@@ -149,11 +149,13 @@ const ponderDB = poolConnection(
 
 const matt2matt1 = new people();
 
-matt2matt1.name = 'NewMAttMatt';
-matt2matt1.mass = '1234';
-matt2matt1.eye_color = 'yellowblue'
+console.log(matt2matt1.beg());
 
-await matt2matt1.save();
+// matt2matt1.name = 'NewMAttMatt';
+// matt2matt1.mass = '1234';
+// matt2matt1.eye_color = 'yellowblue'
+
+// await matt2matt1.save();
 
 // const findAllAgainTest = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
 
@@ -171,9 +173,9 @@ await matt2matt1.save();
 // const findAllAgainTest1 = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
 // console.log('findAllAgainTest1', findAllAgainTest1)
 
-const deleteMatt = await matt2matt1.delete();
-const findAllAgainTest1 = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
-console.log('findAllAgainTest1', findAllAgainTest1)
+// const deleteMatt = await matt2matt1.delete();
+// const findAllAgainTest1 = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
+// console.log('findAllAgainTest1', findAllAgainTest1)
 
 ponderDB.disconnect();
 

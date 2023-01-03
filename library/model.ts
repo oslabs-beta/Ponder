@@ -6,10 +6,6 @@ import { query } from './connection.ts'
 
 export class Model{
 
-  public beg() {
-    return 'Help Me, Deno!!!!';
-  }
-
   private record = {};
 
   async save(){
@@ -69,17 +65,4 @@ export class Model{
     await query(`DELETE FROM ${this.tableName} WHERE _id=${this.record.id}`);
     return `Sucessfully deleted a row from ${this.tableName}`;
   }
-
 }
-
-// CREATE TABLE users (user_id SERIAL PRIMARY KEY, username VARCHAR(100),score NUMERIC,lifetime_score NUMERIC);
-// const example_users = {
-//   user_id: ["SERIAL", "PRIMARY KEY"],
-//   username: ["VARCHAR", "100"],
-//   score: ["NUMERIC"],
-//   lifetime_score: ["INTEGER"],
-// };
-
-
-// // // // // //
-
