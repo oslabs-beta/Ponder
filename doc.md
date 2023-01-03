@@ -7,7 +7,7 @@
 ## Installation
 
 ---
-
+CLI coming soon!:
 ```
 console.log('Hello')
 deno install ponder
@@ -122,7 +122,7 @@ Insert new columns into your table
 tableName.insertIntoTable(table, [column1, column2], [value1, value2]);
 ```
 
-Delete offending rows from your sight
+Delete rows
 
 ```
 tableName.deleteRow(table, column, value);
@@ -158,8 +158,6 @@ const addNewColumn = await yourVariable.addColumns('newTableName',)
 Instructions for how to contribute to the development of the library, including
 how to submit bugs, suggestions, and pull requests.
 
-###### Future developers must have 15 years experience in Deno
-
 ## License
 
 Information about the license under which the library is released, including any
@@ -167,41 +165,3 @@ applicable copyright and attribution notices.
 
 ****** MIT license ******
 
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```

@@ -8,6 +8,8 @@ import { QueryBuilder } from "../library/querybuilder.ts";
 
 import { poolConnection, query } from "../library/connection.ts";
 
+import { people } from '../dataModels.ts'
+
 //bringing in connection from connection (where db is connected)
 // import { connections } from "./connection.ts";
 
@@ -56,10 +58,126 @@ const ponderDB = poolConnection(
 //   };
 
 
-  const newestTest = await ponderDB.findAllinOne('people');
-  console.log("did it work!?", newestTest);
 
-  ponderDB.disconnect();
+
+  // const insertIntoTest = await ponderDB.insertIntoTable('people', ['name'], ['jimmy'])
+  // console.log('insertTest', insertIntoTest);
+
+  // const findAllTest = await ponderDB.findAllinOne('people');
+  // console.log("did it work!?", findAllTest);
+
+  // const findCellTest = await ponderDB.findCell('people', 'name', 'jimmy');
+  // console.log('findCell', findCellTest);
+
+
+  // async updateTable(
+  //   table: string,
+  //   column_name: string[],
+  //   value: string[],
+  //   q: string[],
+  //   a: string[],
+  //   operator?: string,
+
+
+  // const updateTableTest = await ponderDB.updateTable('people', ['name'], ['Johan'], ['name'], ['AhabAhabAhabAhab'])
+
+  // console.log("updateTableTest", updateTableTest)
+  
+
+//  const findCellTest = await ponderDB.findCell('people', 'name', 'Johan');
+//   console.log('findCell', findCellTest);
+
+// const deleteRowTest = await ponderDB.deleteRow('people', ['name'], ['Johan']) 
+
+// console.log(await ponderDB.findCell('people', 'name', 'Johan'))
+
+
+//test of createTable
+
+// const createTableTest1 = await ponderDB.createTable('newestTableName1', {
+//   newColumn1: ['VARCHAR', '100'],
+//   secondcolumn2: ['VARCHAR', '100'],
+//   thirdnew3: ['NUMERIC']
+
+// });
+
+// const createTableTest2 = await ponderDB.createTable('newestTableName2', {
+//   newColumn1: ['VARCHAR', '100'],
+//   secondcolumn2: ['VARCHAR', '100'],
+//   thirdnew3: ['NUMERIC']
+
+// });
+
+
+//test drop one table
+// const dropOneTableTest = await ponderDB.dropOneTable('newestTableName')
+
+
+//test multiple drop tables
+//first without args
+
+// const deleteMultipleTableTest = await ponderDB.dropMultipleTables(["newestTableName1", "newestTableName2"])
+
+// test of adding columns
+// const columnsToAdd = {
+//   mango_id: ['SERIAL'],
+//   mangoName: ['VARCHAR'],
+//   mangoScore: ['NUMERIC'],
+// };
+
+// const mangoTest1 = await ponderDB.addColumns(
+//   'newestTableName1',
+//   columnsToAdd
+// );
+
+// console.log("checking columns", mangoTest1)
+
+// //checking drop columns
+// const multipleColumnDropTest = await ponderDB.dropColumns('newestTableName1', {mango_id: false, mangoName: true})
+
+
+// const findNewTableTest = await ponderDB.findAllinOne('newestTableName1')
+
+// console.log('findNewTableTest', findNewTableTest)
+
+
+//testing introspection
+
+// const introTestA = await ponderDB.introspect();
+
+// console.log('introTestA', introTestA)
+
+const matt2matt1 = new people();
+
+console.log(matt2matt1.beg());
+
+// matt2matt1.name = 'NewMAttMatt';
+// matt2matt1.mass = '1234';
+// matt2matt1.eye_color = 'yellowblue'
+
+// await matt2matt1.save();
+
+// const findAllAgainTest = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
+
+// // const newSearchForMatt = await matt.search();
+// console.log('findAllAgainTest', findAllAgainTest)
+// // console.log('newSearchForMatt', newSearchForMatt)
+
+// matt2matt.mass = '5'
+
+// const updateTest = await matt2matt.update();
+
+// console.log('updateTest', updateTest)
+
+// // console.log("findAllAgainTest", findAllAgainTest)
+// const findAllAgainTest1 = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
+// console.log('findAllAgainTest1', findAllAgainTest1)
+
+// const deleteMatt = await matt2matt1.delete();
+// const findAllAgainTest1 = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
+// console.log('findAllAgainTest1', findAllAgainTest1)
+
+ponderDB.disconnect();
 
 
 

@@ -18,7 +18,37 @@ const ponder = await poolConnection(
   true,
 );
 
-ponder.disconnect();
+//write an interface in introspect
+
+// add extends model to writeClass
+
+// add static in front of table properties
+
+
+const sam = new people();
+console.log('sammy', sam);
+sam.name = 'new sam';
+sam.hair_color = 'red';
+sam.species_id = 3;
+await sam.save();
+
+// sam.name = 'sam updated and improved'
+// sam.species_id = 99;
+// sam.mass = '3000';
+
+// sam.delete();
+
+
+// const peaches = new basket_a;
+// peaches.fruit_a = 'Tangerine';
+// console.log( await peaches.save());
+
+// console.log(await ponder.findAllinOne('basket_a'));
+
+//  await ponder.introspect();
+
+// const testBasket = new basket_a();
+// ponder.disconnect();
 
 // const password: string = config()['SECRETPASS']
 
