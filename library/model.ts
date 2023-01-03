@@ -1,7 +1,7 @@
-import { query, poolConnection } from './connection.ts'
+import { query } from './connection.ts'
 
 //we create our models to either create or parse our tables
-// the model is what our table should look like - bulding our table here (i.e the columns of our table)
+// the model is what our table should look like - building our table here (i.e the columns of our table)
 //model:object
 
 export class Model{
@@ -34,11 +34,9 @@ export class Model{
     //close query string and specifying what info we want to return
     queryStringWithoutComma = queryStringWithoutComma.concat(") RETURNING _id;");
     const _id = await query(queryStringWithoutComma);
-    //console.log('record', this.record);
+    console.log('_id', _id);
     this.record.id = _id[0]._id;
-    // console.log('record after', this.record)
-    // console.log('query', queryStringWithoutComma);
-    // console.log('ressult', _id);
+    console.log('this.record', this.record)
   }
 
   search(){
@@ -75,20 +73,6 @@ export class Model{
     return `Sucessfully deleted a row from ${this.tableName}`;
   }
 
-  // split a table by columns by a specified number
-  // verticalShard(table: object, number: number){
-  //   // turn our object columns into an array
-  //   const columnArr = Object.keys(this);
-  //   // divide a table by the specified number
-  //   const substractionNum = Math.floor(columnArr.length / number);
-  //   //create tables
-  // }
-
-  //split a table by rows by a speccified number
-  // horizontalShard(table: object, number:number){
-  //   //divide a table by a specified number
-  //   //create a table
-  // }
 }
 
 // CREATE TABLE users (user_id SERIAL PRIMARY KEY, username VARCHAR(100),score NUMERIC,lifetime_score NUMERIC);

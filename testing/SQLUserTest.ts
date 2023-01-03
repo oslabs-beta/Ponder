@@ -8,6 +8,8 @@ import { QueryBuilder } from "../library/querybuilder.ts";
 
 import { poolConnection, query } from "../library/connection.ts";
 
+import { people } from '../dataModels.ts'
+
 //bringing in connection from connection (where db is connected)
 // import { connections } from "./connection.ts";
 
@@ -141,10 +143,21 @@ const ponderDB = poolConnection(
 
 //testing introspection
 
-const introTestA = await ponderDB.introspect();
+// const introTestA = await ponderDB.introspect();
 
-console.log('introTestA', introTestA)
+// console.log('introTestA', introTestA)
 
+const matt = new people();
+
+matt.name = 'NewMAtt';
+matt.mass = '123';
+matt.eye_color = 'yellow'
+
+await matt.save();
+
+const findAllAgainTest = await ponderDB.findCell('people', ['name'], ['NewMAtt']);
+
+console.log("findAllAgainTest", findAllAgainTest)
 
 
 ponderDB.disconnect();

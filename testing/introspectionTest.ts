@@ -37,11 +37,11 @@ sam.hair_color = 'red';
 sam.species_id = 3;
 await sam.save();
 
-sam.name = 'sam updated and improved'
+// sam.name = 'sam updated and improved'
 // sam.species_id = 99;
-sam.mass = '3000';
+// sam.mass = '3000';
 
-sam.delete();
+// sam.delete();
 
 
 // const peaches = new basket_a;
