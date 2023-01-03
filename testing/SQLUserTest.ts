@@ -147,18 +147,33 @@ const ponderDB = poolConnection(
 
 // console.log('introTestA', introTestA)
 
-const matt = new people();
+const matt2matt1 = new people();
 
-matt.name = 'NewMAtt';
-matt.mass = '123';
-matt.eye_color = 'yellow'
+matt2matt1.name = 'NewMAttMatt';
+matt2matt1.mass = '1234';
+matt2matt1.eye_color = 'yellowblue'
 
-await matt.save();
+await matt2matt1.save();
 
-const findAllAgainTest = await ponderDB.findCell('people', ['name'], ['NewMAtt']);
+// const findAllAgainTest = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
 
-console.log("findAllAgainTest", findAllAgainTest)
+// // const newSearchForMatt = await matt.search();
+// console.log('findAllAgainTest', findAllAgainTest)
+// // console.log('newSearchForMatt', newSearchForMatt)
 
+// matt2matt.mass = '5'
+
+// const updateTest = await matt2matt.update();
+
+// console.log('updateTest', updateTest)
+
+// // console.log("findAllAgainTest", findAllAgainTest)
+// const findAllAgainTest1 = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
+// console.log('findAllAgainTest1', findAllAgainTest1)
+
+const deleteMatt = await matt2matt1.delete();
+const findAllAgainTest1 = await ponderDB.findRow('people', 'name', 'NewMAttMatt');
+console.log('findAllAgainTest1', findAllAgainTest1)
 
 ponderDB.disconnect();
 

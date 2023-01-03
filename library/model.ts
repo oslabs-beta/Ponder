@@ -34,42 +34,39 @@ export class Model{
     //close query string and specifying what info we want to return
     queryStringWithoutComma = queryStringWithoutComma.concat(") RETURNING _id;");
     const _id = await query(queryStringWithoutComma);
-    console.log('_id', _id);
     this.record.id = _id[0]._id;
-    console.log('this.record', this.record)
   }
 
-  search(){
-    // const keys: string[] = Object.keys(this)
-    // console.log(Object.values(this))
-
-    return query(`SELECT * FROM ${Object.values(this)[0]};`);
+  async search(){
+    // Returns all rows from table
+    return await query(`SELECT * FROM ${Object.values(this)[1]};`);
   }
+
+  
   //update a row: note that once a foreign key has been set, you CANNOT update it
   async update (){
     const columns = Object.keys(this);
     const values = Object.values(this);
     //make a query to update tablename SET column = value where id = this.record.id
     let queryString = `UPDATE ${this.tableName} SET `;
-    // i is initialized at two because that's the first column
+    // i is initialized at 2 because that's the first column (record and tableName are 0 and 1 respectively, followed by the columns)
     for (let i = 2; i < columns.length; i++) {
+      // Check if current column is the last one.  If so, no comma necessary 
       if (i === columns.length - 1) queryString = queryString.concat(`${columns[i]}='${values[i]}' `);
       else {
         queryString = queryString.concat(`${columns[i]}='${values[i]}', `);
       }
     }
-    queryString = queryString.concat(`WHERE _id=${this.record.id};`)
-
-    console.log('this is query string:', queryString);
-    
+    // Retrieve unique id stored in instance's record object
+    queryString = queryString.concat(`WHERE _id=${this.record.id};`)    
     await query(queryString);
     return `Successfully updated ${this.tableName}`;
   }
 
 // delete a row
-  delete() {
+  async delete() {
   // DELETE FROM tableName WHERE id = id;
-    query(`DELETE FROM ${this.tableName} WHERE _id=${this.record.id}`);
+    await query(`DELETE FROM ${this.tableName} WHERE _id=${this.record.id}`);
     return `Sucessfully deleted a row from ${this.tableName}`;
   }
 
