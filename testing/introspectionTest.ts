@@ -34,7 +34,7 @@ const sam = new people();
 console.log('sammy', sam);
 sam.name = 'new sam';
 sam.hair_color = 'red';
-sam.species_id = 3
+sam.species_id = 3;
 await sam.save();
 
 sam.name = 'sam updated and improved'
