@@ -3,22 +3,17 @@ import { QueryBuilder } from '../library/querybuilder.ts';
 import { poolConnection, query } from '../library/connection.ts';
 import "https://deno.land/x/dotenv/load.ts";
 
-// import '../testClassList1.js'
-
 // import { config } from "../deps.ts"
 import "https://deno.land/std@0.168.0/dotenv/mod.ts"
-// import { basket_a } from '../testClassList1.ts'
-import { people } from '../testClassListStarWars.ts'
 // app.ts
 // import { config } from "https://deno.land/std@0.168.0/dotenv/mod.ts";
 
 // console.log(await config.DatabaseURI());
 console.log(Deno.env.get('SECRETPASS'));
-const URI = Deno.env.get('DatabaseURI')
 
 // console.log(config()
-const ponder: QueryBuilder = await poolConnection(
-  URI,
+const ponder = await poolConnection(
+  Deno.env.get('DatabaseURI'),
   3,
   true,
 );

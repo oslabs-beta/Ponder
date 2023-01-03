@@ -72,8 +72,6 @@ export class Introspect {
       interfaceString += `export interface ${table} { \n`; //FYI table is a string
       //start another loop that iterates through columns. For each column, concat column : value type (value type will be our types object at the key of column[data_type])
         for (const column in tableObj[table]) {
-          // console.log('this is your type', types); // type is an object
-          // console.log('this is types[column]', types[tableObj[table][column]['data_type']])
           // The types object is imported from the typeTranslator file. We're translating SQL types into typescript types
           interfaceString += `  ${column}: ${types[tableObj[table][column]['data_type']]}; \n`
         }

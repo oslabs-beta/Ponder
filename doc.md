@@ -151,49 +151,7 @@ addColumns('newTableName', {columnName,[dataType]}),
 
 const addNewColumn = await yourVariable.addColumns('newTableName',)
 ```
-## Introspection
-Wondering what's in your database? Use Ponder's introspection method to find out. 
 
-```
-ponder.introspect();
-```
-The introspection method returns your tables in the form of an object. In addition, this method also creates a testClassList1 typescript file containing this object
-```
-export class pilots extends Model { 
-tableName = 'pilots' 
- static vessel_name = { 
-    data_type: 'varchar', 
-    is_nullable: 'NO', 
-    } 
- static name = { 
-    data_type: 'varchar', 
-    is_nullable: 'NO', 
-    } 
- static _id = { 
-    data_type: 'integer', 
-    is_nullable: 'NO', 
-    } 
-  } 
-
-  export interface pilots { 
-  vessel_name: string; 
-  name: string; 
-  _id: number; 
-} 
-```
-Create instances of table classes
-```
-const acePilot = new pilot;
-acePilot.vessel_name = 'RSV Positive Mental Attitude';
-acePilot.name = 'Sam Sammington';
-```
-Save instances to your database
-```
-acePilot.save();
-
-// Future update() documentation 
-// sharding documentation
-```
 
 ## Contributing
 

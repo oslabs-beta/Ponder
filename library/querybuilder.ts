@@ -160,6 +160,84 @@ async deleteRow(table: string, column: string[], value: string[]) {
   await query(queryString);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  //Below this is Model functionality:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //here it comessssss
+
   //Below this is functions that Manage Tables:
 
 // Create Table with table name, with column object (each key is name  of column, value is array where first is datatype, next is length, any more will be column constraints)
@@ -258,7 +336,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
     //reassign parameter to usuable object;
     const args = columns;
     //set initial string to hold query
-    let newColumns: string = "";
+    let newColumns = "";
     //set final string to be added into;
     
     for (const column in args) {
