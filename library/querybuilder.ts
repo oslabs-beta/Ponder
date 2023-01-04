@@ -19,9 +19,11 @@ export class QueryBuilder extends Introspect{
       const queryStr = `SELECT * FROM ${table};`;
       // Execute actual query by passing queryString into query function, which will also create an individual connection and release after return
       const result = await query(queryStr);
-      return result;
+      // return result;
     } catch (err) {
       console.log('Find all failed', err);
+      //changing to undefined from err to help with testing
+      return undefined;
     }
   }
 
@@ -162,82 +164,6 @@ async deleteRow(table: string, column: string[], value: string[]) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  //Below this is Model functionality:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //here it comessssss
-
   //Below this is functions that Manage Tables:
 
 // Create Table with table name, with column object (each key is name  of column, value is array where first is datatype, next is length, any more will be column constraints)
@@ -276,7 +202,7 @@ async deleteRow(table: string, column: string[], value: string[]) {
       //if successful
       const response = `${tableName} is in the database now!`;
       //keep below console log for success message!
-      console.log(response)
+      // console.log(response)
       //then will return result from query to where findAllinONe is being called
       return response;
     } catch(err) {

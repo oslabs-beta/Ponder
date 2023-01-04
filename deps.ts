@@ -10,5 +10,5 @@ export * as mod from "https://deno.land/std@0.167.0/dotenv/mod.ts";
 
 
 //import testing libraries from official Deno
-import * as bdd from "https://deno.land/std@0.150.0/testing/bdd.ts";
-import * as asserts from "https://deno.land/std@0.150.0/testing/asserts.ts";
+export * as bdd from "https://deno.land/std@0.170.0/testing/bdd.ts";
+export * as asserts from "https://deno.land/std@0.170.0/testing/asserts.ts";

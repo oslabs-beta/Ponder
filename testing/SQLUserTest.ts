@@ -8,7 +8,7 @@ import { QueryBuilder } from "../library/querybuilder.ts";
 
 import { poolConnection, query } from "../library/connection.ts";
 
-import { people } from '../dataModels.ts'
+// import { people } from '../dataModels.ts'
 
 //bringing in connection from connection (where db is connected)
 // import { connections } from "./connection.ts";
@@ -47,6 +47,8 @@ const ponderDB = poolConnection(
     true,
   );
   
+console.log(await ponderDB.findAllinOne('badaadatable'));
+
 //   const newestTest = await ponderDB.findAllinOne("people");
 
 
@@ -147,9 +149,9 @@ const ponderDB = poolConnection(
 
 // console.log('introTestA', introTestA)
 
-const matt2matt1 = new people();
+// const matt2matt1 = new people();
 
-console.log(matt2matt1.beg());
+// console.log(matt2matt1.beg());
 
 // matt2matt1.name = 'NewMAttMatt';
 // matt2matt1.mass = '1234';
