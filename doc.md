@@ -70,29 +70,34 @@ const data = await findRow('people', 'hair', 'brown');  // stores data from rows
 ```
 ### Find a Cell in a Table
 
-findCell(table: string, column: string, value: string): return data from the first row matching specific
-criteria. 
+findCell(table: string, column: string, value: string): return data from the first row matching specific criteria. 
 
 ```
 findCell('people', 'name', 'corey'),
 ```
 ### Add a Row to a Table
 
-Add a new row to an existing table, takes argument of table name, array of
-column names and array of values to insert.
+insertIntoTable(table: string, columns: string[], values: string[]): add a new row to an existing table.
 
 ```
 insertIntoTable(table, [column1, column2], [value1, value2]),
 ```
 ### Update a Column in a Table
 
-Updates columns on existing table. Takes arguments of table name, array of
+updateTable(
+    table: string,
+    column_name: string[],
+    newValue: string[],
+    columnToMeet: string[],
+    valueToMeet: string[],
+    operator?: string,
+): updates columns on existing table. Takes arguments of table name, array of
 columns to update, array of values to insert, array of columns wo meet WHERE
 conditions, array of conditions. Optionally takes argument ofoperator, string of
 either 'or'or 'not'
 
 ```
-updateTable(table, [column1, column2, ...], [value1, value2, ...], [q1, q2,
+updateTable(table: string, ...column: string[], ...value: string[], [q1, q2,
 ...], [a1, a2, ...], operator?),
 
 updateTable(people, [hair_color, eye_color], ['blonde', 'hazel'], [name], ['Fyodor']) -> UPDATE TABLE people SET hair_color = 'blonde', eye_color = 'hazel' WHERE name = 'Fyodor';
@@ -168,6 +173,7 @@ ponder.introspect();
 You will see a new file called ```dataModels.ts``` in your root directory that contains models of your database tables!
 
 ```
+Interface/Class example here
 
 ```
 
