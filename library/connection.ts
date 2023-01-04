@@ -34,9 +34,6 @@ async function query(builtQueryForDB: string) {
     // Release individual pool connect
     await connect.release();
 
-    //for testing 
-    await connect.close()
-
     // Return anything returned from DB query
     return (rows) ? rows : "Query Successful";
   } catch (err) {

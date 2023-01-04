@@ -19,107 +19,75 @@ import {
 
 
 
+  //this is the command used to test this file:
+  // deno test testing/CRUDtests.ts --no-check --allow-env --allow-read --allow-net
+
 // Test the create and drop table methods
-// bdd.describe('Creates and drops tables', async () => {
-//   // Test Suites
-//   bdd.it('Creates a table', async ()=> {
-//     //create an instance of db connection
-//     const db = await poolConnection(
-//         Deno.env.get('DatabaseURI'),
-//         3,
-//         true,
-//       );
-//     // look for table that does not exist
-//     // console.log('in the test');
-//     let result = await db.findAllinOne('tableNonexistent');
-//     asserts.assertEquals(result, []);
-//   })
-
-  //connect to db
-  //create a table
-  //see if table exists
-  //delete a table
-  //see if table does not exist
-// })
 
 
-//alternate
-// describe('Creates and drops tables', async () => {
-//     // Test Suites
-//     // Deno.test({sanitizeResources: false
-//     //     sanitizeOps: false
-//     //     sanitizeExit: false})
-//     await it('Creates a table', async ()=> {
-//       //create an instance of db connection
-//       const db = await poolConnection(
-//           Deno.env.get('DatabaseURI'),
-//           3,
-//           true,
-//         );
-//       // look for table that does not exist
-//       // console.log('in the test');
-//       let result = await db.findAllinOne('tableNonexistent');
-//       await db.disconnect();
-//       console.log('result', result)
-//       console.log('result undefined?', (result === undefined))
-//       assertEquals(result, undefined);
-//       sanitizeResources: false
-//       sanitizeOps: false
-//       sanitizeExit: false
-//     }, {sanitizeResources: false,
-//         sanitizeOps: false,
-//         sanitizeExit: false})
+//used Deno.test over other methods that provided too many errors
+//format is Deno.test(passing in a large object)
+Deno.test({
+    name: "Create Table, Drop Table", 
+    fn: async function () {
+     //create an instance of db connection
+     const db = await poolConnection(
+         Deno.env.get('DatabaseURI'),
+         3,
+         true,
+       );
+     // look for table that does not exist
+     const result = await db.findAllinOne('totallynotreal');
+    //Function definition will console.log PostGres error and return value expected to be undefined
+     assertEquals(result, undefined)
+     
+     //now create table and check to see if table exists now
+    const created = await db.createTable('totallynotreal', {
+            column1: ['VARCHAR']
+        });
 
-//     //  it('Tests if success works at all', ()=> {
-//     //   //create an instance of db connection
-//     //   const test = 1;
-//     //   assertEquals(1, test);
-//     // })
+    const result2 = await db.findAllinOne('totallynotreal');
+    //Table should now exist and func definition return value is empty array
+        assertEquals(result2, [])
 
-
-
-
-// })
-
-///alternate alternate style of test as object
-
-describe({
-    name: 'Creates and drops tables',
-    async fn() {
-    // Test Suites
-    // Deno.test({sanitizeResources: false
-    //     sanitizeOps: false
-    //     sanitizeExit: false})
-    // await it('Creates a table', async ()=> {
-      //create an instance of db connection
-      const db = await poolConnection(
-          Deno.env.get('DatabaseURI'),
-          3,
-          true,
-        );
-        console.log('hello')
-      // look for table that does not exist
-      // console.log('in the test');
-      console.log('hello1')
-      let result = await db.findAllinOne('tableNonexistent');
-      console.log('hello2')
-      await db.disconnect();
-      console.log('hello3')
-      console.log('result', result)
-      console.log('hello4')
-      console.log('result undefined?', (result === undefined))
-      assertEquals(result, undefined);},
-    //   sanitizeResources: false,
-    //   sanitizeOps: false,
-    //   sanitizeExit: false
-
-    //  it('Tests if success works at all', ()=> {
-    //   //create an instance of db connection
-    //   const test = 1;
-    //   assertEquals(1, test);
-    // })
-
-    
+        //drop the table and search again
+        const dropTable = await db.dropOneTable('totallynotreal')
+        const result3 = await db.findAllinOne('totallynotreal');
+        //Table is now dropped, should get same PostGres Error and return value will again be undefined
+        assertEquals(result3, undefined)
+        //disconnect DB
+     await db.disconnect();   
+ },
+ //still within object, put these special sanitize options to ignore resource leaks
+     sanitizeResources: false,
+     sanitizeOps: false,
+     sanitizeExit: false
+});
 
 
-})
+//Testing Find Cell
+Deno.test({
+    name: "Find Cell", 
+    fn: async function () {
+     //create an instance of db connection
+     const db = await poolConnection(
+         Deno.env.get('DatabaseURI'),
+         3,
+         true,
+       );
+     // look for cell that does not exist
+     let result = await db.findCell('basket_a', 'fruit_a', 'mango');
+    // Function definition return value will be an array with the cell, because we know cell doesn't exist, should be an empty array
+     assertEquals(result, [])
+
+     result = await db.findCell('basket_a', 'fruit_a', 'Apple');
+     //Function will return object containing cell, check for accuracy
+      assertEquals(result, [{ fruit_a: 'Apple'}])
+
+     await db.disconnect();   
+ },
+ //still within object, put these special sanitize options to ignore resource leaks
+     sanitizeResources: false,
+     sanitizeOps: false,
+     sanitizeExit: false
+});
