@@ -1,46 +1,54 @@
 ![image](./assets/small-ponder.png)
 
 
-## PONDER: An Object Relational Mapping Tool for Deno
+# PONDER
+An Object Relational Mapping Tool for Deno Runtime Environment. <br>
+Ponder is available for import at: https://deno.land/x/ponder and this is our link to documentation website: https://ponder.deno.dev/
 
-## About
+## What is Ponder?
 
-Ponder is a simple ORM for PostGRES built for Deno. Create, read, update, delete tables, columns, rows, and cells. 
-Ponder is available for import at https://deno.land/x/ponder.
+* Ponder is a simple ORM for PostgreSQL built for Deno. 
+* Create, read, update, delete tables, add/delete columns, rows, and cells. 
+* Writing raw SQL is cumbersome and time consuming for developers. Ponder seeks to address this by providing simple, intuitive methods for manipulating data and tables in your database along Object Oriented Programming principles. 
 
 ## Features
 
--Basic CRUD functionality for interacting with your PostGRES Database
--Introspect database and modify database tables through models in accordance with principles of OOP
--Introspect your database for a visual representation of your tables
-
-## Installation
-
-Ponder CLI coming soon!
-
+- Basic CRUD functionality for interacting with your PostGRES Database <br>
+- Introspect database and modify database tables through models in accordance with principles of OOP <br>
+- Introspect your database for a visual representation of your tables <br>
+<br>
 ## Getting Started
-Ponder is a third-party module available at deno.land. Simply import/export the dependency for use in your project.
+<a href="https://deno.land/x/ponder"> Ponder </a> is a third-party module available at deno.land. Simply import/export the dependency for use in your project.
+
+```typescript
+import * as ponder from "https://deno.land/x/ponder/mod.ts";
+```
+
+### Using dotenv Module from Deno
+
+It is recommended to use the dotenv module from Deno to protect sensitive information. Import the dotenv module, write your Database URI as a variable in your own .env file, and then you can refer to it using that variable label.
+
+```typescript
+#.env
+PG_URI=YourDatabaseURI
+
+#app
+import "https://deno.land/x/dotenv/load.ts";
+
+const PG_URI = Deno.env.get('PG_URI');  // returns YourDatabaseURI from .env file
 
 ```
-import * as ponder from "https://deno.land/x/ponder@v0.0.2/mod.ts";
-```
 
-## Connect your PostGRES Database
+### Connect your PostgreSQL Database
 Connect your existing PostGRES Database using the built-in method called poolConnection. Ponder uses a pool connection which is strongly recommended by PostGRES for use in their databases. Simply insert your database URI (or insert from a dotenv file). OPTIONAL Arguments: how many pool connections you'd like to have, true or false for Lazy Loading (recommended true).
 
+```typescript
+import{ poolConnection } from'./deps.ts'
+
+const yourVariable = ponder.poolConnection(PG_URI, numberOfPools, BooleanForLazyLoading);
 ```
-const yourVariable = ponder.poolConnection(yourURI, numberOfPools, BooleanForLazyLoading);
-```
 
-Now, using ```yourVariable``` you can access and use any of Ponder's built-in methods.
-
-## Upcoming Features and Developments
-
-The team at Ponder is working on database introspection. You'll soon be able to view all your SQL data as JavaScript Objects.
-
-Extensive documentation is underway! Please follow this link to view our documentation.
-
-A splash page for Ponder is underdevelopment! Check it out here. <a href="https://ponder.deno.dev/">Ponder Website</a>
+Now, using `yourVariable` you can access and use any of Ponder's built-in methods.
 
 
 ## Documentation
@@ -48,6 +56,19 @@ A splash page for Ponder is underdevelopment! Check it out here. <a href="https:
 The documentation is available <a href="https://ponder.deno.dev/docsfolder/docshome">here</a>. <br>
 See docs for complete list of methods, their functionality, and how to use them.
 LINK to both doc.md AND LINK to splash page docs url
+
+## Upcoming Features and Developments
+Features currently in development include:
+* Ponder CLI coming soon!
+
+
+## Contributing and Issues
+We are always looking to improve! <br>
+To make contributions, create a fork of the dev branch. Please be sure to utilize the Deno Typescript linter. 
+Ensure that any changes made are reflected in the documentation. Make a pull request to the Dev branch when 
+you have finished making your changes, note that once submitted any changes made will be covered under the MIT liscense. <br>
+* Feel free to contact the maintainers with any questions or concerns. <br>
+* If you come across any bugs or issues while using Ponder feel free to report by simply opening a new issue on our Github.
 
 ## Built with
 
@@ -62,11 +83,11 @@ LINK to both doc.md AND LINK to splash page docs url
 
 ## Contributors
 <p>
-* Sara Brown <a href="https://github.com/Sbrown2018">@Github</a> <br> 
-* Sam Goldenberg <a href="https://github.com/sammyb1rd">@Github</a> <br>
-* Matt Connell <a href="https://github.com/Matt-2112">@Github</a> <br>
-* Corey McClendon-Brown <a href="https://github.com/mcbrownc">@Github</a> <br>
-* Stella Baek <a href="https://github.com/StellaBaek">@GitHub </a> 
+* Sara Brown <a href="https://github.com/Sbrown2018">@Github</a> <a href="https://www.linkedin.com/in/sara-brown15/"> | @Linkedin</a> <br> 
+* Sam Goldenberg <a href="https://github.com/sammyb1rd">@Github</a> <a href="https://www.linkedin.com/in/samuel-goldenberg/"> | @Linkedin</a> <br>
+* Matt Connell <a href="https://github.com/Matt-2112">@Github</a> <a href="https://www.linkedin.com/in/matt-connell-/"> | @Linkedin</a> <br>
+* Corey McClendon-Brown <a href="https://github.com/mcbrownc">@Github</a> <a href="https://www.linkedin.com/in/coreymcclendonbrown/"> | @Linkedin</a> <br>
+* Stella Baek <a href="https://github.com/StellaBaek">@GitHub </a> <a href="https://www.linkedin.com/in/stellabaek"> | @Linkedin</a> 
   
 </p>
 
