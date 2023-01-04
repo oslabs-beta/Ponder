@@ -9,7 +9,7 @@ import "https://deno.land/std@0.168.0/dotenv/mod.ts"
 // import { config } from "https://deno.land/std@0.168.0/dotenv/mod.ts";
 
 // console.log(await config.DatabaseURI());
-console.log(Deno.env.get('SECRETPASS'));
+// console.log(Deno.env.get('SECRETPASS'));
 
 // console.log(config()
 const ponder = await poolConnection(
@@ -25,12 +25,12 @@ const ponder = await poolConnection(
 // add static in front of table properties
 
 
-const sam = new people();
-console.log('sammy', sam);
-sam.name = 'new sam';
-sam.hair_color = 'red';
-sam.species_id = 3;
-await sam.save();
+// const sam = new people();
+// console.log('sammy', sam);
+// sam.name = 'new sam';
+// sam.hair_color = 'red';
+// sam.species_id = 3;
+// await sam.save();
 
 // sam.name = 'sam updated and improved'
 // sam.species_id = 99;
@@ -45,7 +45,7 @@ await sam.save();
 
 // console.log(await ponder.findAllinOne('basket_a'));
 
-//  await ponder.introspect();
+ await ponder.introspect();
 
 // const testBasket = new basket_a();
 // ponder.disconnect();

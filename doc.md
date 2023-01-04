@@ -4,13 +4,12 @@
 
 #### Ponder is an ORM for PostGres using the Deno runtime, eliminating the need for developers to spend valuable time writing complex SQL queries.
 
-## Installation
+## How to add to your Project
 
 ---
-CLI coming soon!:
+To use, please import the Ponder URI. You now have access to all the methods on the "ponder" object!
 ```
-console.log('Hello')
-deno install ponder
+import * as ponder from "https://deno.land/x/ponder@v0.0.2/mod.ts";
 ```
 
 ## Usage
@@ -34,46 +33,50 @@ const PG_URI = Deno.env.get('PG_URI');  // returns YourDatabaseURI from .env fil
 ### Connecting Your Database
 
 Create a new instance of poolConnection passing in the database connection
-string, number of pool connections, and a boolean to determine lazy connection
+string. By default, the number of pool connections is set to three and lazy loading is enabled. Users may also specify the number of server connections and whether the loading type is lazy. 
 
 ```
 import{ poolConnection } from'./deps.ts
 
-const ponder = new poolConnection('PG_URI', 3, true)
-```
-
-
-
-## API Reference
-
-## A detailed reference of all the classes, functions, and methods provided by the library, including their inputs, outputs, and behavior.
-
-Methods for manipulating records and attributes:
-
-findAllInOne(table): returns all data from all rows of a table
+const ponder = new poolConnection('PG_URI') // with default three connections and lazy loading
+const ponder = new poolConnection('PG_URI', 5, false) // with five connections and lazy loading disabled.
 
 ```
-const data = await ponder.findAllinOne(people);  // stores all values from "people" table in data variable
-```
 
-findColumn(column, table): returns a specific column from a specified table
 
-```
-const data = await ponder.findColumn(age, people);  // stores values from age column from the people table in data
-```
 
-findRow(tabvle, attr, value): returns rows matching specific critria
+## Methods
+
+### Find a Table
+
+findAllInOne(table: string): returns all data from all rows of a table. 
 
 ```
-const data = await findRow(people, 'hair', 'brown');  // stores data from rows in the people table where their hair is brown
+const data = await ponder.findAllinOne('people');  // stores all values from "people" table in data variable
 ```
+### Find a Column in a Table
 
-findCell(table, column, value): return data from the first row matching specific
-criteria
+findColumn(column: string, table: string): returns a specific column from a specified table. 
 
 ```
-findCell(table, column, value),
+const data = await ponder.findColumn('age', 'people');  // stores values from age column from the people table in data
 ```
+### Find a Row in a Table
+
+findRow(tabvle: string, attr: string, value: string): returns rows matching specific critria. 
+
+```
+const data = await findRow('people', 'hair', 'brown');  // stores data from rows in the people table where their hair is brown
+```
+### Find a Cell in a Table
+
+findCell(table: string, column: string, value: string): return data from the first row matching specific
+criteria. 
+
+```
+findCell('people', 'name', 'corey'),
+```
+### Add a Row to a Table
 
 Add a new row to an existing table, takes argument of table name, array of
 column names and array of values to insert.
@@ -81,6 +84,7 @@ column names and array of values to insert.
 ```
 insertIntoTable(table, [column1, column2], [value1, value2]),
 ```
+### Update a Column in a Table
 
 Updates columns on existing table. Takes arguments of table name, array of
 columns to update, array of values to insert, array of columns wo meet WHERE
@@ -95,6 +99,7 @@ updateTable(people, [hair_color, eye_color], ['blonde', 'hazel'], [name], ['Fyod
 
 updateTable(people, [hair_color, eye_color], ['blonde', 'hazel'], [name, birth_year], ['Anton', '1860'], 'or') -> UPDATE TABLE people SET hair_color = 'blonde', eye_color = 'hazel' WHERE name = 'Anton' OR birth_year = '1860';
 ```
+### Delete a row on a Table
 
 deleteRow: remove an entire row of data from a table.
 
@@ -151,7 +156,20 @@ addColumns('newTableName', {columnName,[dataType]}),
 
 const addNewColumn = await yourVariable.addColumns('newTableName',)
 ```
+## Database Introspection
+You will need to create a new file in your project root directory to run the introspection functionality.  Within this file add:
+```
+// Import ponder 
+import * as ponder from "https://deno.land/x/ponder@v0.0.2/mod.ts";
 
+// Invoke instrospect function 
+ponder.introspect();
+```
+You will see a new file called ```dataModels.ts``` in your root directory that contains models of your database tables!
+
+```
+
+```
 
 ## Contributing
 
