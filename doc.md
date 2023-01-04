@@ -233,7 +233,7 @@ Note that once a foreign key has been set, *you CANNOT update it*
 If you change properties on your instance and wish to update your database with the new values, invoke the ```update()``` method
 ```
 //Change properties on instance
-newPerson.name = 'Matt';
+newPerson.name = 'Johannes';
 newPerson.hair_color = 'black';
 newPerson.age = 22;
 
@@ -256,12 +256,17 @@ newPerson.delete()
 - CLI tool
 
 
-## Contributing
+## Making contributions
+To make contributions, create a fork of the dev branch. Please be sure to utilize the Deno Typescript linter. 
+Ensure that any changes made are reflected in the documentation. Make a pull request to the Dev branch when 
+you have finished making your changes, note that once submitted any changes made will be covered under the MIT liscense.
+Feel free to contact the maintainers with any questions or concerns
 
-Instructions for how to contribute to the development of the library, including
-how to submit bugs, suggestions, and pull requests.
+## Submitting bugs
+If you come across any bugs or issues while using Ponder feel free to report by simpling opening a new issue on our Github.
+
 
 ## License 
 
-Licensed by MIT
+MIT Liscense
 

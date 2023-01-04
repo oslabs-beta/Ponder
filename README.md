@@ -56,7 +56,6 @@ LINK to both doc.md AND LINK to splash page docs url
 <a href="https://deno.land/"><img src="https://img.shields.io/badge/Deno-white?style=for-the-badge&logo=deno&logoColor=464647" alt="Deno Logo" style="display: inline-block"></a>
 <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL Logo" style="display: inline-block"></a>
 <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="Typescript Logo" style="display: inline-block"></a>
-<a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Logo" style="display: inline-block"> </a>
 
 </p>
 
