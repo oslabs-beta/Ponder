@@ -40,12 +40,12 @@ The team at Ponder is working on database introspection. You'll soon be able to 
 
 Extensive documentation is underway! Please follow this link to view our documentation.
 
-A splash page for Ponder is underdevelopment! Check it out here. <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Ponder Website</a>
+A splash page for Ponder is underdevelopment! Check it out here. <a href="https://ponder.deno.dev/">Ponder Website</a>
 
 
 ## Documentation
 
-The documentation is available on "our document URL". <br>
+The documentation is available <a href="https://ponder.deno.dev/docsfolder/docshome">here</a>. <br>
 See docs for complete list of methods, their functionality, and how to use them.
 LINK to both doc.md AND LINK to splash page docs url
 

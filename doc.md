@@ -52,25 +52,25 @@ const ponder = new poolConnection('PG_URI', 5, false) // with five connections a
 findAllInOne(table: string): returns all data from all rows of a table. 
 
 ```
-const data = await ponder.findAllinOne('people');  // stores all values from "people" table in data variable
+const data = await ponder.findAllinOne('people');  // returns an array with an object containing all data on the 'people' table
 ```
 ### Find a Column in a Table
 
 findColumn(column: string, table: string): returns a specific column from a specified table. 
 
 ```
-const data = await ponder.findColumn('age', 'people');  // stores values from age column from the people table in data
+const data = await ponder.findColumn('age', 'people');  // stores values from age column from the people table in the const data
 ```
 ### Find a Row in a Table
 
 findRow(tabvle: string, attr: string, value: string): returns rows matching specific critria. 
 
 ```
-const data = await findRow('people', 'hair', 'brown');  // stores data from rows in the people table where their hair is brown
+const data = await findRow('people', 'hair', 'brown');  // stores values from rows in the people table where their hair is brown in the const data
 ```
 ### Find a Cell in a Table
 
-findCell(table: string, column: string, value: string): return data from the first row matching specific criteria. 
+findCell(table: string, column: string, value: string): returns data from the first row matching specific criteria. 
 
 ```
 Ponder.findCell('people', 'name', 'corey'),
@@ -166,6 +166,9 @@ You will see a new file called ```dataModels.ts``` in your root directory that c
 
 ```
 // class person extends Model and represents the "person" table in database
+
+import { Model } from './deps.ts' 
+
 export class person extends Model { 
 tableName = 'person' 
  static person_id = { 
