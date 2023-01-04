@@ -67,7 +67,7 @@ export class QueryBuilder extends Introspect{
     }
   }
 
-  // Insert data into columns
+  // Insert data into rows 
   async insertIntoTable(table: string, columns: string[], values: string[]) {
     try {
       // Initialize query string
