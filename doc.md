@@ -52,25 +52,25 @@ const ponder = new poolConnection('PG_URI', 5, false) // with five connections a
 findAllInOne(table: string): returns all data from all rows of a table. 
 
 ```
-const data = await ponder.findAllinOne('people');  // stores all values from "people" table in data variable
+const data = await ponder.findAllinOne('people');  // returns an array with an object containing all data on the 'people' table
 ```
 ### Find a Column in a Table
 
 findColumn(column: string, table: string): returns a specific column from a specified table. 
 
 ```
-const data = await ponder.findColumn('age', 'people');  // stores values from age column from the people table in data
+const data = await ponder.findColumn('age', 'people');  // stores values from age column from the people table in the const data
 ```
 ### Find a Row in a Table
 
 findRow(tabvle: string, attr: string, value: string): returns rows matching specific critria. 
 
 ```
-const data = await findRow('people', 'hair', 'brown');  // stores data from rows in the people table where their hair is brown
+const data = await findRow('people', 'hair', 'brown');  // stores values from rows in the people table where their hair is brown in the const data
 ```
 ### Find a Cell in a Table
 
-findCell(table: string, column: string, value: string): return data from the first row matching specific criteria. 
+findCell(table: string, column: string, value: string): returns data from the first row matching specific criteria. 
 
 ```
 Ponder.findCell('people', 'name', 'corey'),
@@ -166,6 +166,9 @@ You will see a new file called ```dataModels.ts``` in your root directory that c
 
 ```
 // class person extends Model and represents the "person" table in database
+
+import { Model } from './deps.ts' 
+
 export class person extends Model { 
 tableName = 'person' 
  static person_id = { 
@@ -230,7 +233,7 @@ Note that once a foreign key has been set, *you CANNOT update it*
 If you change properties on your instance and wish to update your database with the new values, invoke the ```update()``` method
 ```
 //Change properties on instance
-newPerson.name = 'Matt';
+newPerson.name = 'Johannes';
 newPerson.hair_color = 'black';
 newPerson.age = 22;
 
@@ -253,12 +256,17 @@ newPerson.delete()
 - CLI tool
 
 
-## Contributing
+## Making contributions
+To make contributions, create a fork of the dev branch. Please be sure to utilize the Deno Typescript linter. 
+Ensure that any changes made are reflected in the documentation. Make a pull request to the Dev branch when 
+you have finished making your changes, note that once submitted any changes made will be covered under the MIT liscense.
+Feel free to contact the maintainers with any questions or concerns
 
-Instructions for how to contribute to the development of the library, including
-how to submit bugs, suggestions, and pull requests.
+## Submitting bugs
+If you come across any bugs or issues while using Ponder feel free to report by simpling opening a new issue on our Github.
+
 
 ## License 
 
-Licensed by MIT
+MIT Liscense
 

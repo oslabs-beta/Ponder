@@ -40,12 +40,12 @@ The team at Ponder is working on database introspection. You'll soon be able to 
 
 Extensive documentation is underway! Please follow this link to view our documentation.
 
-A splash page for Ponder is underdevelopment! Check it out here. <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Ponder Website</a>
+A splash page for Ponder is underdevelopment! Check it out here. <a href="https://ponder.deno.dev/">Ponder Website</a>
 
 
 ## Documentation
 
-The documentation is available on "our document URL". <br>
+The documentation is available <a href="https://ponder.deno.dev/docsfolder/docshome">here</a>. <br>
 See docs for complete list of methods, their functionality, and how to use them.
 LINK to both doc.md AND LINK to splash page docs url
 
@@ -56,7 +56,6 @@ LINK to both doc.md AND LINK to splash page docs url
 <a href="https://deno.land/"><img src="https://img.shields.io/badge/Deno-white?style=for-the-badge&logo=deno&logoColor=464647" alt="Deno Logo" style="display: inline-block"></a>
 <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL Logo" style="display: inline-block"></a>
 <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="Typescript Logo" style="display: inline-block"></a>
-<a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Logo" style="display: inline-block"> </a>
 
 </p>
 
