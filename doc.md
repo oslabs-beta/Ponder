@@ -73,14 +73,14 @@ const data = await findRow('people', 'hair', 'brown');  // stores data from rows
 findCell(table: string, column: string, value: string): return data from the first row matching specific criteria. 
 
 ```
-findCell('people', 'name', 'corey'),
+Ponder.findCell('people', 'name', 'corey'),
 ```
 ### Add a Row to a Table
 
 insertIntoTable(table: string, columns: string[], values: string[]): add a new row to an existing table.
 
 ```
-insertIntoTable(table, [column1, column2], [value1, value2]),
+Ponder.insertIntoTable(table, [column1, column2], [value1, value2]),
 ```
 ### Update a Column in a Table
 
@@ -91,76 +91,68 @@ updateTable(
     columnToMeet: string[],
     valueToMeet: string[],
     operator?: string,
-): updates columns on existing table. Takes arguments of table name, array of
-columns to update, array of values to insert, array of columns wo meet WHERE
-conditions, array of conditions. Optionally takes argument ofoperator, string of
-either 'or'or 'not'
+): updates columns on existing table. The properties columnToMeet and valueToMeet create the conditional statement that must be satisfied before the table is updated. Please note that update table updates the first matching table entry. The operator parameter takes the argument of either "or" or "not." If left blank, the default is "and."
 
 ```
-updateTable(table: string, ...column: string[], ...value: string[], [q1, q2,
+Ponder.updateTable(table: string, ...column: string[], ...value: string[], [q1, q2,
 ...], [a1, a2, ...], operator?),
 
-updateTable(people, [hair_color, eye_color], ['blonde', 'hazel'], [name], ['Fyodor']) -> UPDATE TABLE people SET hair_color = 'blonde', eye_color = 'hazel' WHERE name = 'Fyodor';
+Ponder.updateTable(people, [hair_color, eye_color], ['blonde', 'hazel'], [name], ['Fyodor']) // UPDATE TABLE people SET hair_color = 'blonde', eye_color = 'hazel' WHERE name = 'Fyodor';
 
-updateTable(people, [hair_color, eye_color], ['blonde', 'hazel'], [name, birth_year], ['Anton', '1860'], 'or') -> UPDATE TABLE people SET hair_color = 'blonde', eye_color = 'hazel' WHERE name = 'Anton' OR birth_year = '1860';
+Ponder.updateTable(people, [hair_color, eye_color], ['blonde', 'hazel'], [name, birth_year], ['Anton', '1860'], 'or') // UPDATE TABLE people SET hair_color = 'blonde', eye_color = 'hazel' WHERE name = 'Anton' OR birth_year = '1860';
 ```
 ### Delete a row on a Table
 
-deleteRow: remove an entire row of data from a table.
+deleteRow(table: string, column: string[], value: string[]): remove an entire row of data from a table.
 
 ```
-deleteRow(hair_color, ['blonde', 'pink'], ['Clemntine'])
+Ponder.deleteRow(hair_color, ['blonde', 'pink'], ['Clemntine'])
 ```
 
 ## Basic CRUD Functionality
 
-Use simple methods to create, read, update, and delete tables.
+### Create Tables
+createTable(tableName: string, columns: any): use this method to create new tables. This method will only return a message that your table is in the database.
 
 ```
-createTable()
+Ponder.createTable('Cats', columns: {
+   id: num,
+   areCute: boolean,
+});
 ```
 
-Select tables, columns, rows, or cells from your table
+### Drop One Table
+dropOneTable(tableName: string, cascade?: boolean): deletes an entire table
 
 ```
-tableName.findAllInOne(table);
+Ponder.dropOneTable('Cats', true);
 ```
 
-Insert new columns into your table
+### Drop Multiple Tables
+dropMultipleTables(tableNamesArray : string[], cascade?: boolean): deletes multiple tables.
 
 ```
-tableName.insertIntoTable(table, [column1, column2], [value1, value2]);
+Ponder.dropMultipleTables(['Cats', 'People'], true);
 ```
 
-Delete rows
-
-```
-tableName.deleteRow(table, column, value);
-```
-
-## Managing Tables
-
-Create Tables using the ```createTable()``` method. The method expects 2 arguments: tableName (a string), and columns, an object! This object should have the name of the column you'd like to create as the key. And the value should be an array of strings. The first index should be a SQL datatype, the optional second index should be the length of the datatype, the optional third and beyond can be any column constraints you'd like (NULL, NOT NULL, UNIQUE, etc).
-
-```
-const columnsForNewTable = {
-   column1Name: ['DATATYPE', 'LENGTH', 'COLUMN CONSTRAINT1', 'COLUMN CONSTRAINT2'...],
-   column2Name: ['DATATYPE', 'LENGTH', 'COLUMN2 CONSTRAINT1', 'COLUMN2 CONSTRAINT2'...],
-   column3Name: ['DATATYPE', 'LENGTH', 'COLUMN CONSTRAINT1', 'COLUMN CONSTRAINT2'...],
-   ...
-};
-
-const createYOURtable = await yourVariable.createTable('newTableName', columnsForNewTable);
-```
-createTable will only return a success message. You may configure your middleware to update your response.
-
+### Add Columns to an Existing Table
+addColumns(tableToAlter : string, columns: any): add one or more columns to existing Table
 
 
 ```
-addColumns('newTableName', {columnName,[dataType]}),
-
-const addNewColumn = await yourVariable.addColumns('newTableName',)
+Ponder.addColumns('programmers', {
+   firstName: 'Stella',
+   lastName: 'Stellar'
+})
 ```
+
+### Drop Columns from a Table
+dropColumns(tableName: string, columnsToDrop: any): delete an entire column
+
+```
+dropColumns('people', columnsToDrop: {programmers: true});
+```
+
 ## Database Introspection
 You will need to create a new file in your project root directory to run the introspection functionality.  Within this file add:
 ```
@@ -170,22 +162,103 @@ import * as ponder from "https://deno.land/x/ponder@v0.0.2/mod.ts";
 // Invoke instrospect function 
 ponder.introspect();
 ```
-You will see a new file called ```dataModels.ts``` in your root directory that contains models of your database tables!
+You will see a new file called ```dataModels.ts``` in your root directory that contain models of your database tables!
 
 ```
-Interface/Class example here
+// class person extends Model and represents the "person" table in database
+export class person extends Model { 
+tableName = 'person' 
+ static person_id = { 
+    data_type: 'integer', 
+    is_nullable: 'NO', 
+    } 
+ static name = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static hair_color = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static age = { 
+    data_type: 'integer', 
+    is_nullable: 'YES', 
+    } 
+ static height = { 
+    data_type: 'integer', 
+    is_nullable: 'YES', 
+    } 
+ static favorite_movie = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static favorite_movie = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+  }
 
+// Each class is accompanied by an Interface
+export interface person { 
+  name: string; 
+  hair_color: string; 
+  age: number; 
+  height: number; 
+  favorite_movie: string; 
+  favorite_book: string; 
+} 
 ```
+## Model Methods
+Database introspection allows the user to interact with their database through object representations of the tables.
+```
+// Create an instance of the Model 
+const newPerson = new person();
+
+// Use dot notation to assign values to properties on new object.  
+//git sIf the types are incorrect, or a value is added to a property that does not exist on model, an error will be thrown.
+newPerson.name = 'Sara';
+newPerson.hair_color = 'dark brown';
+```
+### Save new row to table
+After instantiating an instance of your model, invoke the ```save()``` method on it to save it to you database
+```
+// Invoke method.  A new row will be added to the "person" table with the properties added above saved in their respective columns
+newPerson.save();
+```
+### Update a row
+Note that once a foreign key has been set, *you CANNOT update it*
+If you change properties on your instance and wish to update your database with the new values, invoke the ```update()``` method
+```
+//Change properties on instance
+newPerson.name = 'Matt';
+newPerson.hair_color = 'black';
+newPerson.age = 22;
+
+// Invoking update function makes these changes in database
+newPerson.update();
+```
+### Search all entries in table
+Invoking ```search()``` on an instance will return all the data from the table the instance is a part of.
+```
+const everyone = newPerson.save();  //Stores all data from "people" table in variable
+``` 
+### Delete from table
+Deletes row from table 
+```
+// Invoke method on instance to delete that row from table
+newPerson.delete()
+```
+
+## Under Development
+- CLI tool
+
 
 ## Contributing
 
 Instructions for how to contribute to the development of the library, including
 how to submit bugs, suggestions, and pull requests.
 
-## License
+## License 
 
-Information about the license under which the library is released, including any
-applicable copyright and attribution notices.
-
-****** MIT license ******
+Licensed by MIT
 
