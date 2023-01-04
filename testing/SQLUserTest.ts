@@ -47,7 +47,7 @@ const ponderDB = poolConnection(
     true,
   );
   
-console.log(await ponderDB.findAllinOne('badaadatable'));
+// // console.log(await ponderDB.findAllinOne('badaadatable'));
 
 //   const newestTest = await ponderDB.findAllinOne("people");
 
@@ -145,9 +145,9 @@ console.log(await ponderDB.findAllinOne('badaadatable'));
 
 //testing introspection
 
-// const introTestA = await ponderDB.introspect();
+const introTestA = await ponderDB.introspect();
 
-// console.log('introTestA', introTestA)
+console.log('introTestA', introTestA)
 
 // const matt2matt1 = new people();
 
