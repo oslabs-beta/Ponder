@@ -1,8 +1,4 @@
-<div style="display: flex; flex-direction: row; justify-content: center; align-items: center">
 ![image](./assets/small-ponder.png)
-</div>
-
-
 
 
 ## PONDER: An Object Relational Mapping Tool for Deno
