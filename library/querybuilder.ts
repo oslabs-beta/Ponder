@@ -19,10 +19,11 @@ export class QueryBuilder extends Introspect{
       const queryStr = `SELECT * FROM ${table};`;
       // Execute actual query by passing queryString into query function, which will also create an individual connection and release after return
       const result = await query(queryStr);
-      return result;
+      // return result;
     } catch (err) {
       console.log('Find all failed', err);
-      return err;
+      //changing to undefined from err to help with testing
+      return undefined;
     }
   }
 
