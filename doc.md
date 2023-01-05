@@ -1,8 +1,8 @@
-# Ponder
+# Ponder 
+**An Object Relational Mapping Tool for Deno Runtime Environment** <br> 
+#### Ponder is an ORM for PostGres using the Deno runtime, eliminating the need for developers to spend valuable time writing complex SQL queries.
 
 ![deno logo](https://d2908q01vomqb2.cloudfront.net/ca3512f4dfa95a03169c5a670a4c91a19b3077b4/2020/05/26/deno_mit-license_850x425.png)
-
-#### Ponder is an ORM for PostGres using the Deno runtime, eliminating the need for developers to spend valuable time writing complex SQL queries.
 
 ## How to add to your Project
 
@@ -43,7 +43,7 @@ const ponder = new poolConnection('PG_URI', 5, false) // with five connections a
 
 ```
 
-
+<br><br>
 
 ## Methods
 
@@ -109,57 +109,59 @@ deleteRow(table: string, column: string[], value: string[]): remove an entire ro
 ponder.deleteRow(hair_color, ['blonde', 'pink'], ['Clemntine']);
 ```
 
+<br><br>
+
 ## Basic CRUD Functionality
 
 ### Create Table
-createTable(tableName: string, columns: any): use this method to create new tables. This method will only return a message that your table is in the database.
+createTable(tableName: string, columns: any): use this method to create new tables. This method will only return a message that your table is in the database. The first parameter is a string that you'd like to use for your Table Name. The second parameter is an object. Each key of the object is a name of a column on your new table. The value will be an array of strings, where the first element is the SQL datatype, the second element is the length(optional), and third and any other elements would be column constraints you'd like to add like NULL or NOT NULL, etc. 
 
 ```typescript
-Ponder.createTable('Cats', columns: {
-   id: num,
-   areCute: boolean,
+ponder.createTable('Cats', {
+   id: ["SERIAL"]
+   areCute: ["VARCHAR", "20", "NOT NULL"],
 });
 ```
 
 ### Drop One Table
-dropOneTable(tableName: string, cascade?: boolean): deletes an entire table
+dropOneTable(tableName: string, cascade?: boolean): Deletes an entire table. Optional boolean to include CASCADE command (default is RESTRICT).
 
 ```typescript
-Ponder.dropOneTable('Cats', true);
+ponder.dropOneTable('Cats', true);
 ```
 
 ### Drop Multiple Tables
-dropMultipleTables(tableNamesArray : string[], cascade?: boolean): deletes multiple tables.
+dropMultipleTables(tableNamesArray : string[], cascade?: boolean): deletes multiple tables. Optional boolean to include CASCADE command (default is RESTRICT).
 
 ```typescript
-Ponder.dropMultipleTables(['Cats', 'People'], true);
+ponder.dropMultipleTables(['Cats', 'People'], true);
 ```
 
 ### Add Columns to an Existing Table
-addColumns(tableToAlter : string, columns: any): add one or more columns to existing Table
+addColumns(tableToAlter : string, columns: any): add one or more columns to existing Table. The first parameter is a string of the Table Name you'd like to alter. The second parameter is an object. Each key of the object is a name of a column on your table. The value will be an array of strings, where the first element is the SQL datatype, the second element is the length(optional), and third and any other elements would be column constraints you'd like to add like NULL or NOT NULL, etc. 
 
 
 ```typescript
-Ponder.addColumns('programmers', {
-   firstName: 'Stella',
-   lastName: 'Stellar'
-})
+ponder.addColumns('programmers', {
+    id: ["SERIAL"]
+    howSmart: ["VARCHAR", "20", "NOT NULL"]
+ });
 ```
 
 ### Drop Columns from a Table
-dropColumns(tableName: string, columnsToDrop: any): delete an entire column
+dropColumns(tableName: string, columnsToDrop: any): Delete an entire column. The first argument is a string, the name of the table. The second argument is an object. The keys are the names of the columns you'd like to delete, the values are booleans (true for CASCADE, false for RESTRICT.)
 
 ```typescript
-dropColumns('people', columnsToDrop: {programmers: true});
+ponder.dropColumns('people', columnsToDrop: {programmers: true});
 ```
+<br><br>
 
 ## Database Introspection
-You will need to create a new file in your project root directory to run the introspection functionality.  Within this file add:
-```typescript
-// Import ponder 
-import * as ponder from "https://deno.land/x/ponder@v0.0.2/mod.ts";
+Ponder provides an introspect method to receive JavaScript representations of the data in your SQL Table. Because running the introspect method will create/write a new file in your file system, it is recommended to create a new file in your project root directory. Run this file using deno run to execute introspection. (If you keep your instrospect execution within another file, it may run repeated on the same database and will write unnecessary duplicates in your file system).
 
-// Invoke instrospect function 
+After importing ponder from your deps.ts file or from ponder directly, you'll need to first connect your database. After making a connection, all you need to do is invoke instrospect function:
+
+```typescript  
 ponder.introspect();
 ```
 You will see a new file called ```dataModels.ts``` in your root directory that contain models of your database tables!
@@ -211,6 +213,9 @@ export interface person {
   favorite_book: string; 
 } 
 ```
+
+<br><br>
+
 ## Model Methods
 Database introspection allows the user to interact with their database through object representations of the tables.
 ```typescript
@@ -243,7 +248,7 @@ newPerson.update();
 ### Search all entries in table
 Invoking ```search()``` on an instance will return all the data from the table the instance is a part of.
 ```typescript
-const everyone = newPerson.save();  //Stores all data from "people" table in variable
+newPerson.search();  //Stores all data from "people" table in variable
 ``` 
 ### Delete from table
 Deletes row from table 
@@ -251,10 +256,12 @@ Deletes row from table
 // Invoke method on instance to delete that row from table
 newPerson.delete()
 ```
+<br><br>
 
 ## Under Development
 - CLI tool
 
+<br><br>
 
 ## Making contributions
 To make contributions, create a fork of the dev branch. Please be sure to utilize the Deno Typescript linter. 
@@ -262,9 +269,12 @@ Ensure that any changes made are reflected in the documentation. Make a pull req
 you have finished making your changes, note that once submitted any changes made will be covered under the MIT liscense.
 Feel free to contact the maintainers with any questions or concerns
 
-## Submitting bugs
-If you come across any bugs or issues while using Ponder feel free to report by simpling opening a new issue on our Github.
+<br><br>
 
+## Submitting bugs
+If you come across any bugs or issues while using Ponder feel free to report by simply opening a new issue on our Github.
+
+<br><br>
 
 ## License 
 

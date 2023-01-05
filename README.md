@@ -2,10 +2,10 @@
 
 
 # PONDER
-An Object Relational Mapping Tool for Deno Runtime Environment. <br>
+**An Object Relational Mapping Tool for Deno Runtime Environment.** <br>
 Ponder is available for import at: https://deno.land/x/ponder and this is our link to documentation website: https://ponder.deno.dev/
 
-## What is Ponder?
+> ## What is Ponder?
 
 * Ponder is a simple ORM for PostgreSQL built for Deno. 
 * Create, read, update, delete tables, add/delete columns, rows, and cells. 
@@ -13,10 +13,11 @@ Ponder is available for import at: https://deno.land/x/ponder and this is our li
 
 ## Features
 
-- Basic CRUD functionality for interacting with your PostGRES Database <br>
+- Basic CRUD functionality for interacting with your PostGRES Database including Managing Tables.<br>
 - Introspect database and modify database tables through models in accordance with principles of OOP <br>
 - Introspect your database for a visual representation of your tables <br>
-<br>
+- Create model instances from your database.
+<br><br>
 ## Getting Started
 <a href="https://deno.land/x/ponder"> Ponder </a> is a third-party module available at deno.land. Simply import/export the dependency for use in your project.
 
@@ -40,7 +41,8 @@ const PG_URI = Deno.env.get('PG_URI');  // returns YourDatabaseURI from .env fil
 ```
 
 ### Connect your PostgreSQL Database
-Connect your existing PostGRES Database using the built-in method called poolConnection. Ponder uses a pool connection which is strongly recommended by PostGRES for use in their databases. Simply insert your database URI (or insert from a dotenv file). OPTIONAL Arguments: how many pool connections you'd like to have, true or false for Lazy Loading (recommended true).
+Connect your existing PostGRES Database using the built-in method called poolConnection. Ponder uses a pool connection which is strongly recommended by PostGRES for use in their databases. Simply insert your database URI (or insert from a dotenv file). <br><br>
+*OPTIONAL Arguments: how many pool connections you'd like to have, true or false for Lazy Loading (recommended true).*
 
 ```typescript
 import{ poolConnection } from'./deps.ts'
@@ -55,11 +57,10 @@ Now, using `yourVariable` you can access and use any of Ponder's built-in method
 
 The documentation is available <a href="https://ponder.deno.dev/docsfolder/docshome">here</a>. <br>
 See docs for complete list of methods, their functionality, and how to use them.
-LINK to both doc.md AND LINK to splash page docs url
 
 ## Upcoming Features and Developments
 Features currently in development include:
-* Ponder CLI coming soon!
+- Ponder CLI coming soon!
 
 
 ## Contributing and Issues
@@ -80,14 +81,13 @@ you have finished making your changes, note that once submitted any changes made
 
 </p>
 
-
 ## Contributors
 <p>
-* Sara Brown <a href="https://github.com/Sbrown2018">@Github</a> <a href="https://www.linkedin.com/in/sara-brown15/"> | @Linkedin</a> <br> 
-* Sam Goldenberg <a href="https://github.com/sammyb1rd">@Github</a> <a href="https://www.linkedin.com/in/samuel-goldenberg/"> | @Linkedin</a> <br>
-* Matt Connell <a href="https://github.com/Matt-2112">@Github</a> <a href="https://www.linkedin.com/in/matt-connell-/"> | @Linkedin</a> <br>
-* Corey McClendon-Brown <a href="https://github.com/mcbrownc">@Github</a> <a href="https://www.linkedin.com/in/coreymcclendonbrown/"> | @Linkedin</a> <br>
-* Stella Baek <a href="https://github.com/StellaBaek">@GitHub </a> <a href="https://www.linkedin.com/in/stellabaek"> | @Linkedin</a> 
+- Sara Brown : <a href="https://github.com/Sbrown2018" target="_blank"><img alt="GitHub" src="https://img.shields.io/badge/-@Sara-181717?style=flat-square&logo=GitHub&logoColor=white"></a> <a href="https://www.linkedin.com/in/sara-brown15/" target="_blank"> <img alt="LinkedIn" src="https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=Linkedin&logoColor=white"></a> <br> 
+- Sam Goldenberg : <a href="https://github.com/sammyb1rd" target="_blank"><img alt="GitHub" src="https://img.shields.io/badge/-@Sam-181717?style=flat-square&logo=GitHub&logoColor=white"></a> <a href="https://www.linkedin.com/in/samuel-goldenberg/" target="_blank"> <img alt="LinkedIn" src="https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=Linkedin&logoColor=white"></a> <br>
+- Matt Connell :<a href="https://github.com/Matt-2112" target="_blank"><img alt="GitHub" src="https://img.shields.io/badge/-@Matt-181717?style=flat-square&logo=GitHub&logoColor=white"></a> <a href="https://www.linkedin.com/in/matt-connell-/" target="_blank"> <img alt="LinkedIn" src="https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=Linkedin&logoColor=white"></a> <br>
+- Corey McClendon-Brown : <a href="https://github.com/mcbrownc" target="_blank"><img alt="GitHub" src="https://img.shields.io/badge/-@Corey-181717?style=flat-square&logo=GitHub&logoColor=white"></a> <a href="https://www.linkedin.com/in/coreymcclendonbrown/" target="_blank"> <img alt="LinkedIn" src="https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=Linkedin&logoColor=white"></a> <br>
+- Stella Baek : <a href="https://github.com/StellaBaek" target="_blank"><img alt="GitHub" src="https://img.shields.io/badge/-@Stella-181717?style=flat-square&logo=GitHub&logoColor=white"> </a> <a href="https://www.linkedin.com/in/stellabaek" target="_blank"> <img alt="LinkedIn" src="https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=Linkedin&logoColor=white"></a> 
   
 </p>
 
