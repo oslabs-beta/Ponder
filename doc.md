@@ -278,5 +278,5 @@ If you come across any bugs or issues while using Ponder feel free to report by 
 
 ## License 
 
-MIT Liscense
+MIT License
 
