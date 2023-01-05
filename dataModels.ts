@@ -1,11 +1,7 @@
-import { Model } from './library/model.ts'
-
+import { Model } from './deps.ts' 
+ 
 export class films extends Model { 
 tableName = 'films' 
- static _id = { 
-    data_type: 'integer', 
-    is_nullable: 'NO', 
-    } 
  static opening_crawl = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
@@ -14,19 +10,23 @@ tableName = 'films'
     data_type: 'date', 
     is_nullable: 'NO', 
     } 
+ static producer = { 
+    data_type: 'character varying', 
+    is_nullable: 'NO', 
+    } 
  static title = { 
     data_type: 'character varying', 
+    is_nullable: 'NO', 
+    } 
+ static episode_id = { 
+    data_type: 'integer', 
     is_nullable: 'NO', 
     } 
  static director = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- static producer = { 
-    data_type: 'character varying', 
-    is_nullable: 'NO', 
-    } 
- static episode_id = { 
+ static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
@@ -44,25 +44,53 @@ tableName = 'newawesometable'
     } 
   } 
  
-export class people extends Model { 
-tableName = 'people' 
- static mass = { 
+export class newesttablename1 extends Model { 
+tableName = 'newesttablename1' 
+ static newcolumn1 = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- static skin_color = { 
+ static secondcolumn2 = { 
     data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static thirdnew3 = { 
+    data_type: 'numeric', 
+    is_nullable: 'YES', 
+    } 
+ static mangoscore = { 
+    data_type: 'numeric', 
+    is_nullable: 'YES', 
+    } 
+  } 
+ 
+export class people extends Model { 
+tableName = 'people' 
+ static height = { 
+    data_type: 'integer', 
+    is_nullable: 'YES', 
+    } 
+ static hair_color = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static birth_year = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static homeworld_id = { 
+    data_type: 'bigint', 
+    is_nullable: 'YES', 
+    } 
+ static species_id = { 
+    data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
  static name = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
- static homeworld_id = { 
-    data_type: 'bigint', 
-    is_nullable: 'YES', 
-    } 
- static hair_color = { 
+ static gender = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
@@ -70,19 +98,11 @@ tableName = 'people'
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
- static height = { 
-    data_type: 'integer', 
-    is_nullable: 'YES', 
-    } 
- static species_id = { 
-    data_type: 'bigint', 
-    is_nullable: 'YES', 
-    } 
- static birth_year = { 
+ static skin_color = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- static gender = { 
+ static mass = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
@@ -94,16 +114,16 @@ tableName = 'people'
  
 export class people_in_films extends Model { 
 tableName = 'people_in_films' 
+ static film_id = { 
+    data_type: 'bigint', 
+    is_nullable: 'NO', 
+    } 
  static person_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
  static _id = { 
     data_type: 'integer', 
-    is_nullable: 'NO', 
-    } 
- static film_id = { 
-    data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
   } 
@@ -114,40 +134,64 @@ tableName = 'personexamples'
     data_type: 'numeric', 
     is_nullable: 'YES', 
     } 
- static person_id = { 
-    data_type: 'integer', 
-    is_nullable: 'NO', 
-    } 
  static personname = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
+    } 
+ static person_id = { 
+    data_type: 'integer', 
+    is_nullable: 'NO', 
     } 
   } 
  
 export class pg_stat_statements extends Model { 
 tableName = 'pg_stat_statements' 
- static wal_records = { 
+ static blk_read_time = { 
+    data_type: 'double precision', 
+    is_nullable: 'YES', 
+    } 
+ static shared_blks_dirtied = { 
+    data_type: 'bigint', 
+    is_nullable: 'YES', 
+    } 
+ static local_blks_written = { 
+    data_type: 'bigint', 
+    is_nullable: 'YES', 
+    } 
+ static temp_blks_read = { 
+    data_type: 'bigint', 
+    is_nullable: 'YES', 
+    } 
+ static temp_blks_written = { 
+    data_type: 'bigint', 
+    is_nullable: 'YES', 
+    } 
+ static calls = { 
+    data_type: 'bigint', 
+    is_nullable: 'YES', 
+    } 
+ static wal_fpi = { 
+    data_type: 'bigint', 
+    is_nullable: 'YES', 
+    } 
+ static rows = { 
+    data_type: 'bigint', 
+    is_nullable: 'YES', 
+    } 
+ static total_exec_time = { 
+    data_type: 'double precision', 
+    is_nullable: 'YES', 
+    } 
+ static stddev_plan_time = { 
+    data_type: 'double precision', 
+    is_nullable: 'YES', 
+    } 
+ static shared_blks_hit = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
  static dbid = { 
     data_type: 'oid', 
-    is_nullable: 'YES', 
-    } 
- static userid = { 
-    data_type: 'oid', 
-    is_nullable: 'YES', 
-    } 
- static local_blks_hit = { 
-    data_type: 'bigint', 
-    is_nullable: 'YES', 
-    } 
- static query = { 
-    data_type: 'text', 
-    is_nullable: 'YES', 
-    } 
- static local_blks_read = { 
-    data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
  static mean_exec_time = { 
@@ -166,20 +210,8 @@ tableName = 'pg_stat_statements'
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- static temp_blks_written = { 
-    data_type: 'bigint', 
-    is_nullable: 'YES', 
-    } 
  static shared_blks_read = { 
     data_type: 'bigint', 
-    is_nullable: 'YES', 
-    } 
- static stddev_exec_time = { 
-    data_type: 'double precision', 
-    is_nullable: 'YES', 
-    } 
- static min_plan_time = { 
-    data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
  static local_blks_dirtied = { 
@@ -190,11 +222,11 @@ tableName = 'pg_stat_statements'
     data_type: 'numeric', 
     is_nullable: 'YES', 
     } 
- static blk_write_time = { 
+ static max_plan_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- static shared_blks_dirtied = { 
+ static wal_records = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
@@ -202,66 +234,50 @@ tableName = 'pg_stat_statements'
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- static temp_blks_read = { 
-    data_type: 'bigint', 
-    is_nullable: 'YES', 
-    } 
- static mean_plan_time = { 
+ static blk_write_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- static max_plan_time = { 
+ static stddev_exec_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- static calls = { 
+ static local_blks_read = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- static wal_fpi = { 
+ static query = { 
+    data_type: 'text', 
+    is_nullable: 'YES', 
+    } 
+ static local_blks_hit = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- static local_blks_written = { 
-    data_type: 'bigint', 
-    is_nullable: 'YES', 
-    } 
- static rows = { 
-    data_type: 'bigint', 
+ static userid = { 
+    data_type: 'oid', 
     is_nullable: 'YES', 
     } 
  static queryid = { 
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
- static blk_read_time = { 
-    data_type: 'double precision', 
-    is_nullable: 'YES', 
-    } 
  static max_exec_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- static total_exec_time = { 
+ static mean_plan_time = { 
     data_type: 'double precision', 
     is_nullable: 'YES', 
     } 
- static stddev_plan_time = { 
+ static min_plan_time = { 
     data_type: 'double precision', 
-    is_nullable: 'YES', 
-    } 
- static shared_blks_hit = { 
-    data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
   } 
  
 export class pilots extends Model { 
 tableName = 'pilots' 
- static vessel_id = { 
-    data_type: 'bigint', 
-    is_nullable: 'NO', 
-    } 
  static person_id = { 
     data_type: 'bigint', 
     is_nullable: 'NO', 
@@ -270,23 +286,19 @@ tableName = 'pilots'
     data_type: 'integer', 
     is_nullable: 'NO', 
     } 
+ static vessel_id = { 
+    data_type: 'bigint', 
+    is_nullable: 'NO', 
+    } 
   } 
  
 export class planets extends Model { 
 tableName = 'planets' 
- static surface_water = { 
-    data_type: 'character varying', 
+ static population = { 
+    data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
  static climate = { 
-    data_type: 'character varying', 
-    is_nullable: 'YES', 
-    } 
- static _id = { 
-    data_type: 'integer', 
-    is_nullable: 'NO', 
-    } 
- static terrain = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
@@ -294,36 +306,44 @@ tableName = 'planets'
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- static population = { 
-    data_type: 'bigint', 
-    is_nullable: 'YES', 
-    } 
- static diameter = { 
-    data_type: 'integer', 
+ static gravity = { 
+    data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
  static rotation_period = { 
     data_type: 'integer', 
     is_nullable: 'YES', 
     } 
+ static _id = { 
+    data_type: 'integer', 
+    is_nullable: 'NO', 
+    } 
  static orbital_period = { 
     data_type: 'integer', 
     is_nullable: 'YES', 
     } 
- static gravity = { 
+ static surface_water = { 
     data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static terrain = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static diameter = { 
+    data_type: 'integer', 
     is_nullable: 'YES', 
     } 
   } 
  
 export class planets_in_films extends Model { 
 tableName = 'planets_in_films' 
- static _id = { 
-    data_type: 'integer', 
-    is_nullable: 'NO', 
-    } 
  static film_id = { 
     data_type: 'bigint', 
+    is_nullable: 'NO', 
+    } 
+ static _id = { 
+    data_type: 'integer', 
     is_nullable: 'NO', 
     } 
  static planet_id = { 
@@ -334,27 +354,11 @@ tableName = 'planets_in_films'
  
 export class species extends Model { 
 tableName = 'species' 
- static language = { 
-    data_type: 'character varying', 
+ static homeworld_id = { 
+    data_type: 'bigint', 
     is_nullable: 'YES', 
-    } 
- static average_height = { 
-    data_type: 'character varying', 
-    is_nullable: 'YES', 
-    } 
- static average_lifespan = { 
-    data_type: 'character varying', 
-    is_nullable: 'YES', 
-    } 
- static _id = { 
-    data_type: 'integer', 
-    is_nullable: 'NO', 
     } 
  static eye_colors = { 
-    data_type: 'character varying', 
-    is_nullable: 'YES', 
-    } 
- static skin_colors = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
@@ -362,8 +366,20 @@ tableName = 'species'
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- static homeworld_id = { 
-    data_type: 'bigint', 
+ static average_lifespan = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static language = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static _id = { 
+    data_type: 'integer', 
+    is_nullable: 'NO', 
+    } 
+ static average_height = { 
+    data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
  static classification = { 
@@ -374,14 +390,14 @@ tableName = 'species'
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
+ static skin_colors = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
   } 
  
 export class species_in_films extends Model { 
 tableName = 'species_in_films' 
- static film_id = { 
-    data_type: 'bigint', 
-    is_nullable: 'NO', 
-    } 
  static _id = { 
     data_type: 'integer', 
     is_nullable: 'NO', 
@@ -390,20 +406,24 @@ tableName = 'species_in_films'
     data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
+ static film_id = { 
+    data_type: 'bigint', 
+    is_nullable: 'NO', 
+    } 
   } 
  
 export class starship_specs extends Model { 
 tableName = 'starship_specs' 
- static vessel_id = { 
-    data_type: 'bigint', 
+ static _id = { 
+    data_type: 'integer', 
     is_nullable: 'NO', 
     } 
  static MGLT = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
- static _id = { 
-    data_type: 'integer', 
+ static vessel_id = { 
+    data_type: 'bigint', 
     is_nullable: 'NO', 
     } 
  static hyperdrive_rating = { 
@@ -426,31 +446,7 @@ tableName = 'stellanomoreteeth'
  
 export class vessels extends Model { 
 tableName = 'vessels' 
- static model = { 
-    data_type: 'character varying', 
-    is_nullable: 'YES', 
-    } 
- static _id = { 
-    data_type: 'integer', 
-    is_nullable: 'NO', 
-    } 
- static crew = { 
-    data_type: 'integer', 
-    is_nullable: 'YES', 
-    } 
- static cargo_capacity = { 
-    data_type: 'character varying', 
-    is_nullable: 'YES', 
-    } 
- static name = { 
-    data_type: 'character varying', 
-    is_nullable: 'NO', 
-    } 
- static manufacturer = { 
-    data_type: 'character varying', 
-    is_nullable: 'YES', 
-    } 
- static length = { 
+ static consumables = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
@@ -458,7 +454,19 @@ tableName = 'vessels'
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
+ static cargo_capacity = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static crew = { 
+    data_type: 'integer', 
+    is_nullable: 'YES', 
+    } 
  static vessel_class = { 
+    data_type: 'character varying', 
+    is_nullable: 'NO', 
+    } 
+ static name = { 
     data_type: 'character varying', 
     is_nullable: 'NO', 
     } 
@@ -470,11 +478,23 @@ tableName = 'vessels'
     data_type: 'bigint', 
     is_nullable: 'YES', 
     } 
+ static model = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
  static passengers = { 
     data_type: 'integer', 
     is_nullable: 'YES', 
     } 
- static consumables = { 
+ static manufacturer = { 
+    data_type: 'character varying', 
+    is_nullable: 'YES', 
+    } 
+ static _id = { 
+    data_type: 'integer', 
+    is_nullable: 'NO', 
+    } 
+ static length = { 
     data_type: 'character varying', 
     is_nullable: 'YES', 
     } 
@@ -497,13 +517,13 @@ tableName = 'vessels_in_films'
   } 
  
 export interface films { 
-  _id: number; 
   opening_crawl: string; 
   release_date: string; 
-  title: string; 
-  director: string; 
   producer: string; 
+  title: string; 
   episode_id: number; 
+  director: string; 
+  _id: number; 
 } 
  
 export interface newawesometable { 
@@ -511,115 +531,122 @@ export interface newawesometable {
   key2: number; 
 } 
  
+export interface newesttablename1 { 
+  newcolumn1: string; 
+  secondcolumn2: string; 
+  thirdnew3: number; 
+  mangoscore: number; 
+} 
+ 
 export interface people { 
-  mass: string; 
-  skin_color: string; 
-  name: string; 
-  homeworld_id: number; 
-  hair_color: string; 
-  _id: number; 
   height: number; 
-  species_id: number; 
+  hair_color: string; 
   birth_year: string; 
+  homeworld_id: number; 
+  species_id: number; 
+  name: string; 
   gender: string; 
+  _id: number; 
+  skin_color: string; 
+  mass: string; 
   eye_color: string; 
 } 
  
 export interface people_in_films { 
+  film_id: number; 
   person_id: number; 
   _id: number; 
-  film_id: number; 
 } 
  
 export interface personexamples { 
   personscore: number; 
-  person_id: number; 
   personname: string; 
+  person_id: number; 
 } 
  
 export interface pg_stat_statements { 
-  wal_records: number; 
+  blk_read_time: number; 
+  shared_blks_dirtied: number; 
+  local_blks_written: number; 
+  temp_blks_read: number; 
+  temp_blks_written: number; 
+  calls: number; 
+  wal_fpi: number; 
+  rows: number; 
+  total_exec_time: number; 
+  stddev_plan_time: number; 
+  shared_blks_hit: number; 
   dbid: undefined; 
-  userid: undefined; 
-  local_blks_hit: number; 
-  query: string; 
-  local_blks_read: number; 
   mean_exec_time: number; 
   min_exec_time: number; 
   shared_blks_written: number; 
   plans: number; 
-  temp_blks_written: number; 
   shared_blks_read: number; 
-  stddev_exec_time: number; 
-  min_plan_time: number; 
   local_blks_dirtied: number; 
   wal_bytes: number; 
-  blk_write_time: number; 
-  shared_blks_dirtied: number; 
-  total_plan_time: number; 
-  temp_blks_read: number; 
-  mean_plan_time: number; 
   max_plan_time: number; 
-  calls: number; 
-  wal_fpi: number; 
-  local_blks_written: number; 
-  rows: number; 
+  wal_records: number; 
+  total_plan_time: number; 
+  blk_write_time: number; 
+  stddev_exec_time: number; 
+  local_blks_read: number; 
+  query: string; 
+  local_blks_hit: number; 
+  userid: undefined; 
   queryid: number; 
-  blk_read_time: number; 
   max_exec_time: number; 
-  total_exec_time: number; 
-  stddev_plan_time: number; 
-  shared_blks_hit: number; 
+  mean_plan_time: number; 
+  min_plan_time: number; 
 } 
  
 export interface pilots { 
-  vessel_id: number; 
   person_id: number; 
   _id: number; 
+  vessel_id: number; 
 } 
  
 export interface planets { 
-  surface_water: string; 
-  climate: string; 
-  _id: number; 
-  terrain: string; 
-  name: string; 
   population: number; 
-  diameter: number; 
-  rotation_period: number; 
-  orbital_period: number; 
+  climate: string; 
+  name: string; 
   gravity: string; 
+  rotation_period: number; 
+  _id: number; 
+  orbital_period: number; 
+  surface_water: string; 
+  terrain: string; 
+  diameter: number; 
 } 
  
 export interface planets_in_films { 
-  _id: number; 
   film_id: number; 
+  _id: number; 
   planet_id: number; 
 } 
  
 export interface species { 
-  language: string; 
-  average_height: string; 
-  average_lifespan: string; 
-  _id: number; 
-  eye_colors: string; 
-  skin_colors: string; 
-  hair_colors: string; 
   homeworld_id: number; 
+  eye_colors: string; 
+  hair_colors: string; 
+  average_lifespan: string; 
+  language: string; 
+  _id: number; 
+  average_height: string; 
   classification: string; 
   name: string; 
+  skin_colors: string; 
 } 
  
 export interface species_in_films { 
-  film_id: number; 
   _id: number; 
   species_id: number; 
+  film_id: number; 
 } 
  
 export interface starship_specs { 
-  vessel_id: number; 
-  MGLT: string; 
   _id: number; 
+  MGLT: string; 
+  vessel_id: number; 
   hyperdrive_rating: string; 
 } 
  
@@ -629,19 +656,19 @@ export interface stellanomoreteeth {
 } 
  
 export interface vessels { 
-  model: string; 
-  _id: number; 
-  crew: number; 
-  cargo_capacity: string; 
-  name: string; 
-  manufacturer: string; 
-  length: string; 
+  consumables: string; 
   vessel_type: string; 
+  cargo_capacity: string; 
+  crew: number; 
   vessel_class: string; 
+  name: string; 
   max_atmosphering_speed: string; 
   cost_in_credits: number; 
+  model: string; 
   passengers: number; 
-  consumables: string; 
+  manufacturer: string; 
+  _id: number; 
+  length: string; 
 } 
  
 export interface vessels_in_films { 

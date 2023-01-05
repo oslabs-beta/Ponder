@@ -1,3 +1,4 @@
+// type object used for mapping SQL data types to JS data types
 export const types = {
   'character varying': "string",
   'varchar': "string",

@@ -2,3 +2,4 @@
 export { poolConnection, query, poolDisconnect} from "./library/connection.ts";
 export { QueryBuilder } from "./library/querybuilder.ts";
 export { Introspect } from './library/introspection.ts';
+export { Model } from './library/model.ts'
