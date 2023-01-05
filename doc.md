@@ -266,7 +266,7 @@ newPerson.delete()
 ## Making contributions
 To make contributions, create a fork of the dev branch. Please be sure to utilize the Deno Typescript linter. 
 Ensure that any changes made are reflected in the documentation. Make a pull request to the Dev branch when 
-you have finished making your changes, note that once submitted any changes made will be covered under the MIT liscense.
+you have finished making your changes, note that once submitted any changes made will be covered under the MIT license.
 Feel free to contact the maintainers with any questions or concerns
 
 <br><br>
