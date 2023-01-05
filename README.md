@@ -13,9 +13,9 @@ Ponder is available for import at: https://deno.land/x/ponder and this is our li
 
 ## Features
 
-- Basic CRUD functionality for interacting with your PostGRES Database including Managing Tables.<br>
+- Basic CRUD functionality for interacting with your PostGRES Database including managing tables.<br>
 - Introspect database and modify database tables through models in accordance with principles of OOP <br>
-- Introspect your database for a visual representation of your tables <br>
+- Introspect your database for an object representation of your tables <br>
 - Create model instances from your database.
 <br><br>
 ## Getting Started
@@ -47,7 +47,7 @@ Connect your existing PostGRES Database using the built-in method called poolCon
 ```typescript
 import{ poolConnection } from'./deps.ts'
 
-const yourVariable = ponder.poolConnection(PG_URI, numberOfPools, BooleanForLazyLoading);
+const yourVariable = ponder.poolConnection(PG_URI);
 ```
 
 Now, using `yourVariable` you can access and use any of Ponder's built-in methods.
